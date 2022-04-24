@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
     ]
 
-    operations = [
+    operations = [   # พอมาใช้ MySQL ไม่ได้ทำ makemigration+migrate แล้ว เหมือนมันจะดึงข้อมูลมาจากตัว phpMyAdmin แทน
         migrations.CreateModel(
             name='Hotel',
             fields=[
