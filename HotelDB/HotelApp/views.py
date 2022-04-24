@@ -24,7 +24,8 @@ def AboutUs(request):
     return render(request, 'hotelapp/about.html')
 
 def TestStaff(request):
+    allbooks=AllBook.objects.all()
     allstuff=StaffManager.objects.all()
     allnews=News.objects.all()
-    testcontext={'StaffManagerTest':allstuff, 'NewsTest':allnews}
+    testcontext={'StaffManagerTest':allstuff, 'NewsTest':allnews, 'AllBookTest':allbooks,}
     return render(request, 'hotelapp/testsql.html', testcontext)

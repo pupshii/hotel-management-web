@@ -5,7 +5,7 @@ from django.db import models, connections
 class AllBook(models.Model):
     Book_Id=models.CharField(max_length=12)
     Room_Id=models.CharField(max_length=12)
-    Book_Detail=models.TextField()
+    Book_Night=models.IntegerField()
     Book_Price=models.IntegerField()
     Transaction_Id=models.CharField(max_length=12)
     def __str__(self):
