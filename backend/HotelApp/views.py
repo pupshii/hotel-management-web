@@ -5,9 +5,9 @@ from django.db import connection
 
 def Home(request):
     cursor=connection.cursor()   # ทดสอบรัน complex transaction 3
-    #cursor.execute("SELECT h.Hotel_Id, h.Hotel_Name, AVG(t.Rating_Score) as Rating_Avg FROM `transaction` t, `allbook` a, `room` r, `hotel` h WHERE h.Hotel_Id LIKE 'H01' AND h.Hotel_Id LIKE r.Hotel_Id AND r.Room_Id LIKE a.Room_Id AND a.Transaction_Id LIKE t.Transaction_Id;")
     getfromuser="'H01'"  # กะจะให้ใส่อินพุตมา
-    query="SELECT h.Hotel_Id, h.Hotel_Name, AVG(t.Rating_Score) as Rating_Avg FROM `transaction` t, `allbook` a, `room` r, `hotel` h WHERE h.Hotel_Id LIKE "+getfromuser+" AND h.Hotel_Id LIKE r.Hotel_Id AND r.Room_Id LIKE a.Room_Id AND a.Transaction_Id LIKE t.Transaction_Id;"
+    #cursor.execute("SELECT h.Hotel_Id, h.Hotel_Name, AVG(t.Rating_Score) as Rating_Avg FROM `transaction` t, `allbook` a, `room` r, `hotel` h WHERE h.Hotel_Id LIKE "+getuserinput+" AND h.Hotel_Id LIKE r.Hotel_Id AND r.Room_Id LIKE a.Room_Id AND a.Transaction_Id LIKE t.Transaction_Id;")
+    query="SELECT h.Hotel_Id, h.Hotel_Name, AVG(t.Rating_Score) as Rating_Avg FROM transaction t, allbook a, room r, hotel h WHERE h.Hotel_Id LIKE r.Hotel_Id AND r.Room_Id LIKE a.Room_Id AND a.Transaction_Id LIKE t.Transaction_Id GROUP BY h.Hotel_Id;"
     cursor.execute(query)
     #row=cursor.fetchone()  
     row=cursor.fetchall()  
