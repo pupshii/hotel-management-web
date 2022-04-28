@@ -1,6 +1,6 @@
-{%extends 'hotelapp/base.html'%}
-{%block title%} หน้าชั่วคราวสำหรับทดสอบเชื่อมฐานข้อมูล | {%endblock title%}
-{%block content%}
+{% extends 'hotelapp/base.html' %}
+{% block title %} หน้าชั่วคราวสำหรับทดสอบเชื่อมฐานข้อมูล | {% endblock title %}
+{% block content %}
 <body>
     <h2>Webframework Connection - Fetch from MySQL (phpMyAdmin)</h2>
     <hr/>
@@ -29,7 +29,7 @@
             <th>Position</th>
             <th>Degree</th>
         </tr>
-        {%for test in StaffManagerTest%}
+        {% for test in StaffManagerTest %}
         <tr>
             <td>{{test.id}}</td>
             <td>{{test.Staff_Id}}</td>
@@ -38,7 +38,7 @@
             <td>{{test.Position}}</td>
             <td>{{test.Degree}}</td>
         </tr>
-        {%endfor%}
+        {% endfor %}
     </table>
     </center>
     <h4>News Table</h4>
@@ -50,15 +50,15 @@
             <th>News_Name</th>
             <th>News_Detail</th>
         </tr>
-        {%for test in NewsTest%}
+        {% for test in NewsTest %}
         <tr>
             <td>{{test.id}}</td>
             <td>{{test.News_Id}}</td>
             <td>{{test.News_Name}}</td>
             <td>{{test.News_Detail}}</td>
         </tr>
-        {%endfor%}
+        {% endfor %}
     </table>
     </center>
 </body>
-{%endblock content%}
+{% endblock content %}

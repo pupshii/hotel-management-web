@@ -1,0 +1,91 @@
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<title> {% block title %} Default | {% endblock title %} Hotel Booking Website</title>
+</head>
+<body>
+    <header>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <div>
+            <div class = "top">
+                <div>
+                    <h3>
+                        PoonVeh
+                    </h3>
+                </div>
+                <ul class = "top_menu">
+                    {% comment %} <li><a href="home.html">Home</a></li> {% endcomment %}
+                    <li><a href="Hotels.html">Hotels</a></li>
+                    <li><a href="Promotions.html">Promotions</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
+                    <li><a href="{% url 'about-page' %}">About</a></li>
+                </ul>
+                <div class = "signupbutton">
+                    <a href="{% url 'plans-page'%}">Sign up and Get Started</a>
+                </div>
+                <div class = "loginbutton">
+                    <a href="Login.html">Log in</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock content %}
+
+    <div class = "bottom">
+        <div class = "bottom_logo">
+            PoonVeh
+        </div>
+        <div class = "bottom_left">
+            <div class = "b_head">
+                Links
+            </div>
+            <div class = "b_details">
+                Overalls
+            </div>
+            <div class = "b_details">
+                Social media
+            </div>
+            <div class = "b_details">
+                counter
+            </div>
+            <div class = "b_details">
+                Contact
+            </div>    
+        </div>
+        <div class = "bottom_center">
+            <div class = "b_head">
+                Company
+            </div>
+            <div class = "b_details">
+                Term&Condition
+            </div>
+            <div class = "b_details">
+                Privacy Policy
+            </div>
+            <div class = "b_details">
+                Contact
+            </div>
+        </div>
+        <div class = "bottom_right">
+            <div class = "b_head">
+                Get In Touch
+            </div>
+            <div class = "b_details">
+                Crechterwoord K12<br>182 DK Alknjkcb
+            </div>
+            <div class = "b_details">
+                085-132567
+            </div>
+            <div class = "b_details">
+                info@payme.net
+            </div>
+        </div>
+    </div>
+</body>
+</body>

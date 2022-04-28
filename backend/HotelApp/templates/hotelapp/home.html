@@ -1,37 +1,37 @@
-{%extends 'hotelapp/base.html'%}
+{% extends 'hotelapp/base.html' %}
 {% load static %}
-{%block title%} Home | {%endblock title%}
-{%block content%}
+{% block title %} Home | {% endblock title %}
+{% block content %}
   <div class="col-lg-6 col-md-8 mx-auto">
     <h1 class="fw-light">Explore Our Hotels</h1>
         <p class="lead text-muted"> Over 2,563,000 Hotels Worldwide. Book Now, Pay When You Stay. Get Instant Confirmation. Save 10% with Genius. 24/7 Customer Service. Read Real Guest Reviews. Secure Booking. </p>
         <p>
-          <a href="{%url 'plans-page'%}" class="btn btn-primary my-2">Sign up</a>
+          <a href="{% url 'plans-page' %}" class="btn btn-primary my-2">Sign up</a>
           <a href="admin/" class="btn btn-secondary my-2">Sign in</a>
         </p>
     </div>
 
     <center>
-      <a href="{% static 'bootstrap.min.css' %}">See Boostrap Code</a><br><br>
+      <a href="{% static 'css/bootstrap.min.css' %}">See Boostrap Code</a><br><br>
     </center>
 
     <center>
         <h3 style="color:rgb(0,51,25)">Available Hotels</h3>
-        {%for ht in HotelHomePage%}
+        {% for ht in HotelHomePage %}
           <h5 style="color:green">{{ht.Hotel_Name}}</h5>
           <p> 
             Hotel ID: {{ht.Hotel_Id}}<br>
             Address: {{ht.Hotel_Address}}<br>
             Rating :
-            {%for rate in CT3%}
-              {%if ht.Hotel_Id == rate.0%}
+            {% for rate in CT3 %}
+              {% if ht.Hotel_Id == rate.0 %}
                 {{rate.2}}
-              {%endif%}
-            {%endfor%}
+              {% endif %}
+            {% endfor %}
             / 5 Stars<br>
           </p>
           <hr>
-        {%endfor%}
+        {% endfor %}
         {%comment%} access python list index
         {%for all in CT3%}
             <p>{{all.0}}</p>  
@@ -191,4 +191,4 @@
       </div>
     </div>
   </div>
-{%endblock content%}
+{% endblock content %}

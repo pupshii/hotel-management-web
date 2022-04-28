@@ -7,12 +7,12 @@
 		<meta name="description" content="">
 		<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 		<meta name="generator" content="Hugo 0.88.1">
-		<title> {%block title%} Default | {%endblock title%} Hotel Booking Website</title>
+		<title> {% block title %} Default | {% endblock title %} Hotel Booking Website</title>
 
 		<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/pricing/">
 
 		<!-- Bootstrap core CSS -->
-		<link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 		<!-- Favicons -->
 		<link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -62,13 +62,13 @@
 	  </a>
 
 	  <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-		<a class="me-3 py-2 text-dark text-decoration-none" href="{%url 'home-page'%}">Hotels+Resorts</a>
+		<a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'home-page' %}">Hotels+Resorts</a>
 		<a class="me-3 py-2 text-dark text-decoration-none" href="#">Location</a>
-		<a class="me-3 py-2 text-dark text-decoration-none" href="{%url 'plans-page'%}">Plans</a>
+		<a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'plans-page' %}">Plans</a>
 		<a class="me-3 py-2 text-dark text-decoration-none" href="/62355263296342555679972534694259264569768">News</a>
-		<a class="me-3 py-2 text-dark text-decoration-none" href="{%url 'about-page'%}">About</a>
+		<a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'about-page' %}">About</a>
 		<a class="me-3 py-2 text-dark text-decoration-none" href="/admin" target="_blank"><p style="color:red">ADMIN ONLY!</p></a>
-		<a class="me-3 py-2 text-dark text-decoration-none" href="{%url 'temporary-test-mysql'%}"><p style="color:orange">TEST MySQL!</p></a>
+		<a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'temporary-test-mysql' %}"><p style="color:orange">TEST MySQL!</p></a>
 		{% comment %} <a class="py-2 text-dark text-decoration-none" href="{%url 'about-page'%}">About</a> เดี๋ยวไว้ปิดท้ายสุด{% endcomment %}
 	  </nav>
 	</div>
@@ -76,9 +76,9 @@
   </header>
 
 	<main>
-		{%block content%}
+		{% block content %}
 			<h2> Error Duck You default block content ! </h2>
-		{%endblock content%}
+		{% endblock content %}
 	</main>
 
   <footer class="pt-4 my-md-5 pt-md-5 border-top">
