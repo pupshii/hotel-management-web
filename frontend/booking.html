@@ -4,10 +4,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>booking</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Secular+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Orelega+One" rel="stylesheet">
 </head>
 
 <body>
-
+    
     <header>
         <div>
             <div class = "top">
@@ -22,116 +26,139 @@
                     <li><a href="promotions.html">Promotions</a></li>
                     <li><a href="contact.html">Contract</a></li>
                 </ul>
-                <div>
-                    <a href="login.html">Log in</a>
+                <div class = "signupbutton">
+                    <a href="Signup.html">Sign up and Get Started</a>
                 </div>
-                <div>
-                    <a href="signup.html">Sign up</a>
+                <div class = "loginbutton">
+                    <a href="Login.html">Log in</a>
+                </div>
+                <div class="headerham">
+                    <button class="w3-button w3-teal w3-xlarge w3-right2" onclick="openRightMenu()">☰</button>
                 </div>
             </div>
         </div>
     </header>
 
     <div class = "top_star">
-        <div>
+        <div class = "bookinghead">
             Mymin's Palace
+            <hr>
         </div>
-        <div>
-            <img src="./img/star.svg">
+        <div class = "starimg">
+            <img src="./img/4star.svg">
         </div>
     </div>
 
-    <div>
-        <div class = "med_pic">
-            <img src="./img/pool.svg">
+    <div class = "row">
+        <div class = "column">
+            <img class = "poolimg" src="./img/pool.svg">
         </div>
-        <div>
-            <div>
+        <div class = "row">
+            <div class = "col-nopad vertical-fill padding-3">
                 <img src="./img/fitness.svg">
-            </div>
-            <div>
+                <img src="./img/bedroom0.svg">
                 <img src="./img/bedroom0.svg">
             </div>
         </div>
     </div>
 
-    <div>
-        <div>
-           <h1>Pool Villa</h1>
-           <br>2 guests 1 bedroom 1 bed 1 bath
-           <br><h1>Free breakfast</h1><br>
-           Free 120THB in breakfast on 20/03/2570
-           <br><h1>Special karaoke</h1><br>
-           use karaoke room in price 150THB from 300THB <br>
-           <h1>Free night drink</h1>
-           <br>Free night drink 3 piece in list except alcohol.
+    <div class = "row">
+        <div class = "col">
+            <div class = "leftinfo">
+                <h1>Pool Villa</h1>
+                <hr>
+                <br>2 guests 1 bedroom 1 bed 1 bath
+                <br><h1>Free breakfast</h1><br>
+                <hr>
+                Free 120THB in breakfast on 20/03/2570
+                <br><h1>Special karaoke</h1><br>
+                <hr>
+                use karaoke room in price 150THB from 300THB <br>
+                <h1>Free night drink</h1>
+                <hr>
+                <br>Free night drink 3 piece in list except alcohol.
+            </div>
         </div>
-        <div>
-            <div>
-                <div>
-                    ฿1000000
+
+        <div class = "col">
+            <div class = "container-shadow padding-2 height-540">
+                <div class = "horizontal-fill padding-1 font-bold">
+                    <div>
+                        ฿10000.00
+                    </div>
+     
+                    <div>
+                        4.71 - 45 reviews
+                    </div>
                 </div>
-                <div>
-                    <img src="./img/star_alone.svg">
+                <div class = "row">
+                    <div class = "col-nopad">
+                        <div class = "container-1remcurve">
+                            <h1>Check-in Date</h1>
+                            <input type="text" name = "" placeholder="Date">
+                        </div>
+                    </div>
+                    <div class = "col-nopad">
+                        <div class = "container-1remcurve">
+                            <h1>Checkout</h1>
+                            <input type="text" name = "" placeholder="Date">
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    4.71 - 45 reviews
+                <div class = "col-100">
+                    <div class = "container-1remcurve height-100">
+                        <div class = "font-bold">
+                            Guest
+                            <input type="text" name = "" placeholder="Amount">
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <div>
-                    <h1>Check-in Date</h1>
+                <div class = "signupbutton">
+                    <a href="availability.html">Check availability</a>
                 </div>
-                <div>
-                    <h1>Checkout</h1>
-                </div>
-            </div>
-            <div>
-                Guest
-            </div>
-            <div>
-                <a href="availability.html">Check availability</a>
             </div>
         </div>
     </div>
     <br><br>
-    <div>
-        <h1>Additional Picture</h1>
+    <div class = "padding-3">
+        <h1>Additional Picture</h1><hr>
     </div>
     <br>
-    <div>
-        <div>
+    <div class = "row">
+        <div class = "col">
             <div>
-                <img src="./img/pool.svg">
+                <img src="./img/pool3.svg">
             </div>
             <div>
                 <h1>Premium swim</h1>
+                <hr>
             </div>
         </div>
-        <div>
+        <div class = "col">
             <div>
-                <img src="./img/freedrink.svg">
+                <img src="./img/drink.svg">
             </div>
             <div>
                 <h1>Free night drink</h1>
+                <hr>
             </div>
         </div>
     </div>
     <br><br>
-    <div>
+    <div class = "vertical-fill padding-3">
         <div>
-            <h1>Rating</h1>
+            <h1>Rating</h1><hr>
         </div>
-        <div>
-            <img src="./img/starss.svg">
+        <div class = "margin-top-2">
+            <img src="./img/ratingbar.svg">
         </div>
     </div>
     <br><br><br>
-    <div>
-        <div>
+    <div class = "row">
+        <div class = "col">
             <div>
                 <div>
-                    <img src="./img/the wok.svg">
+                    <img src="./img/thewok.svg">
                 </div>
                 <div>
                     <h1>The Wok</h1>
@@ -142,10 +169,10 @@
                 responsive to any issue that came up. Wok love it!
             </div>
         </div>
-        <div>
+        <div class = "col">
             <div>
                 <div>
-                    <img src="./img/zhong xina.svg">
+                    <img src="./img/zhongcina.svg">
                 </div>
                 <div>
                     <h1>Zhong Xina</h1>
@@ -158,8 +185,8 @@
         </div>
     </div>
     <br><br>
-    <div>
-        <div>
+    <div class = "row">
+        <div class = "col">
             <div>
                 <div>
                     <img src="./img/anya.svg">
@@ -172,7 +199,7 @@
                 Anya loved the room.
             </div>
         </div>
-        <div>
+        <div class = "col">
             <div>
                 <div>
                     <img src="./img/margit.svg">
@@ -189,54 +216,54 @@
     </div>
 
     <div class = "bottom">
-        <div>
+        <div class = "bottom_logo">
             LOGO
         </div>
-        <div class = "link">
-            <div>
+        <div class = "bottom_left">
+            <div class = "b_head">
                 Links
             </div>
-            <div>
+            <div class = "b_details">
                 Overalls
             </div>
-            <div>
+            <div class = "b_details">
                 Social media
             </div>
-            <div>
+            <div class = "b_details">
                 counter
             </div>
-            <div>
+            <div class = "b_details">
                 Contact
-            </div>
+            </div>    
         </div>
-        <div class = "company">
-            <div>
+        <div class = "bottom_center">
+            <div class = "b_head">
                 Company
             </div>
-            <div>
+            <div class = "b_details">
                 Term&Condition
             </div>
-            <div>
+            <div class = "b_details">
                 Privacy Policy
             </div>
-            <div>
+            <div class = "b_details">
                 Contact
             </div>
         </div>
-        <div class = "GIT">
-            <div>
+        <div class = "bottom_right">
+            <div class = "b_head">
                 Get In Touch
             </div>
-            <div>
+            <div class = "b_details">
                 Crechterwoord K12<br>182 DK Alknjkcb
             </div>
-            <div>
+            <div class = "b_details">
                 085-132567
             </div>
-            <div>
+            <div class = "b_details">
                 info@payme.net
             </div>
         </div>
     </div>
 
-</body> 
+</body>
