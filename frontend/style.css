@@ -550,6 +550,9 @@ header h3 {
 .margin-top-2{
     margin-top:2rem;
 }
+.margin-10{
+    margin:10rem;
+}
 
 .font-bold{
     font-weight: bolder;
@@ -571,3 +574,13 @@ input[type=text] {
     border-radius: 3px;
   }
 
+.border-none{
+    border: none;
+}
+
+.inputbutton{
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    width: 100%;
+}
