@@ -5,20 +5,20 @@
 
     <div class = "below_menu">
         <div class = "below_left">
-            Best Hotel<br>Booking<br>Website.
+            <p>Best Hotel<br>Booking<br>Website.</p>
         </div>
         <div>
-            <div class = "intro_text">Become a member and start booking now.<br>Over 100+ Hotels available with amazing offers.</div>
-            <div class = "below_menu_button"><a href="{% url 'plans-page' %}">START BOOKING</a></div>
+            <div class = "intro_text"><p>Become a member and start booking now.<br>Over 100+ Hotels available with amazing offers.</p></div>
+            <div class = "below_menu_button"><a href="start_book.html">START BOOKING</a></div>
         </div>
     </div>
 
     <div class = "intro">
-        <div class="centered"><br><br>
+        <div class="centered">
             Discover many hotels<br>all around Thailand.
         </div>
         <div>
-            <img src="{% static 'img/hotel image 1.svg' %}">
+            <img src="{% static 'img/intro_img.svg' %}">
         </div>
     </div>
 
@@ -49,7 +49,9 @@
 
     <div class = "info">
         <div class = "info_left">
-            ห้องพักผ่อนคล้าย ราคาสบายกระเป๋า
+            "Number one website for booking hotels".<br>
+            Nothing moves us quite like music.<br> 
+            Hear more details than ever before with quality audio gear
         </div>
         <div class = "info_right">
             <img src="{% static 'img/bed.svg' %}">
@@ -58,7 +60,7 @@
 
     <div class = "trend">
         <div class = "text0">
-            Trending In Thailand
+            Trending Hotels In Thailand
         </div>
         <div class = "text1">
             <img src="{% static 'img/city.svg' %}">
@@ -72,6 +74,28 @@
         <div class = "btn0">
             <a href="start_book.html">START BOOKING</a>
         </div>
+        <div class = "get_start_img">
+            <img src="{% static 'img/view.svg' %}">
+        </div>
     </div>
+
+    <center>
+        <h3 style="color:rgb(0,51,25)">Available Hotels</h3>
+        {% for ht in HotelHomePage %}
+          <h5 style="color:green">{{ht.Hotel_Name}}</h5>
+          <p> 
+            Hotel ID: {{ht.Hotel_Id}}<br>
+            Address: {{ht.Hotel_Address}}<br>
+            Rating :
+            {% for rate in CT3 %}
+              {% if ht.Hotel_Id == rate.0 %}
+                {{rate.2|floatformat:1}}
+              {% endif %}
+            {% endfor %}
+            / 5 Stars<br>
+          </p>
+          <hr>
+        {% endfor %}
+    </center>
 
 {% endblock content %}
