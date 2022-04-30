@@ -1,0 +1,17 @@
+asgiref
+certifi
+charset-normalizer
+Django
+idna
+mysql
+mysql-connector
+mysqlclient
+pip
+requests
+setuptools
+songline
+sqlparse
+tzdata
+urllib3
+wheel
+whitenoise
