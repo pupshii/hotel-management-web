@@ -10,10 +10,10 @@ body a{
 * {
     box-sizing: border-box;
   }
-.top a{
+.textsetting a{
     position:relative;
     z-index:2;
-    font-size:17px;
+    font-size:18px;
     color:#000000;
     margin: 0 auto;
     width:80%;
@@ -21,9 +21,10 @@ body a{
     letter-spacing:1px;
     font-family: 'Inter', sans-serif;
     text-decoration: none;
-    font-weight: bold;
 }
-
+.top h3{
+    font-family:'Rubik Mono One',sans-serif;
+}
 header {
     border:0rem;
     border-bottom: #E0E0E0;
@@ -38,7 +39,7 @@ header::after {
 
 
 
-.top_menu {
+.top_menuold {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -47,8 +48,12 @@ header::after {
     cursor: pointer;
     margin-left:2rem;
 }
+.top_menu {
+    float: left;
+    cursor: pointer;
+}
 
-.top_menu li {
+.top li {
     display: inline-block;
     margin-left: 2.5rem;
     padding-top: 1.5rem;
@@ -78,11 +83,11 @@ header::after {
 .loginbutton a{
     color:#4353FF;
 }
-.top_menu li:hover {
+.animation li:hover {
     color: #000;
 }
 
-.top_menu li::before {
+.animation li::before {
     content: '';
     display: block;
     height: 5px;
@@ -102,16 +107,14 @@ header::after {
     background-color:#cfcfcf;
 }
 
-.top_menu li:hover::before {
+.animation li:hover::before {
     width: 100%;
 }
 
 header h3 {
-    font-size: 1.5rem;
-    float: left;
+    font-size: 2rem;
     color:#000000;
-    padding: 10px 0;
-    margin-left: 2rem;
+    text-align: center;
 }
 
 .below_menu{
@@ -464,6 +467,27 @@ header h3 {
     -ms-flex: 100%; /* IE10 */
     flex: 100%;
 }
+.col-33 {
+    -ms-flex: 50%; /* IE10 */
+    flex: 33%;
+    padding: 3rem;
+}
+.col-33-nopad {
+    -ms-flex: 50%; /* IE10 */
+    flex: 33%;
+}
+.col-25{
+    -ms-flex: 50%;
+    flex: 25%;
+}
+.col-20{
+    -ms-flex: 50%;
+    flex: 20%;
+}
+.col-10{
+    -ms-flex: 50%;
+    flex: 10%;
+}
 .col-nopad{
     -ms-flex: 50%; /* IE10 */
     flex: 50%;
@@ -494,8 +518,8 @@ header h3 {
 .container-1remcurve{
     padding:1rem;
     background-color: #f2f2f2;
-    border: 1px solid lightgrey;
-    border-radius: 1rem;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 0.5rem;
 }
 .container-shadow{
     box-shadow: 5px 5px 10px 5px rgb(165, 165, 165);
@@ -509,20 +533,6 @@ header h3 {
     grid-template-rows: 1fr 1fr;
     padding-right: 20px;
     padding-bottom: 15px;
-}
-
-.card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0; 
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border:1px solid #444;
-    border-radius: 0.25rem;
-    margin-bottom: 0;
-    width: 18rem;
 }
 
 .horizontal-fill{
@@ -553,17 +563,37 @@ header h3 {
 .margin-10{
     margin:10rem;
 }
-
+.margin-left-5{
+    margin-left: 5rem;
+}
+.margin-left-8{
+    margin-left:8rem;
+}
+.margin-right-5{
+    margin-right:5rem;
+}
 .font-bold{
     font-weight: bolder;
     font-size: 2rem;
 }
-
+.font-bold-nosize{
+    font-weight: bold;
+}
+.font-normal{
+    font-size: 1.5rem;
+}
+.font-grey{
+    color:#565656;
+    font-weight:bold;
+}
 .height-30{
     height:30%;
 }
-.height-540{
-    height:540;
+.height-580{
+    height:580;
+}
+.width-100{
+    width:100%;
 }
 
 input[type=text] {
@@ -573,9 +603,15 @@ input[type=text] {
     border: 1px solid #ccc;
     border-radius: 3px;
   }
-
+input[type="submit"] { border: none;outline: none; }
 .border-none{
     border: none;
+}
+.border-1px{
+    border:1px solid #d8d5d2;
+}
+.border-top-none{
+    border-top:none;
 }
 
 .inputbutton{
@@ -583,4 +619,100 @@ input[type=text] {
     margin: 10px 0;
     border: none;
     width: 100%;
+}
+
+.trending img{
+    width:100%;
+}
+
+.center{
+    display:flex;
+    place-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+}
+
+.pageheader{
+    font-size: 3rem;
+    font-weight:bolder;
+    padding:2rem;
+}
+
+.flexcontainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-self: auto;
+    flex: 1 1 0%;
+    min-width: 0;
+}
+
+.card:hover{
+    box-shadow: 5px 5px 10px 5px rgb(165, 165, 165);
+}
+
+.shake img:hover {
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: shake 0.5s;
+  
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite;
+  }
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+  .btn {
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    
+  }
+  
+  .dropdown {
+    display: inline-block;
+    position: absolute;
+    top: 8px;
+    left: 16px;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 200px;
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding-right: 1rem;
+    padding-bottom:1rem;
+    text-decoration: none;
+    display: block;
+  }
+  
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .btn:hover, .dropdown:hover .btn {
+    background-color: #979797;
+  }
+
+.blur{
+    filter: blur(3px); 
 }
