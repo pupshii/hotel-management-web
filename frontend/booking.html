@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Secular+One" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Orelega+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One" rel="stylesheet">
 </head>
 
 <body>
@@ -15,25 +16,43 @@
     <header>
         <div>
             <div class = "top">
-                <div>
-                    <h3>
-                        PoonVeh
-                    </h3>
-                </div>
-                <ul class = "top_menu">
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="hotels.html">Hotels</a></li>
-                    <li><a href="promotions.html">Promotions</a></li>
-                    <li><a href="contact.html">Contract</a></li>
-                </ul>
-                <div class = "signupbutton">
-                    <a href="Signup.html">Sign up and Get Started</a>
-                </div>
-                <div class = "loginbutton">
-                    <a href="Login.html">Log in</a>
-                </div>
-                <div class="headerham">
-                    <button class="w3-button w3-teal w3-xlarge w3-right2" onclick="openRightMenu()">☰</button>
+                
+                <div class = "row horizontal-fill">
+                    <div class = "col-33-nopad">
+                        <ul class = "top_menu animation textsetting" style = "margin-left:2rem">
+                            <li><a href="home.html">Home</a></li>
+                            <li><a href="hotels.html">Hotels</a></li>
+                            <li><a href="promotions.html">Promotions</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                        </div>
+                        <div class = "col-33-nopad">     
+                            <a href="home.html">  
+                        <h3>
+                            PoonVeh
+                        </h3>
+                    </a> 
+                    </div>    
+                    <div class = "col-33-nopad textsetting">
+                        <div class = "signupbutton">
+                            <a href="Signup.html">Sign up and Get Started</a>
+                        </div>
+                        <div class = "loginbutton">
+                            <a href="Login.html">Log in</a>
+                        </div>
+                    </div>
+                    
+                    
+                        <div class="dropdown">
+                            <button class="btn">
+                                <img src="./img/hamburger button 1.svg">
+                            </button>
+                            <div class="dropdown-content animation">
+                                <li><a href="booking.html">Booking</a></li>
+                                <li><a href="news.html">News</a></li>
+                            </div>
+                        </div>
+                    
                 </div>
             </div>
         </div>
@@ -50,11 +69,11 @@
     </div>
 
     <div class = "row">
-        <div class = "column">
+        <div class = "column padding-3 blur">
             <img class = "poolimg" src="./img/pool.svg">
         </div>
         <div class = "row">
-            <div class = "col-nopad vertical-fill padding-3">
+            <div class = "col-nopad vertical-fill padding-3 blur">
                 <img src="./img/fitness.svg">
                 <img src="./img/bedroom0.svg">
                 <img src="./img/bedroom0.svg">
@@ -81,7 +100,7 @@
         </div>
 
         <div class = "col">
-            <div class = "container-shadow padding-2 height-540">
+            <div class = "container-shadow padding-2 height-580">
                 <div class = "horizontal-fill padding-1 font-bold">
                     <div>
                         ฿10000.00
@@ -92,20 +111,20 @@
                     </div>
                 </div>
                 <div class = "row">
-                    <div class = "col-nopad">
+                    <div class = "col-nopad" style = "padding:1rem">
                         <div class = "container-1remcurve">
                             <h1>Check-in Date</h1>
                             <input type="text" name = "" placeholder="Date">
                         </div>
                     </div>
-                    <div class = "col-nopad">
+                    <div class = "col-nopad" style = "padding:1rem">
                         <div class = "container-1remcurve">
                             <h1>Checkout</h1>
                             <input type="text" name = "" placeholder="Date">
                         </div>
                     </div>
                 </div>
-                <div class = "col-100">
+                <div class = "col-100" style = "padding:1rem">
                     <div class = "container-1remcurve height-100">
                         <div class = "font-bold">
                             Guest
@@ -126,21 +145,35 @@
     <br>
     <div class = "row">
         <div class = "col">
-            <div>
-                <img src="./img/pool3.svg">
+            <div class = "blur">
+                <img class = "width-100" src="./img/pool3.svg">
             </div>
             <div>
                 <h1>Premium swim</h1>
                 <hr>
             </div>
+            <div class = "font-grey padding-2">
+                To use this pool, simply choose which games you want to convert from and to, 
+                then enter the sensitivity of the original game you’re converting from. 
+                After that, you’ll have the option of choosing a “from” and “to” DPI. 
+                If you’re not changing DPI between games, 
+                then do not worry about this section and leave it as is.
+            </div>
         </div>
         <div class = "col">
-            <div>
-                <img src="./img/drink.svg">
+            <div  class = "blur">
+                <img class = "width-100" src="./img/drink.svg">
             </div>
             <div>
                 <h1>Free night drink</h1>
                 <hr>
+            </div>
+            <div class = "font-grey padding-2">
+                To use this free night drink, simply choose which games you want to convert from and to, 
+                then enter the sensitivity of the original game you’re converting from. 
+                After that, you’ll have the option of choosing a “from” and “to” DPI. 
+                If you’re not changing DPI between games, 
+                then do not worry about this section and leave it as is.
             </div>
         </div>
     </div>
@@ -150,67 +183,69 @@
             <h1>Rating</h1><hr>
         </div>
         <div class = "margin-top-2">
-            <img src="./img/ratingbar.svg">
+            <img class = "width-100" src="./img/ratingbar.svg">
         </div>
     </div>
     <br><br><br>
     <div class = "row">
         <div class = "col">
-            <div>
-                <div>
+            <div class = "container" style = "padding:3rem">
+                <div class = "shake">
                     <img src="./img/thewok.svg">
                 </div>
                 <div>
                     <h1>The Wok</h1>
                 </div>
-            </div>
-            <div>
-                Great apartment. Very easy check-in. Host was very <br>
-                responsive to any issue that came up. Wok love it!
+                <div>
+                    Great apartment. Very easy check-in. Host was very <br>
+                    responsive to any issue that came up. Wok love it!
+                </div>
             </div>
         </div>
         <div class = "col">
-            <div>
+            <div class = "container" style = "padding:3rem">
                 <div>
-                    <img src="./img/zhongcina.svg">
+                    <div class = "shake">
+                        <img src="./img/zhongcina.svg">
+                    </div>
+                    <div>
+                        <h1>Zhong Xina</h1>
+                    </div>
                 </div>
                 <div>
-                    <h1>Zhong Xina</h1>
+                    good place i wans't there much but was comfortable <br>
+                    when i was in the room. +1000000 social credits.
                 </div>
-            </div>
-            <div>
-                good place i wans't there much but was comfortable <br>
-                when i was in the room. +1000000 social credits.
             </div>
         </div>
     </div>
     <br><br>
     <div class = "row">
         <div class = "col">
-            <div>
+            <div class = "container" style = "padding:3rem">
                 <div>
                     <img src="./img/anya.svg">
                 </div>
                 <div>
                     <h1>Anya Forger</h1>
                 </div>
-            </div>
-            <div>
-                Anya loved the room.
+                <div>
+                    Anya loved the room.
+                </div>
             </div>
         </div>
         <div class = "col">
-            <div>
+            <div class = "container" style = "padding:3rem">
                 <div>
                     <img src="./img/margit.svg">
                 </div>
                 <div>
                     <h1>Margit, the Fell Omen</h1>
                 </div>
-            </div>
-            <div>
-                Someone must extinguish thy flame. Let it be Margit <br>
-                the Fell!
+                <div>
+                    Someone must extinguish thy flame. Let it be Margit <br>
+                    the Fell!
+                </div>
             </div>
         </div>
     </div>
