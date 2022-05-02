@@ -15,8 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth import views
+from HotelApp.views import Login
+
+# Add static config for image field
+from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
+from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('HotelApp.urls')),  # link project to app
+    # path('login/', views.LoginView.as_view(template_name='hotelapp/login.html'), name='login'), หน้า login ของ django
+    path('login/', Login, name='login'),
+    path('logout/', views.LogoutView.as_view(template_name='hotelapp/logout.html'), name='logout'),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

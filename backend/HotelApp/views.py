@@ -1,7 +1,34 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
 from django.db import connection
+# ระบบส่งไลน์
+from songline import Sendline
+# ระบบส่ง email
+# from .emailsystem import sendthai
+# Image
+from django.core.files.storage import FileSystemStorage
+# Paginator
+from django.core.paginator import Paginator
+
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+def Login(request):
+    context={}
+    if request.method=='POST':
+        data=request.POST.copy()
+        username=data.get('username')
+        password=data.get('password')
+        try:
+            print('HERE 1\n')
+            user=authenticate(username=username, password=password)
+            login(request, user)
+            print('HERE 2\n')
+            return redirect('home-page')
+        except:
+            context['danger']='Username หรือ Password ไม่ถูกต้อง กรุณาติดต่อแอดมิน!'
+    return render(request, 'hotelapp/login.html', context)
 
 def Home(request):
     cursor=connection.cursor()   # ทดสอบรัน complex transaction 3

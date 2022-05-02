@@ -42,3 +42,28 @@ The hotel management system is a database that contains the following:
 - MySQL
 - XAMPP v.3.3.0
 - PHP 7.4.9
+
+## Features
+- [x] Home Page
+- [ ] Register Page !
+- [ ] Show All Hotels Page (may use pagination when we got many hotels)
+- [ ] Promotion Page
+- [ ] Contact Page
+- [ ] Booking Page
+- [ ] News Page
+- [ ] User Profile Page
+- [x] Login Page (not beautiful)
+- [x] User & Password Validation when Login
+- [ ] Username & Email Validation when Register
+- [ ] Generate Token & Verify Link via Email (optional)
+- [x] Logut Page (redirect to Home)
+- [x] Deal with static files (optional)
+- [ ] Deal with media fiels
+- [ ] Contact Admin Form (optional)
+- [ ] Admin Receive Form (optional)
+- [ ] Password Recovery (optional)
+- [ ] Email Notification (optional)
+- [ ] Line Notification (optional)
+- [x] Complex QUERY (CT5 - Hotel CRUD)
+- [ ] Normal QUERY
+- [ ] ADD SOME MORE TABLE IN ER-DIAGRAM ?
