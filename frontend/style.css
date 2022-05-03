@@ -215,6 +215,12 @@ header h3 {
     margin-top: 2rem;
 }
 
+.intro{
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
 .centered {
     position: absolute;
     top: 50%;
@@ -224,7 +230,6 @@ header h3 {
     color:#FFFFFF;
     
     font-weight: bolder;
-    text-align: center ;
     font-family: 'Secular One', sans-serif;
   }
 .intro img{
