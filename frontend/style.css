@@ -100,6 +100,7 @@ header::after {
     padding-top: 0.5rem;
     margin-top: 0.25rem;
     position: relative;
+    font-size: 1.5rem;
 }
 
 .headerName{
@@ -120,6 +121,7 @@ header::after {
 }
 .signupbutton a{
     color:#FFFFFF;
+    font-size: 1.5rem;
 }
 .loginbutton{
     margin-right: 1rem;
@@ -131,6 +133,7 @@ header::after {
 }
 .loginbutton a{
     color:#4353FF;
+    font-size: 1.5rem;
 }
 .animation li:hover {
     color: #000;
@@ -158,6 +161,13 @@ header::after {
 
 .animation li:hover::before {
     width: 100%;
+}
+
+.get_start_column{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #585858;
 }
 
 header h3 {
@@ -326,13 +336,14 @@ header h3 {
 .get_start{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
 }
 .text2{
     margin-right: 40rem;
     font-family: 'Secular One', sans-serif;
     font-weight: bold;
     margin-top: 7rem;
+    margin-left: 1.5rem;
     position: absolute;
     font-size: 5rem;
     color:#ffffff;
