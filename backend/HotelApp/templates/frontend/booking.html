@@ -1,0 +1,198 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} Booking | {% endblock title %}
+{% block content %}
+    <div class ="containerbody">
+        <div class = "top_star">
+            <div class = "bookinghead">
+                Mymin's Palace
+                <hr>
+            </div>
+            <div class = "starimg">
+                <img src="{% static 'img/4star.svg' %}">
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class = "column padding-3 blur">
+                <img class = "poolimg" src="./img/pool.svg">
+            </div>
+            <div class = "row">
+                <div class = "col-nopad vertical-fill padding-3 blur">
+                    <img src="{% static 'img/fitness.svg' %}">
+                    <img src="{% static 'img/bedroom0.svg' %}">
+                    <img src="{% static 'img/bedroom0.svg' %}">
+                </div>
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class = "col">
+                <div class = "leftinfo">
+                    <h1>Pool Villa</h1>
+                    <hr>
+                    <br>2 guests 1 bedroom 1 bed 1 bath
+                    <br><h1>Free breakfast</h1><br>
+                    <hr>
+                    Free 120THB in breakfast on 20/03/2570
+                    <br><h1>Special karaoke</h1><br>
+                    <hr>
+                    use karaoke room in price 150THB from 300THB <br>
+                    <h1>Free night drink</h1>
+                    <hr>
+                    <br>Free night drink 3 piece in list except alcohol.
+                </div>
+            </div>
+
+            <div class = "col">
+                <div class = "container-shadow padding-2 height-580">
+                    <div class = "horizontal-fill padding-1 font-bold">
+                        <div>
+                            ฿10000.00
+                        </div>
+        
+                        <div>
+                            4.71 - 45 reviews
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class = "col-nopad" style = "padding:1rem">
+                            <div class = "container-1remcurve">
+                                <h1>Check-in Date</h1>
+                                <input type="text" name = "" placeholder="Date">
+                            </div>
+                        </div>
+                        <div class = "col-nopad" style = "padding:1rem">
+                            <div class = "container-1remcurve">
+                                <h1>Checkout</h1>
+                                <input type="text" name = "" placeholder="Date">
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "col-100" style = "padding:1rem">
+                        <div class = "container-1remcurve height-100">
+                            <div class = "font-bold">
+                                Guest
+                                <input type="text" name = "" placeholder="Amount">
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "signupbutton">
+                        <a href="availability.html">Check availability</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class = "padding-3">
+            <h1>Additional Picture</h1><hr>
+        </div>
+        <br>
+        <div class = "row">
+            <div class = "col">
+                <div class = "blur">
+                    <img class = "width-100" src="{% static 'img/pool3.svg' %}">
+                </div>
+                <div>
+                    <h1>Premium swim</h1>
+                    <hr>
+                </div>
+                <div class = "font-grey padding-2">
+                    To use this pool, simply choose which games you want to convert from and to, 
+                    then enter the sensitivity of the original game you’re converting from. 
+                    After that, you’ll have the option of choosing a “from” and “to” DPI. 
+                    If you’re not changing DPI between games, 
+                    then do not worry about this section and leave it as is.
+                </div>
+            </div>
+            <div class = "col">
+                <div  class = "blur">
+                    <img class = "width-100" src="{% static 'img/drink.svg' %}">
+                </div>
+                <div>
+                    <h1>Free night drink</h1>
+                    <hr>
+                </div>
+                <div class = "font-grey padding-2">
+                    To use this free night drink, simply choose which games you want to convert from and to, 
+                    then enter the sensitivity of the original game you’re converting from. 
+                    After that, you’ll have the option of choosing a “from” and “to” DPI. 
+                    If you’re not changing DPI between games, 
+                    then do not worry about this section and leave it as is.
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class = "vertical-fill padding-3">
+            <div>
+                <h1>Rating</h1><hr>
+            </div>
+            <div class = "margin-top-2">
+                <img class = "width-100" src="{% static 'img/ratingbar.svg' %}">
+            </div>
+        </div>
+        <br><br><br>
+        <div class = "row">
+            <div class = "col">
+                <div class = "container" style = "padding:3rem">
+                    <div class = "shake">
+                        <img src="{% static 'img/thewok.svg' %}">
+                    </div>
+                    <div>
+                        <h1>The Wok</h1>
+                    </div>
+                    <div>
+                        Great apartment. Very easy check-in. Host was very <br>
+                        responsive to any issue that came up. Wok love it!
+                    </div>
+                </div>
+            </div>
+            <div class = "col">
+                <div class = "container" style = "padding:3rem">
+                    <div>
+                        <div class = "shake">
+                            <img src="{% static 'img/zhongcina.svg' %}">
+                        </div>
+                        <div>
+                            <h1>Zhong Xina</h1>
+                        </div>
+                    </div>
+                    <div>
+                        good place i wans't there much but was comfortable <br>
+                        when i was in the room. +1000000 social credits.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class = "row">
+            <div class = "col">
+                <div class = "container" style = "padding:3rem">
+                    <div>
+                        <img src="{% static 'img/anya.svg' %}">
+                    </div>
+                    <div>
+                        <h1>Anya Forger</h1>
+                    </div>
+                    <div>
+                        Anya loved the room.
+                    </div>
+                </div>
+            </div>
+            <div class = "col">
+                <div class = "container" style = "padding:3rem">
+                    <div>
+                        <img src="{% static 'img/margit.svg' %}">
+                    </div>
+                    <div>
+                        <h1>Margit, the Fell Omen</h1>
+                    </div>
+                    <div>
+                        Someone must extinguish thy flame. Let it be Margit <br>
+                        the Fell!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

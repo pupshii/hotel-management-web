@@ -4,7 +4,7 @@ from .models import *
 from django.db import connection
 # ระบบส่งไลน์
 from songline import Sendline
-# ระบบส่ง email
+# ระบบส่ง email เวลาเอาขึ้น server ตปท แล้ว gmail มันจะ block 
 # from .emailsystem import sendthai
 # Image
 from django.core.files.storage import FileSystemStorage
@@ -28,7 +28,8 @@ def Login(request):
             return redirect('home-page')
         except:
             context['danger']='Username หรือ Password ไม่ถูกต้อง กรุณาติดต่อแอดมิน!'
-    return render(request, 'hotelapp/login.html', context)
+            print('HERE 3\n')
+    return render(request, 'frontend/login.html', context)
 
 def Home(request):
     cursor=connection.cursor()   # ทดสอบรัน complex transaction 3
@@ -39,14 +40,34 @@ def Home(request):
 
     allhotel=Hotel.objects.all()   # SELECT * from product
     context={'HotelHomePage':allhotel, 'CT3':row}
-    return render(request, 'hotelapp/homePup.html', context)
-    #return render(request, 'hotelapp/home.html')
-    
-def Plans(request):
-    return render(request, 'hotelapp/plans.html')
+    return render(request, 'frontend/home.html', context)
 
-def AboutUs(request):
-    return render(request, 'hotelapp/about.html')
+
+def Hotels(request):
+    return render(request, 'frontend/hotels.html')
+
+def Promotions(request):
+    return render(request, 'frontend/promotions.html')
+    
+def Contact(request):
+    return render(request, 'frontend/contact.html')
+
+@login_required
+def Booking(request):
+    return render(request, 'frontend/booking.html')
+
+@login_required
+def News(request):
+    return render(request, 'frontend/news.html')
+
+@login_required
+def ProfilePage(request):
+    context={}
+    profileuser=User.objects.get(username=request.user.username)
+    context['profileInfo']=profileuser
+    if request.method == 'POST':
+        context['notyet']='To use this feature, we need to complete the signup page in order to continue using member subscription information from DBMS (Devil Based Management Shrine).'
+    return render(request, 'frontend/profile.html', context)
 
 def TestStaff(request):
     allbooks=AllBook.objects.all()

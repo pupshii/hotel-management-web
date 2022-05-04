@@ -1,0 +1,90 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} Promotions | {% endblock title %}
+{% block content %}
+    <div class ="containerbody">
+        <div class = "pageheader">
+            <div>
+                Promotions<hr>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col padding-3" style = "padding-left:10rem;padding-right:10rem" >
+                <div class = "center card">
+                    <div style="width:100%">
+                        <img style = "width:100%" src="{% static 'img/bestoffer.svg' %}">
+                    </div>
+                    <div class = "border-1px border-top-none">
+                        <div class = "font-normal font-bold-nosize padding-1">
+                        Occasional offers
+                        </div>
+                        <div class = "font-grey padding-2">
+                            To use this calculator, simply choose which games you want to convert from and to, 
+                            then enter the sensitivity of the original game you’re converting from. 
+                            After that, you’ll have the option of choosing a “from” and “to” DPI. 
+                            If you’re not changing DPI between games, 
+                            then do not worry about this section and leave it as is.<br><br>1/Mar/2023 - 31/Mar/2023
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = "col padding-3" style = "padding-left:10rem;padding-right:10rem">
+                <div class = "center card">
+                    <div style="width:100%">
+                        <img style = "width:100%" src="{% static 'img/sale.svg' %}">
+                    </div>
+                    <div class = "border-1px border-top-none">
+                        <div class = "font-normal font-bold-nosize padding-1">
+                            Pandemic offers
+                        </div>
+                        <div class = "font-grey padding-2">
+                            Already theorycrafting your strats? Or maybe you just wanna understand the new OW2 Maps & Push mode... 
+                            Well here you go!
+                            A map guide for Toronto a.k.a. 
+                            New Queen Street including where to fight, 
+                            which flanks are the best and some... 
+                            dubious signage<br><br>1/April/2023 - 30/April/2023
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class = "col padding-3" style = "padding-left:10rem;padding-right:10rem" >
+                <div class = "center card">
+                    <div style="width:100%">
+                        <img style = "width:100%" src="{% static 'img/summersale.svg' %}">
+                    </div>
+                    <div class = "border-1px border-top-none">
+                        <div class = "font-normal font-bold-nosize padding-1">
+                            Summer festival
+                        </div>
+                        <div class = "font-grey padding-2">
+                            Slow down time, rain destruction from above in a jet-powered armor suit, 
+                            or pilot a superpowered hamster ball: In Overwatch, 
+                            every hero has a unique set of devastating abilities.<br><br>1/May/2023 - 31/May/2023
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = "col padding-3" style = "padding-left:10rem;padding-right:10rem" >
+                <div class = "center card">
+                    <div style="width:100%">
+                        <img style = "width:100%" src="{% static 'img/giftbox.svg' %}">
+                    </div>
+                    <div class = "border-1px border-top-none">
+                        <div class = "font-normal font-bold-nosize padding-1">
+                            Special for you
+                        </div>
+                        <div class = "font-grey padding-2">
+                            Slow down time, rain destruction from above in a jet-powered armor suit, 
+                            or pilot a superpowered hamster ball: In Overwatch, 
+                            every hero has a unique set of devastating abilities.<br><br>1/June/2023 - 30/June/2023
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+{% endblock content %}

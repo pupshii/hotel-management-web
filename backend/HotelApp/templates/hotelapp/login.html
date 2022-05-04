@@ -2,17 +2,17 @@
 {% load static %}
 {% block title %} Login | {% endblock title %}
 {% block content %}
-<center>
-    <h1>เข้าสู่ระบบ</h1>
-</center>
-{% if danger %}
     <center>
-    <div class="alert alert-danger alert-dismissible fade show" row="alert">
-  		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        <strong>Incorrect!</strong> {{danger}}
-    </div>
+        <h1>เข้าสู่ระบบ</h1>
     </center>
-{% endif %}
+    {% if danger %}
+        <center>
+        <div class="alert alert-danger alert-dismissible fade show" row="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong>Incorrect!</strong> {{danger}}
+        </div>
+        </center>
+    {% endif %}
     <form method="POST">
         {% csrf_token %}
         <div class="form-group">
@@ -29,5 +29,4 @@
             <a href="{% url 'reset-password' %}">Forgot password?</a> {% endcomment %}
         </p>
     </form>
-
 {% endblock content %}

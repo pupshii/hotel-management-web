@@ -25,8 +25,8 @@ from . import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('HotelApp.urls')),  # link project to app
-    # path('login/', views.LoginView.as_view(template_name='hotelapp/login.html'), name='login'), หน้า login ของ django
     path('login/', Login, name='login'),
+    # path('login/', views.LoginView.as_view(template_name='hotelapp/login.html'), name='login'), หน้า login ของ django
     path('logout/', views.LogoutView.as_view(template_name='hotelapp/logout.html'), name='logout'),
 ]
 

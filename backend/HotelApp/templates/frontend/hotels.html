@@ -1,0 +1,33 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} Hotels | {% endblock title %}
+{% block content %}
+    <div class ="containerbody">
+        <div class = "trending">
+            <div>
+                <div class = "font-bold padding-2">
+                    Branches<hr>
+                </div>
+            </div>
+            <br>
+            <div class = "font-bold padding-2">
+                <div>
+                    Trending Hotels in Thailand
+                </div>
+                <div class = "padding-2">
+                    <img src="{% static 'img/city.svg' %}">
+                </div>
+            </div>
+            <br>
+            <div class = "font-bold padding-2">
+                <div>
+                    Trending Hotels in Japan
+                </div>
+                <div class = "padding-2">
+                    <img src="{% static 'img/city.svg' %}">
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+{% endblock content %}
