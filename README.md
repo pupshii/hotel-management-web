@@ -1,11 +1,9 @@
 # Hotel Management Database Project
 ## Web demo
-- heroku webserver (US region)
-- Due to US the system will confuse you for a fraudster from the United States, several features that require authentication will be unavailable.
+- Heroku webserver (US region) use PostgreSQL but we've used MySQL
+- Due to US, the system will confuse you for a fraudster from the United States, several features that require authentication will be unavailable.
 - but it FREE
-```
-https://poonveh.herokuapp.com/
-```
+[Demo App](https://poonveh.herokuapp.com/)
 
 ## Scope & Details
 The hotel management system is a database that contains the following:
@@ -53,25 +51,43 @@ The hotel management system is a database that contains the following:
 
 ## Features
 - [x] Home Page
-- [ ] Register Page !
+- [x] Register Page
 - [ ] Show All Hotels Page (may use pagination when we got many hotels)
 - [ ] Promotion Page
 - [ ] Contact Page
 - [ ] Booking Page
 - [ ] News Page
-- [ ] User Profile Page
+- [x] User Profile Page
+- [ ] User Profile Picture
 - [x] Login Page (not beautiful)
 - [x] User & Password Validation when Login
-- [ ] Username & Email Validation when Register
-- [ ] Generate Token & Verify Link via Email (optional)
+- [x] Generate Token & Verify Link via Email (optional)
 - [x] Logut Page (redirect to Home)
 - [x] Deal with static files (optional)
-- [ ] Deal with media fiels
-- [ ] Contact Admin Form (optional)
+- [x] Deal with media fiels
+- [x] Contact Admin Form (optional)
 - [ ] Admin Receive Form (optional)
 - [ ] Password Recovery (optional)
-- [ ] Email Notification (optional)
-- [ ] Line Notification (optional)
-- [x] Complex QUERY (CT5 - Hotel CRUD)
+- [x] Email Notification (optional)
+- [x] Line Notification (optional)
+- [x] Complex QUERY (4/5, except CT5 - Hotel CRUD)
 - [ ] Normal QUERY
 - [ ] ADD SOME MORE TABLE IN ER-DIAGRAM ?
+
+## To run this project
+don't forget to install virtual environment
+```bash
+$ python3 -m pip install virtualenv
+$ python3 -m virtualenv venv
+$ source venv/bin/activate
+```
+clone this repo and install 3-rd party libaries
+```bash
+$ git clone https://github.com/Panichito/demo_hotel_cpe231.git
+$ cd demo_hotel_cpe231
+$ pip3 install -r requirements.txt
+```
+to runserver on localhost:8000
+```bash
+$ python3 manage.py runserver
+```

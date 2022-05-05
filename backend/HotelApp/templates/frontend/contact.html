@@ -22,13 +22,14 @@
         {% else %}
             <form method="POST">
                 {% csrf_token %}
+                <!-- ไม่ต้องใช้ required เพราะ message บอกด้านบน -->
                 <div class="form-group">
                     <label for="title">Topic</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Determine the problem or question's focus." required>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Determine the problem or question's focus.">
                 </div><br>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email for admins to contact you back." required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email for admins to contact you back.">
                 </div><br>
                 <div class="form-group">
                     <label for="detail">Detail (optional)</label>

@@ -53,7 +53,36 @@ def AboutUs(request):
     return render(request, 'frontend/about.html')
     
 def ContactUs(request):
-    return render(request, 'frontend/contact.html')
+    context={}
+    if request.method=='POST':
+        data=request.POST.copy()
+        title=data.get('title')
+        email=data.get('email')
+        detail=data.get('detail')
+        print(title)
+        print(email)
+        print(detail)
+        print('----------------\n')
+        if title=='' or email=='':
+            context['danger']='กรุณากรอกแบบฟอร์มให้ครบถ้วน!'
+            return render(request, 'frontend/contact.html', context)
+        # record info
+        # newrecord=ContactList()
+        # newrecord.title=title
+        # newrecord.email=email
+        # newrecord.detail=detail
+        # newrecord.save()
+        # ContactList(title=title, email=email, detail=detail).save()
+        context['message']='ขอบคุณสำหรับข้อความ แอดมินจะติดต่อคุณกลับภายใน 24 ชั่วโมง'
+
+        # ส่งไลน์ from songline import Sendline (https://pypi.org/project/songline/)
+        token='o6Tfmj8FPGp6egjxwVjnOrMpLhfoZRb9520DBiWOxuV'  # เอามาจาก Line notify
+        linenoti=Sendline(token)
+        linenoti.sendtext('\nหัวข้อ: {}\nอีเมลล์: {}\nรายละเอียด: {}'.format(title, email, detail))
+        # ส่งอีเมลล์ from .emailsystem import sendthai
+        # text='สวัสดีคุณลูกค้า\n\nทางเราได้รับปัญหาที่ท่านสอบถามเรียบร้อยแล้ว แอดมินจะรีบทำการติดต่อกลับโดยเร็วที่สุด\n\n--แอดมิน--\n'
+        # sendthai(email, 'Hotel Poonveh: สอบถามปัญหา', text)
+    return render(request, 'frontend/contact.html', context)
 
 # from django.contrib.auth.models import User
 import uuid

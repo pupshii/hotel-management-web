@@ -11,5 +11,5 @@ urlpatterns = [
     path('booking/', Booking, name='booking-page'),
     path('news/', News, name='news-page'),
     path('profile/', ProfilePage, name='profile-page'),
-    path('testmysql/', TestStaff, name='temporary-test-mysql'),
+    #path('testmysql/', TestStaff, name='temporary-test-mysql'),
 ]
