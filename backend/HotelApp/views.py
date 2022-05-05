@@ -48,9 +48,74 @@ def Hotels(request):
 
 def Promotions(request):
     return render(request, 'frontend/promotions.html')
+
+def AboutUs(request):
+    return render(request, 'frontend/about.html')
     
-def Contact(request):
+def ContactUs(request):
     return render(request, 'frontend/contact.html')
+
+# from django.contrib.auth.models import User
+import uuid
+def Register(request):
+    context={}
+    if request.method=='POST':
+        data=request.POST.copy()
+        idcard=data.get('idcard')
+        fname=data.get('fname')
+        lname=data.get('lname')
+        username=data.get('username')
+        email=data.get('email')
+        tel=data.get('tel')
+        address=data.get('address')
+        password1=data.get('password1')
+        password2=data.get('password2')
+        context['GetFirstname']=fname  # ช่วยกรอกให้ใหม่
+        context['GetLastname']=lname
+        context['GetIdCard']=idcard
+        context['GetTel']=tel
+        context['GetAddress']=address
+        print("ADDR= ", address)
+        # ใช้ try except ซ้อนกันแล้วมัน pass ไปเลย ติด if ไว้ดีกว่า, เผื่อ fill ช่องให้ผู้ใช้ด้วย
+        if User.objects.filter(username=username):  
+            context['danger_message1']='Username "{}" มีในระบบแล้ว กรุณาใช้ username อื่น'.format(username)
+        else:
+            context['GetUsername']=username
+        if User.objects.filter(email=email):
+            context['danger_message2']='Email "{}" มีในระบบแล้ว กรุณาใช้ email อื่น'.format(email)
+        else:
+            context['GetEmail']=email
+        if password1 != password2:  
+            context['danger_message3']='password ของคุณไม่ตรงกัน'  
+        if 'danger_message1' in context or 'danger_message2' in context or 'danger_message3' in context:
+            return render(request, 'frontend/register.html', context)   
+        else:
+            newuser=User()
+            newuser.first_name=fname
+            newuser.last_name=lname
+            newuser.username=username
+            newuser.email=email
+            newuser.set_password(password1)
+            newuser.save()
+
+            u=uuid.uuid1()  # random UUID https://pynative.com/python-uuid-module-to-generate-universally-unique-identifiers/
+            token=str(u)
+
+            # newprofile=Profile()
+            # newprofile.user=User.objects.get(username=username)
+            # newprofile.mobile=tel
+            # newprofile.verify_token=token
+            # newprofile.save()
+            #text='สวัสดีคุณ '+fname+' '+lname+'\n\nเราขอขอบคุณที่ท่านได้ทำการสมัครสมาชิคของเว็บไซต์เรา\nกรุณากดลิงค์นี้เพื่อทำการ ยืนยันการเป็นสมาชิคของท่าน\n\nLink: http://localhost:8000/verify-email/'+token+'\n\n--ทีมงาน PoonVeh--'
+            #sendthai(email, 'PoonVeh: ยืนยันการสมัครสมาชิค', text)
+
+        try:
+            user=authenticate(username=username, password=password1)
+            login(request, user)
+            return redirect('profile-page')
+        except:
+            context['danger_message4']='คุณกรอก Username หรือ Password ไม่ถูกต้อง กรุณาติดต่อแอดมิน!'
+    return render(request, 'frontend/register.html', context)
 
 @login_required
 def Booking(request):

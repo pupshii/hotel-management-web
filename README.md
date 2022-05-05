@@ -1,4 +1,12 @@
 # Hotel Management Database Project
+## Web demo
+- heroku webserver (US region)
+- Due to US the system will confuse you for a fraudster from the United States, several features that require authentication will be unavailable.
+- but it FREE
+```
+https://poonveh.herokuapp.com/
+```
+
 ## Scope & Details
 The hotel management system is a database that contains the following:
 1. A hotel booking system that allows users to pick a room from a hotel, pick a specific date, and view details about the hotel
