@@ -38,7 +38,10 @@
                         <div class = "col-33-nopad-textsetting">
                             {% if user.is_authenticated %}
                                 <ul class = "top_menu animation textsetting" style = "margin-left:2rem">
-                                <li><a style="font-size:100%" href="{% url 'profile-page' %}">Hello {{user.first_name}}</a></li>&emsp;
+                                <li>
+                                    <img src="{{user.member.Member_Pic.url}}" width="35" height="35" class="rounded-circle">
+                                    <a style="font-size:100%" href="{% url 'profile-page' %}">Hello {{user.first_name}}</a>
+                                </li>&emsp;
                                 </ul>
                                 <div class = "loginbutton">
                                     <a href="{% url 'logout' %}">Log out</a>

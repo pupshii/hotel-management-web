@@ -29,11 +29,11 @@
             </div>
             </center>
         {% endif %}
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
-                <label for="idcard">National ID Card or Passport No.</label>
-                <input type="text" class="form-control" id="idcard" name="idcard" value="{{GetIdCard}}" required>
+                <label for="nic">National ID Card or Passport No.</label>
+                <input type="text" class="form-control" id="nic" name="nic" value="{{GetNIC}}" required>
             </div><br>
             <div class="form-group">
                 <label for="fname">First name</label>
@@ -66,6 +66,11 @@
             <div class="form-group">
                 <label for="address">Address</label>
                 <textarea type="form-comment" class="form-control" rows="5" id="address" name="address" required>{{GetAddress}}</textarea>
+            </div><br>
+            <p style="font-size:15">To suit our frame when exhibiting, we recommend using a 1:1 scale of the photo !<p>
+            <div class="form-group">
+                <label for="picture">Profile Photo:</label>
+                <input type="file" class="form-control-file" id="picture" name="picture">
             </div><br>
             <button type="submit" class="btn btn-primary">Register</button>
         </form>

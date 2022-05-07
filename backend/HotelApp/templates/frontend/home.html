@@ -80,4 +80,31 @@
         </div>
     </div>
 
+    <center>
+        <h3 style="color:rgb(0,51,25)">Available Hotels</h3>
+        {% for ht in HotelHomePage %}
+            <h5 style="color:green">{{ht.Hotel_Name}}</h5>
+            <p> 
+            Hotel ID: H{{ ht.id }}<br>
+            Address: {{ ht.Hotel_Address }}<br>
+            Rating :
+            {% if ht.Hotel_Id in checkhotel %}
+                {% for rate in CT3 %}
+                    {% if ht.Hotel_Id == rate.0 %}
+                        {{ rate.1|floatformat:1 }} / 5 Stars<br>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <a style="color:red">No review for {{ ht.Hotel_Id }}</a><br>
+            {% endif %}
+            </p>
+            <hr>
+        {% endfor %}
+        {%comment%} access python list index
+        {{CT3|length}}
+        {%for all in CT3%}
+            <p>{{all.0}}</p>  
+        {%endfor%} {% endcomment %}
+    </center>
+
 {% endblock content %}

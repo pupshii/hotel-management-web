@@ -1,130 +1,133 @@
 from django.db import models, connections
-# python manage.py makemigrations && python manage.py migrate
-# เปลี่ยนไปใช้ MySQL แทน SQLite3 แล้ว
+from django.contrib.auth.models import User
 
 class AllBook(models.Model):
-    Book_Id=models.CharField(max_length=12)
-    Room_Id=models.CharField(max_length=12)
+    Room_Id=models.IntegerField()
+    Transaction_Id=models.CharField(max_length=12)
     Book_Night=models.IntegerField()
     Book_Price=models.IntegerField()
-    Transaction_Id=models.CharField(max_length=12)
     def __str__(self):
-        return self.Book_Id
+        return "B"+str(self.id)
     class Meta:
         db_table='allbook'
 
 class GetNews(models.Model):
-    GetNews_Id=models.CharField(max_length=12)
-    Member_Id=models.CharField(max_length=12)
-    News_Id=models.CharField(max_length=12)
+    Member_Id=models.IntegerField()
+    News_Id=models.IntegerField()
     def __str__(self):
-        return self.GetNews_Id
+        return "GN"+str(self.id)
     class Meta:
         db_table='getnews'
 
 class Hotel(models.Model):
-    Hotel_Id=models.CharField(max_length=12)
     Hotel_Name=models.CharField(max_length=50)
     Hotel_Address=models.TextField()
+    Hotel_Detail=models.TextField(null=True, blank=True)
+    Hotel_Pic=models.ImageField(upload_to='hotel')
     def __str__(self):
-        return self.Hotel_Id
+        return "H"+str(self.id)
     class Meta:
         db_table='hotel'
 
+# from django.contrib.auth.models import User
 class Member(models.Model):
-    Member_Id=models.CharField(max_length=12)
-    fName=models.CharField(max_length=50)
-    lName=models.CharField(max_length=50)
-    IDCard_Number=models.CharField(max_length=50)
-    Email=models.CharField(max_length=50)
-    Address=models.TextField()
-    Tel=models.CharField(max_length=50)
-    UserName=models.CharField(max_length=50)
-    Password=models.CharField(max_length=50)
+    # link to User
+    user=models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    Member_fName=models.CharField(max_length=100)
+    Member_lName=models.CharField(max_length=100)
+    Member_Email=models.CharField(max_length=100)
+    Member_Username=models.CharField(max_length=100)
+    Member_Password=models.CharField(max_length=100)
+
+    Member_NIC=models.CharField(max_length=25)
+    Member_Address=models.TextField()
+    Member_Tel=models.CharField(max_length=25)
+    Member_Pic=models.ImageField(upload_to='profile', null=True, blank=True, default='profile/default-user.jpg')
+    Member_Point=models.IntegerField(default=0)
+    Staff_Id=models.IntegerField(null=True, blank=True)
     def __str__(self):
-        return self.Member_Id
+        return "M"+str(self.id)
     class Meta:
         db_table='member'
 
 class News(models.Model):
-    News_Id=models.CharField(max_length=12)
     News_Name=models.CharField(max_length=50)
     News_Detail=models.TextField()
+    News_Pic=models.ImageField(upload_to='news')
     def __str__(self):
-        return self.News_Id
+        return "N"+str(self.id)
     class Meta:
         db_table='news'
 
 class Payment(models.Model):
-    Payment_Id=models.CharField(max_length=12)
-    Promotion_Id=models.CharField(max_length=12)
-    Pay_Date=models.DateTimeField()
-    All_Price=models.IntegerField()
-    Vat10=models.IntegerField()
-    Banking=models.CharField(max_length=12)
+    Promotion_Id=models.IntegerField()
+    Payment_Date=models.DateTimeField()
+    Payment_Allprice=models.IntegerField()
+    Payment_Vat10=models.IntegerField()
+    Payment_Banking=models.CharField(max_length=20)
+    Payment_Slip=models.ImageField(upload_to='slip')
     def __str__(self):
-        return self.Payment_Id
+        return "PAY"+str(self.id)
     class Meta:
         db_table='payment'
 
 class Promotion(models.Model):
-    Promotion_Id=models.CharField(max_length=12)
-    Percent_Sales=models.FloatField()
-    Start_PromDate=models.DateTimeField()
-    End_PromDate=models.DateTimeField()
-    Sales_Detail=models.TextField()
+    Promotion_Discount=models.FloatField()
+    Promotion_Start=models.DateTimeField()
+    Promotion_End=models.DateTimeField()
+    Promotion_Name=models.CharField(max_length=50)
+    Promotion_Detail=models.TextField()
+    Promotion_Pic=models.ImageField(upload_to='promotion')
     def __str__(self):
-        return self.Promotion_Id
+        return "PRO"+str(self.id)
     class Meta:
         db_table='promotion'
 
 class Room(models.Model):
-    Room_Id=models.CharField(max_length=12)
-    Hotel_Id=models.CharField(max_length=12)
-    Room_Number=models.CharField(max_length=12)
-    Type_Id=models.CharField(max_length=12)
-    Available_Status=models.BooleanField()
+    Hotel_Id=models.IntegerField()
+    Type_Id=models.IntegerField()
+    Room_Number=models.CharField(max_length=20)
+    Room_Status=models.BooleanField(default=1)
     def __str__(self):
-        return self.Room_Id
+        return "RO"+str(self.id)
     class Meta:
         db_table='room'
 
 class RoomType(models.Model):
-    Type_Id=models.CharField(max_length=12)
-    Room_Name=models.CharField(max_length=50)
-    PricePerNight=models.IntegerField()
-    Capacity=models.PositiveSmallIntegerField()
-    Room_Detail=models.TextField()
+    Type_Name=models.CharField(max_length=50)
+    Type_Pernight=models.IntegerField()
+    Type_Capacity=models.PositiveSmallIntegerField(default=1)
+    Type_Detail=models.TextField()
+    Type_Pic=models.ImageField(upload_to='roomdemo')
     def __str__(self):
-        return self.Type_Id
+        return "TY"+str(self.id)
     class Meta:
         db_table='roomtype'
 
-class StaffManager(models.Model):
-    Staff_Id=models.CharField(max_length=12)
-    Hotel_Id=models.CharField(max_length=12)
-    Staff_Name=models.CharField(max_length=30)
-    Position=models.CharField(max_length=30)
-    Start_Date=models.DateField(null=True, blank=True)
-    End_Date=models.DateField(null=True, blank=True)
-    Degree=models.IntegerField()
-    Status=models.BooleanField()
+import datetime
+class Staff(models.Model):
+    Member_Id=models.IntegerField()
+    Hotel_Id=models.IntegerField()
+    Staff_Position=models.CharField(max_length=50)
+    Staff_Start=models.DateField(default=datetime.date.today)
+    Staff_End=models.DateField(null=True, blank=True)
+    Staff_Level=models.PositiveSmallIntegerField(default=1)
+    Staff_Status=models.BooleanField(default=1)
     def __str__(self):
-        return self.Staff_Id
+        return "S"+str(self.id)
     class Meta:
         db_table='staffmanager'
 
 class Transaction(models.Model):
-    Transaction_Id=models.CharField(max_length=12)
-    Member_Id=models.CharField(max_length=12)
-    Payment_Id=models.CharField(max_length=12)
-    Check_in=models.DateTimeField()
-    Check_out=models.DateTimeField(null=True, blank=True)
-    Rating_Score=models.PositiveSmallIntegerField(null=True, blank=True)
-    Rating_Comment=models.TextField(null=True, blank=True)
+    Member_Id=models.IntegerField()
+    Payment_Id=models.IntegerField()
+    Transaction_Checkin=models.DateTimeField()
+    Transaction_Checkout=models.DateTimeField(null=True, blank=True)
     Transaction_Date=models.DateTimeField()
-    Transaction_Detail=models.TextField()
+    Transaction_Detail=models.TextField(default="Reserved")
+    Transaction_Rating=models.PositiveSmallIntegerField(null=True, blank=True)
+    Transaction_Comment=models.TextField(null=True, blank=True)
     def __str__(self):
-        return self.Transaction_Id
+        return "T"+str(self.id)
     class Meta:
         db_table='transaction'

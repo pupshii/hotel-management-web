@@ -32,15 +32,19 @@ def Login(request):
     return render(request, 'frontend/login.html', context)
 
 def Home(request):
-    cursor=connection.cursor()   # ทดสอบรัน complex transaction 3
-    query="SELECT h.Hotel_Id, h.Hotel_Name, AVG(t.Rating_Score) as Rating_Avg FROM transaction t, allbook a, room r, hotel h WHERE h.Hotel_Id LIKE r.Hotel_Id AND r.Room_Id LIKE a.Room_Id AND a.Transaction_Id LIKE t.Transaction_Id GROUP BY h.Hotel_Id;"
-    cursor.execute(query)
-    #row=cursor.fetchone()  
-    row=cursor.fetchall()  
+    # cursor=connection.cursor()   # ทดสอบรัน complex transaction 3
+    # query="SELECT h.Hotel_Id, AVG(t.Rating_Score) as Rating_Avg FROM transaction t, allbook a, room r, hotel h WHERE h.Hotel_Id LIKE r.Hotel_Id AND r.Room_Id LIKE a.Room_Id AND a.Transaction_Id LIKE t.Transaction_Id GROUP BY h.Hotel_Id;"
+    # cursor.execute(query)
+    # #row=cursor.fetchone()  
+    # row=cursor.fetchall()
+    # checkhotel=[]   # use to check whether we have this hotel rating or not (HTML)
+    # for hotel in row:
+    #     checkhotel.append(hotel[0])
 
-    allhotel=Hotel.objects.all()   # SELECT * from product
-    context={'HotelHomePage':allhotel, 'CT3':row}
-    return render(request, 'frontend/home.html', context)
+    # allhotel=Hotel.objects.all()   # SELECT * from Hotel
+    # context={'HotelHomePage':allhotel, 'CT3':row, 'checkhotel':checkhotel}
+    # return render(request, 'frontend/home.html', context)
+    return render(request, 'frontend/home.html')
 
 
 def Hotels(request):
@@ -90,7 +94,7 @@ def Register(request):
     context={}
     if request.method=='POST':
         data=request.POST.copy()
-        idcard=data.get('idcard')
+        nic=data.get('nic')
         fname=data.get('fname')
         lname=data.get('lname')
         username=data.get('username')
@@ -101,7 +105,7 @@ def Register(request):
         password2=data.get('password2')
         context['GetFirstname']=fname  # ช่วยกรอกให้ใหม่
         context['GetLastname']=lname
-        context['GetIdCard']=idcard
+        context['GetNIC']=nic
         context['GetTel']=tel
         context['GetAddress']=address
         print("ADDR= ", address)
@@ -126,15 +130,38 @@ def Register(request):
             newuser.email=email
             newuser.set_password(password1)
             newuser.save()
+            print('F1\n')
 
             u=uuid.uuid1()  # random UUID https://pynative.com/python-uuid-module-to-generate-universally-unique-identifiers/
             token=str(u)
 
-            # newprofile=Profile()
-            # newprofile.user=User.objects.get(username=username)
-            # newprofile.mobile=tel
-            # newprofile.verify_token=token
-            # newprofile.save()
+            print('F2\n')
+            newmember=Member()
+            newmember.user=User.objects.get(username=username)
+            newmember.Member_fName=fname
+            newmember.Member_lName=lname
+            newmember.Member_Email=email
+            newmember.Member_Username=username
+            newmember.Member_Password=password1
+            newmember.Member_NIC=nic
+            newmember.Member_Address=address
+            newmember.Member_Tel=tel
+            # ใส่รูปภาพ
+            if 'picture' in request.FILES:
+                print('F3\n')
+                file_img=request.FILES['picture']
+                file_img_name=file_img.name.replace(' ', '-')
+                # from django.core.files.storage import FileSystemStorage
+                fs=FileSystemStorage(location='media/profile')  # ระบุบ folder ที่เซฟไป
+                filename=fs.save(file_img_name, file_img)  # เซฟชื่อไฟล์ กับ ตัวไฟล์
+                upload_file_url=fs.url(filename)  # ให้ไปเอา URL มา จะได้บอก server ถูกว่ารูปนี้อยู่ไหน (ระบุ MEDIA_ROOT แล้ว)
+                print('Pic URL:', upload_file_url)  # Pic URL:  /media/play-5-wow.jpg
+                newmember.Member_Pic='/profile'+upload_file_url[6:]  # ตัดคำว่า '/media' ด้านหน้าออกไป
+            else:
+                print('numa numa yeah! numa numa yeah yeah yeah!')
+
+            print('F4\n')
+            newmember.save()
             #text='สวัสดีคุณ '+fname+' '+lname+'\n\nเราขอขอบคุณที่ท่านได้ทำการสมัครสมาชิคของเว็บไซต์เรา\nกรุณากดลิงค์นี้เพื่อทำการ ยืนยันการเป็นสมาชิคของท่าน\n\nLink: http://localhost:8000/verify-email/'+token+'\n\n--ทีมงาน PoonVeh--'
             #sendthai(email, 'PoonVeh: ยืนยันการสมัครสมาชิค', text)
 

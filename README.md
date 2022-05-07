@@ -83,8 +83,8 @@ $ source venv/bin/activate
 ```
 clone this repo and install 3-rd party libaries
 ```bash
-$ git clone https://github.com/Panichito/demo_hotel_cpe231.git
-$ cd demo_hotel_cpe231
+$ git clone https://github.com/Panichito/CPE231.git
+$ cd CPE231
 $ pip3 install -r requirements.txt
 ```
 to runserver on localhost:8000
