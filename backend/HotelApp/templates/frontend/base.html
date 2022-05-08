@@ -39,7 +39,11 @@
                             {% if user.is_authenticated %}
                                 <ul class = "top_menu animation textsetting" style = "margin-left:2rem">
                                 <li>
-                                    <img src="{{user.member.Member_Pic.url}}" width="35" height="35" class="rounded-circle">
+                                    {% if user.member.Member_Pic %}
+                                        <img src="{{user.member.Member_Pic.url}}" width="40" height="40" class="rounded-circle">
+                                    {% else %}
+                                        <img src="{% static 'img/default-profile.jpg' %}" width="40" height="40" class="rounded-circle">
+                                    {% endif %}
                                     <a style="font-size:100%" href="{% url 'profile-page' %}">Hello {{user.first_name}}</a>
                                 </li>&emsp;
                                 </ul>

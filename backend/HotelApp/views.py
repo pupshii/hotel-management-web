@@ -90,6 +90,7 @@ def ContactUs(request):
 
 # from django.contrib.auth.models import User
 import uuid
+import cloudinary.uploader
 def Register(request):
     context={}
     if request.method=='POST':
@@ -130,12 +131,10 @@ def Register(request):
             newuser.email=email
             newuser.set_password(password1)
             newuser.save()
-            print('F1\n')
 
             u=uuid.uuid1()  # random UUID https://pynative.com/python-uuid-module-to-generate-universally-unique-identifiers/
             token=str(u)
 
-            print('F2\n')
             newmember=Member()
             newmember.user=User.objects.get(username=username)
             newmember.Member_fName=fname
@@ -146,21 +145,22 @@ def Register(request):
             newmember.Member_NIC=nic
             newmember.Member_Address=address
             newmember.Member_Tel=tel
-            # ใส่รูปภาพ
-            if 'picture' in request.FILES:
-                print('F3\n')
-                file_img=request.FILES['picture']
-                file_img_name=file_img.name.replace(' ', '-')
-                # from django.core.files.storage import FileSystemStorage
-                fs=FileSystemStorage(location='media/profile')  # ระบุบ folder ที่เซฟไป
-                filename=fs.save(file_img_name, file_img)  # เซฟชื่อไฟล์ กับ ตัวไฟล์
-                upload_file_url=fs.url(filename)  # ให้ไปเอา URL มา จะได้บอก server ถูกว่ารูปนี้อยู่ไหน (ระบุ MEDIA_ROOT แล้ว)
-                print('Pic URL:', upload_file_url)  # Pic URL:  /media/play-5-wow.jpg
-                newmember.Member_Pic='/profile'+upload_file_url[6:]  # ตัดคำว่า '/media' ด้านหน้าออกไป
-            else:
-                print('numa numa yeah! numa numa yeah yeah yeah!')
+            # ใส่รูปภาพ ใน folder
+            # if 'picture' in request.FILES:
+            #     file_img=request.FILES['picture']
+            #     file_img_name=file_img.name.replace(' ', '-')
+            #     # from django.core.files.storage import FileSystemStorage
+            #     fs=FileSystemStorage(location='media/profile')  # ระบุบ folder ที่เซฟไป
+            #     filename=fs.save(file_img_name, file_img)  # เซฟชื่อไฟล์ กับ ตัวไฟล์
+            #     upload_file_url=fs.url(filename)  # ให้ไปเอา URL มา จะได้บอก server ถูกว่ารูปนี้อยู่ไหน (ระบุ MEDIA_ROOT แล้ว)
+            #     print('Pic URL:', upload_file_url)  # Pic URL:  /media/play-5-wow.jpg
+            #     newmember.Member_Pic='/profile'+upload_file_url[6:]  # ตัดคำว่า '/media' ด้านหน้าออกไป
+            if 'picture' in request.FILES:  
+                newmember.Member_Pic=request.FILES['picture']  # upload to cloudinary
+                # งงจัด https://cloudinary.com/documentation/upload_images#organizing_media_assets_in_folders
+                # newmember.Member_Pic=cloudinary.uploader.upload(request.FILES['picture'], )
+                print('Cloud PATH:', newmember.Member_Pic)
 
-            print('F4\n')
             newmember.save()
             #text='สวัสดีคุณ '+fname+' '+lname+'\n\nเราขอขอบคุณที่ท่านได้ทำการสมัครสมาชิคของเว็บไซต์เรา\nกรุณากดลิงค์นี้เพื่อทำการ ยืนยันการเป็นสมาชิคของท่าน\n\nLink: http://localhost:8000/verify-email/'+token+'\n\n--ทีมงาน PoonVeh--'
             #sendthai(email, 'PoonVeh: ยืนยันการสมัครสมาชิค', text)

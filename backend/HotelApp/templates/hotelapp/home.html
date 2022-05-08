@@ -25,7 +25,7 @@
             Rating :
             {% for rate in CT3 %}
               {% if ht.Hotel_Id == rate.0 %}
-                {{rate.2|floatformat:1}}
+                {{rate.2}}
               {% endif %}
             {% endfor %}
             / 5 Stars<br>

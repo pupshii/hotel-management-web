@@ -22,7 +22,7 @@
         {% else %}
             <form method="POST">
                 {% csrf_token %}
-                <!-- ไม่ต้องใช้ required เพราะ message บอกด้านบน -->
+                <!-- ไม่ต้องใช้ required เพราะมี message บอกด้านบน -->
                 <div class="form-group">
                     <label for="title">Topic</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Determine the problem or question's focus.">

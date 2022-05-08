@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%ql_v=ocy)ldiukpn0jh*77!vlh^3h&e)eb^c%h9p%pr!)ho!h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']  # เข้ามากันให้หมดเลย
 
@@ -39,7 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',  # intcomma
     'HotelApp',  # เพิ่ม app
+    'cloudinary',  # อัพไฟล์ภาพขึ้น cloud
 ]
+
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+cloudinary.config(
+    cloud_name="ps168clound",
+    api_key="185495522977931",
+    api_secret="H_1R-mWGXtCi9BrPantMf6GGI5g"
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -78,19 +89,19 @@ WSGI_APPLICATION = 'HotelDB.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'poonveh1',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'USER': 'root',
-        'PASSWORD': '',
-        'OPTIONS': {
-            'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",
-        }
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'poonveh1',
+        # 'HOST': '127.0.0.1',
+        # 'PORT': '3306',
+        # 'USER': 'root',
+        # 'PASSWORD': '',
+        # 'OPTIONS': {
+        #     'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",
+        # }
 
         # Default sqlite3
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -129,11 +140,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'static'
+django_heroku.settings(locals())
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+# แก้ server error 500
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
+# Media settings แก้ตอน debug false ภาพไม่โหลด
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
