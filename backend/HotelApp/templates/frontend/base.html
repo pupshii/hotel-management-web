@@ -44,7 +44,14 @@
                                     {% else %}
                                         <img src="{% static 'img/default-profile.jpg' %}" width="40" height="40" class="rounded-circle">
                                     {% endif %}
-                                    <a style="font-size:100%" href="{% url 'profile-page' %}">Hello {{user.first_name}}</a>
+                                    <a style="font-size:100%" href="{% url 'profile-page' %}">
+                                        Hello {{user.first_name}} 
+                                        {% if user.member.Staff_id %}
+                                            ({{user.member.staff.Staff_Position}})
+                                        {% else %}
+                                            (MEMBER)
+                                        {% endif %}
+                                    </a>
                                 </li>&emsp;
                                 </ul>
                                 <div class = "loginbutton">
@@ -55,6 +62,21 @@
                                         <img src="{% static 'img/hamburger button 1.svg' %}">
                                     </button>
                                     <div class="dropdown-content animation">
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' %}
+                                            <li><a href="/admin">+SITE</a></li>
+                                        {% endif %}
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                            <li><a href="{% url 'add-hotel' %}">+Hotel</a></li>
+                                        {% endif %}
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                            <li><a href="{% url 'add-staff' %}">+Staff</a></li>
+                                        {% endif %}
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                            <li><a href="{% url 'add-news' %}">+News</a></li>
+                                        {% endif %}
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                            <li><a href="{% url 'add-promotion' %}">+Promotion</a></li>
+                                        {% endif %}
                                         <li><a href="{% url 'booking-page' %}">Booking</a></li>
                                         <li><a href="{% url 'news-page' %}">News</a></li>
                                     </div>

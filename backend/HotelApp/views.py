@@ -46,9 +46,30 @@ def Home(request):
     # return render(request, 'frontend/home.html', context)
     return render(request, 'frontend/home.html')
 
-
 def Hotels(request):
-    return render(request, 'frontend/hotels.html')
+    allhotel=Hotel.objects.all()   # SELECT * from Hotel
+    hotel_per_page=3
+    paginator=Paginator(allhotel, hotel_per_page)
+    page=request.GET.get('page')   # localhost:800/?page=2
+    allhotel=paginator.get_page(page)
+    print('count:', len(allhotel))
+    context={'AllHotel':allhotel}
+    # แยกแถวละ 3
+    allrow=[]
+    row=[]
+    for i, p in enumerate(allhotel):
+        if i%3 == 0:
+            if i!= 0:
+                allrow.append(row)
+            row=[]
+            row.append(p)
+        else:
+            row.append(p)
+    if len(row) != 0:
+        allrow.append(row)
+    context['AllRow']=allrow
+    print("CHECK:", allrow)
+    return render(request, 'frontend/hotels.html', context)
 
 def Promotions(request):
     return render(request, 'frontend/promotions.html')
@@ -174,14 +195,6 @@ def Register(request):
     return render(request, 'frontend/register.html', context)
 
 @login_required
-def Booking(request):
-    return render(request, 'frontend/booking.html')
-
-@login_required
-def News(request):
-    return render(request, 'frontend/news.html')
-
-@login_required
 def ProfilePage(request):
     context={}
     profileuser=User.objects.get(username=request.user.username)
@@ -190,9 +203,64 @@ def ProfilePage(request):
         context['notyet']='To use this feature, we need to complete the signup page in order to continue using member subscription information from DBMS (Devil Based Management Shrine).'
     return render(request, 'frontend/profile.html', context)
 
-def TestStaff(request):
-    allbooks=AllBook.objects.all()
-    allstuff=StaffManager.objects.all()
-    allnews=News.objects.all()
-    testcontext={'StaffManagerTest':allstuff, 'NewsTest':allnews, 'AllBookTest':allbooks,}
-    return render(request, 'hotelapp/testsql.html', testcontext)
+@login_required
+def Booking(request):
+    return render(request, 'frontend/booking.html')
+
+@login_required
+def News(request):
+    return render(request, 'frontend/news.html')
+
+@login_required
+def AddHotel(request):
+    allow_user=['MANAGER', 'ADMIN']
+    if request.user.member.Staff_id == None or request.user.member.staff.Staff_Position not in allow_user:
+        return redirect('home-page')
+
+    context={}
+    if request.method == 'POST':
+        data=request.POST.copy()
+        hotel_name=data.get('name')
+        hotel_address=data.get('address')
+        hotel_detail=data.get('detail')
+
+        newhotel=Hotel()
+        newhotel.Hotel_Name=hotel_name
+        newhotel.Hotel_Address=hotel_address
+        newhotel.Hotel_Detail=hotel_detail
+
+        if 'picture' in request.FILES:
+            newhotel.Hotel_Pic=request.FILES['picture']  # upload to cloudinary
+            print('Cloud PATH:', newhotel.Hotel_Pic)
+
+        newhotel.save()
+        context['addnew']='The system has added the hotel to the database.'
+    return render(request, 'frontend/addhotel.html', context)
+
+@login_required
+def AddStaff(request):
+    allow_user=['MANAGER', 'ADMIN']
+    if not request.user.member.Staff_id or request.user.member.staff.Staff_Position not in allow_user:
+        return redirect('home-page')
+    return render(request, 'frontend/addstaff.html')
+
+@login_required
+def AddNews(request):
+    allow_user=['MANAGER', 'ADMIN']
+    if not request.user.member.Staff_id or request.user.member.staff.Staff_Position not in allow_user:
+        return redirect('home-page')
+    return render(request, 'frontend/addnews.html')
+
+@login_required
+def AddPromotion(request):
+    allow_user=['MANAGER', 'ADMIN']
+    if not request.user.member.Staff_id or request.user.member.staff.Staff_Position not in allow_user:
+        return redirect('home-page')
+    return render(request, 'frontend/addpromotion.html')
+
+# def TestStaff(request):
+#     allbooks=AllBook.objects.all()
+#     allstuff=StaffManager.objects.all()
+#     allnews=News.objects.all()
+#     testcontext={'StaffManagerTest':allstuff, 'NewsTest':allnews, 'AllBookTest':allbooks,}
+#     return render(request, 'hotelapp/testsql.html', testcontext)

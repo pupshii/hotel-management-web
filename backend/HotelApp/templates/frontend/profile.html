@@ -16,6 +16,9 @@
 				</center>
 			{% endif %}
 			<div class="form-group">
+				<label for="email">Email</label>: {{profileInfo.email}}
+			</div><br>
+			<div class="form-group">
 				<label for="fname">First name</label>
 				<input type="text" class="form-control" id="fname" name="fname" value="{{profileInfo.first_name}}" required>
 			</div><br>
@@ -23,9 +26,17 @@
 				<label for="lname">Last name</label>
 				<input type="text" class="form-control" id="lname" name="lname" value="{{profileInfo.last_name}}" required>
 			</div><br>
+            <div class="form-group">
+                <label for="nic">National ID Card or Passport No.</label>
+                <input type="text" class="form-control" id="nic" name="nic" value="{{profileInfo.member.Member_NIC}}" required>
+            </div><br>
+            <div class="form-group">
+                <label for="tel">Tel</label>
+                <input type="text" class="form-control" id="tel" name="tel" value="{{profileInfo.member.Member_Tel}}" required>
+            </div><br>
 			<div class="form-group">
-				<label for="email">Email</label>
-				<input type="text" class="form-control" id="email" name="email" value="{{profileInfo.email}}" required>
+				<label for="lname">Address</label>
+				<textarea type="form-comment" class="form-control" rows="3" id="lname" name="lname" required>{{profileInfo.member.Member_Address}}</textarea>
 			</div><br>
 			<hr>
 			<div class="form-check form-group">

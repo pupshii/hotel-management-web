@@ -10,16 +10,16 @@ class AllBook(models.Model):
     Book_Price=models.IntegerField()
     def __str__(self):
         return "B"+str(self.id)
-    # class Meta:
-    #     db_table='allbook'
+    class Meta:
+        db_table='allbook'
 
 class GetNews(models.Model):
     Member_Id=models.IntegerField()
     News_Id=models.IntegerField()
     def __str__(self):
         return "GN"+str(self.id)
-    # class Meta:
-    #     db_table='getnews'
+    class Meta:
+        db_table='getnews'
 
 class Hotel(models.Model):
     Hotel_Name=models.CharField(max_length=50)
@@ -29,8 +29,8 @@ class Hotel(models.Model):
     Hotel_Pic=CloudinaryField('hotel', null=True, blank=True, default=None, folder='poonveh/hotel')
     def __str__(self):
         return "H"+str(self.id)
-    # class Meta:
-    #     db_table='hotel'
+    class Meta:
+        db_table='hotel'
 
 class Member(models.Model):
     # link to User
@@ -48,11 +48,11 @@ class Member(models.Model):
     # Member_Pic=CloudinaryField('profile', use_filename = True, unique_filename = True, default='profile/default-user.jpg')
     Member_Pic=CloudinaryField('profile', null=True, blank=True, default=None, folder='poonveh/profile')
     Member_Point=models.IntegerField(default=0)
-    Staff_Id=models.IntegerField(null=True, blank=True)
+    Staff_id=models.IntegerField(null=True, blank=True)
     def __str__(self):
         return "M"+str(self.id)
-    # class Meta:
-    #     db_table='member'
+    class Meta:
+        db_table='member'
 
 class News(models.Model):
     News_Name=models.CharField(max_length=50)
@@ -74,8 +74,8 @@ class Payment(models.Model):
     Payment_Slip=CloudinaryField('slip', null=True, blank=True, default=None, folder='poonveh/slip')
     def __str__(self):
         return "PAY"+str(self.id)
-    # class Meta:
-    #     db_table='payment'
+    class Meta:
+        db_table='payment'
 
 class Promotion(models.Model):
     Promotion_Discount=models.FloatField()
@@ -87,8 +87,8 @@ class Promotion(models.Model):
     Promotion_Pic=CloudinaryField('promotion', null=True, blank=True, default=None, folder='poonveh/promotion')
     def __str__(self):
         return "PRO"+str(self.id)
-    # class Meta:
-    #     db_table='promotion'
+    class Meta:
+        db_table='promotion'
 
 class Room(models.Model):
     Hotel_Id=models.IntegerField()
@@ -97,8 +97,8 @@ class Room(models.Model):
     Room_Status=models.BooleanField(default=1)
     def __str__(self):
         return "RO"+str(self.id)
-    # class Meta:
-    #     db_table='room'
+    class Meta:
+        db_table='room'
 
 class RoomType(models.Model):
     Type_Name=models.CharField(max_length=50)
@@ -109,12 +109,13 @@ class RoomType(models.Model):
     Type_Pic=CloudinaryField('roomdemo', null=True, blank=True, default=None, folder='poonveh/roomdemo')
     def __str__(self):
         return "TY"+str(self.id)
-    # class Meta:
-    #     db_table='roomtype'
+    class Meta:
+        db_table='roomtype'
 
 import datetime
 class Staff(models.Model):
-    Member_Id=models.IntegerField()
+    # Member_Id=models.IntegerField()
+    member=models.OneToOneField(Member, on_delete=models.CASCADE, null=True, blank=True)
     Hotel_Id=models.IntegerField()
     Staff_Position=models.CharField(max_length=50)
     Staff_Start=models.DateField(default=datetime.date.today)
@@ -123,8 +124,8 @@ class Staff(models.Model):
     Staff_Status=models.BooleanField(default=1)
     def __str__(self):
         return "S"+str(self.id)
-    # class Meta:
-    #     db_table='staff'
+    class Meta:
+        db_table='staff'
 
 class Transaction(models.Model):
     Member_Id=models.IntegerField()
@@ -137,5 +138,5 @@ class Transaction(models.Model):
     Transaction_Comment=models.TextField(null=True, blank=True)
     def __str__(self):
         return "T"+str(self.id)
-    # class Meta:
-    #     db_table='transaction'
+    class Meta:
+        db_table='transaction'
