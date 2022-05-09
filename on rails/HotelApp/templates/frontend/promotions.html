@@ -1,0 +1,55 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} Promotions | {% endblock title %}
+{% block content %}
+    <div class ="containerbody">
+        <div class = "pageheader">
+            Our Promotions<hr>
+        </div>
+        {% for row in AllRow %}
+        <div class = "row">
+            {% for c in row %}
+            <div class = "col padding-3" style = "padding-left:10rem;padding-right:10rem" >
+                <div class = "center card">
+                    <div style="width:100%">
+                        <img style = "width:100%" src="{{c.Promotion_Pic.url}}">
+                    </div>
+                    <div class = "border-1px border-top-none">
+                        <div class = "font-normal font-bold-nosize padding-1">{{c.Promotion_Name|capfirst}} ({{ c.Promotion_Discount|floatformat:0}}%)</div>
+                        <div class = "font-grey padding-2">
+                            {{c.Promotion_Detail}}<br><br>Start: {{c.Promotion_Start}}<br>End: {{c.Promotion_End}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <ul class="pagination">
+            {% if AllPromotion.has_previous and AllPromotion.has_next != True %}
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.previous_page_number}}"> < </a></li>
+            {% if AllPromotion.number|add:-2 > 0 %}
+                <li class="page-item"><a class="page-link" href="?page={{AllPromotion.number|add:-2}}">{{AllPromotion.number|add:-2}}</a></li>
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.number|add:-1}}">{{AllPromotion.number|add:-1}}</a></li>
+            <li class="page-item active"><a class="page-link" href="?page={{AllPromotion.number}}">{{AllPromotion.number}}</a></li>
+            {% endif %}
+            {% if AllPromotion.has_previous and AllPromotion.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.previous_page_number}}"> < </a></li>
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.number|add:-1}}">{{AllPromotion.number|add:-1}}</a></li>
+            <li class="page-item active"><a class="page-link" href="?page={{AllPromotion.number}}">{{AllPromotion.number}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.number|add:1}}">{{AllPromotion.number|add:1}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.next_page_number}}"> > </a></li>
+            {% endif %}
+            {% if AllPromotion.has_previous != True and AllPromotion.has_next %}
+            <li class="page-item active"><a class="page-link" href="?page={{AllPromotion.number}}">{{AllPromotion.number}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.number|add:1}}">{{AllPromotion.number|add:1}}</a></li>
+            {% if AllPromotion.number|add:2 <= AllPromotion.paginator.num_pages %}
+                <li class="page-item"><a class="page-link" href="?page={{AllPromotion.number|add:2}}">{{AllPromotion.number|add:2}}</a></li>
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.next_page_number}}"> > </a></li>
+            {% endif %}
+        </ul>
+        <p>หน้า {{AllPromotion.number}} จาก {{AllPromotion.paginator.num_pages}}</p>
+    </div>
+{% endblock content %}

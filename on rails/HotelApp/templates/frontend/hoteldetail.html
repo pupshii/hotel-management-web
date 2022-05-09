@@ -1,0 +1,23 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} Hotel Detail | {% endblock title %}
+{% block content %}
+    <div class ="containerbody">
+		<center>
+			<h1>{{Hotel.Hotel_Name}}</h1><hr>
+            {% if Hotel.Hotel_Pic.url %}
+                <img src="{{Hotel.Hotel_Pic.url}}" width="600" height="400"><br><br>
+            {% else %}
+                <img src="{% static 'img/default-location.png' %}" width="600" height="400"><br><br>
+            {% endif %}
+		</center>
+        <h4>Hotel Name:</h4> 
+        <h5>{{Hotel.Hotel_Name}}</h5><br>
+        <h4>Location:</h4> 
+        <h5>{{Hotel.Hotel_Address}}</h5><br>
+        <h4>Description:</h4>
+        <h5>{{Hotel.Hotel_Detail}}</h5><br>
+        <h4>Rating: / 5 Stars</h4><br>
+        <a href="{%url 'hotels-page'%}"><button type="button" class="btn btn-warning">Back</button></a>
+    </div>
+{% endblock content %}

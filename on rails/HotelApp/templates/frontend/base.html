@@ -1,0 +1,149 @@
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="{% static 'css/MaterialIcons' %}" rel="stylesheet">
+    <link href="{% static 'css/SecularOne' %} " rel="stylesheet">
+    <link href="{% static 'css/Inter' %}" rel="stylesheet">
+    <link href="{% static 'css/OrelegaOne' %}" rel="stylesheet">
+    <link href="{% static 'css/RubikMonoOne' %}" rel="stylesheet">
+
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <script src="{% static 'js/jquery.min.js/' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <link rel="icon" href="{% static 'img/logoColor.svg' %}">
+	<title> {% block title %} Default | {% endblock title %} PoonVeh </title>
+</head>
+
+<body>
+    <header>
+        <div class = "headerName">     
+            <a href="{% url 'home-page' %}"><h3>PoonVeh</h3></a> 
+        </div>
+        <div class = "containerbody">
+            <div>
+                <div class = "top">
+                    <div class = "row-horizontal-fill">
+                        <div class = "col-33-nopad">
+                            <ul class = "top_menu animation textsetting" style = "margin-left:2rem">
+                                <li><a href="{% url 'home-page' %}">Home</a></li>
+                                <li><a href="{% url 'hotels-page' %}">Hotels</a></li>
+                                <li><a href="{% url 'promotions-page' %}">Promotions</a></li>
+                                <li><a href="{% url 'about-page' %}">About</a></li>
+                                <li><a href="{% url 'contact-page' %}">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div class = "col-33-nopad-textsetting">
+                            {% if user.is_authenticated %}
+                                <ul class = "top_menu animation textsetting" style = "margin-left:2rem">
+                                <li>
+                                    <img src="{{user.member.Member_Pic.url}}" width="35" height="35" class="rounded-circle">
+                                    <a style="font-size:100%" href="{% url 'profile-page' %}">
+                                        Hello {{user.first_name}} 
+                                        {% if user.member.Member_isStaff %}
+                                            ({{user.member.staff.Staff_Position}})
+                                        {% else %}
+                                            (MEMBER)
+                                        {% endif %}
+                                    </a>
+                                </li>&emsp;
+                                </ul>
+                                <div class = "loginbutton">
+                                    <a href="{% url 'logout' %}">Log out</a>
+                                </div>
+                                <div class="dropdown show">
+                                    <button class="btn">
+                                        <img src="{% static 'img/hamburger button 1.svg' %}">
+                                    </button>
+                                    <div class="dropdown-content animation">
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' %}
+                                            <li><a href="/admin">+SITE</a></li>
+                                        {% endif %}
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                            <li><a href="{% url 'add-hotel' %}">+Hotel</a></li>
+                                        {% endif %}
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                            <li><a href="{% url 'add-promotion' %}">+Promotion</a></li>
+                                        {% endif %}
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                            <li><a href="{% url 'add-staff' %}">+Staff</a></li>
+                                        {% endif %}
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                            <li><a href="{% url 'add-news' %}">+News</a></li>
+                                        {% endif %}
+                                        <li><a href="{% url 'booking-page' %}">Booking</a></li>
+                                        <li><a href="{% url 'news-page' %}">News</a></li>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class = "signupbutton">
+                                    <a href="{% url 'register-page' %}">Sign up and Get Started</a>
+                                </div>
+                                <div class = "loginbutton">
+                                    <a href="{% url 'login' %}">Log in</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {% block content %}
+        PoonVeh ERROR - NOT FOUND !
+    {% endblock content %}
+
+    <div class = "bottom">
+        <div class = "bottom_logo">
+            <img src="{% static 'img/logoWhite.svg' %}" width="100">
+        </div>
+        <div class = "bottom_left">
+            <div class = "b_head">
+                <a style="color:white" href="{% url 'promotions-page' %}">Links</a>
+            </div>
+            <div class = "b_details">
+                Overalls
+            </div>
+            <div class = "b_details">
+                Social media
+            </div>
+            <div class = "b_details">
+                counter
+            </div>
+            <div class = "b_details">
+                Contact
+            </div>    
+        </div>
+        <div class = "bottom_center">
+            <div class = "b_head">
+                <a style="color:white" href="{% url 'about-page' %}">Company</a>
+            </div>
+            <div class = "b_details">
+                Term&Condition
+            </div>
+            <div class = "b_details">
+                Privacy Policy
+            </div>
+            <div class = "b_details">
+                Contact
+            </div>
+        </div>
+        <div class = "bottom_right">
+            <div class = "b_head">
+                <a style="color:white" href="{% url 'about-page' %}">Get In Touch</a>
+            </div>
+            <div class = "b_details">
+                Crechterwoord K12<br>182 DK Alknjkcb
+            </div>
+            <div class = "b_details">
+                085-132567
+            </div>
+            <div class = "b_details">
+                info@payme.net
+            </div>
+        </div>
+    </div>
+</body>
