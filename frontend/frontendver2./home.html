@@ -1,0 +1,217 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel</title>
+    <link rel="stylesheet" href="style2.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Secular+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Orelega+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One" rel="stylesheet">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Bootstrap core: รบกวนแปะสองบรรทัดล่างนี้ไว้ในบน header HTML ทุกไฟล์ มันจะสามารถเรียกใช้ class css ของ Bootstrap ได้ พอเวลาแปะแล้ว 
+    หน้าที่เราทำไว้ยังจะเหมือนเดิมแต่มันอาจเลื่อนนิดหน่อย(เช่นเลื่อนลงมาข้างล่างมากเกินไป)เพราะมีชื่อ class ใน style.css ซ้ำกับของ Bootstrap จุดนี้จะต้องไปแก้นิดหน่อย(เช่นให้มันเลื่อนขึ้นด้านบนมากขึ้น)
+    จะได้กลับมาสวยเหมือนเดิม ที่ต้องใช้ Bootstrap เพราะบางจุดต้องการใช้มันจะได้ไม่ต้องเขียนสคริปต์ JavaScript เอง เช่นตอนเวลาทำ Alert แจ้งเตือน User แล้วให้เขากดปิดได้ เป็นต้น 
+    ปล1. มีอะไรทักถามมาได้ คือรายละเอียด Frontend มันจะจุกจิกหน่อย ตอนนี้กำลังทำหลังบ้านคิดว่าน่าจะต้องปรับเยอะอยู่ 
+    ปล2. เวลาลบรูปภาพ .svg ใน Github แล้วพออัพใหม่อย่าใช้ชื่อเดิมกับไฟล์ที่ลบไปแล้ว ไม่งั้นเวลา Pull HTML มันจะไปลิงค์กับรูปเก่าที่ลบไปแล้ว -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+
+
+
+<body>
+    <div class="main">
+        
+
+    <div class = "containerbody">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light containerbody" style="position:fixed">
+                <a class="navbar-brand" href="home.html"><b>PV</b> PoonVeh</a>
+                <button class="navbar-toggler containerbody" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="hotels.html">Hotels</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="promotions.html">Promotions</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            More
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item nav-link" href="contact.html">Contact</a></li>
+                                <li><a class="dropdown-item nav-link" href="booking.html">Booking</a></li>
+                                <li><a class="dropdown-item nav-link" href="news.html">News</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary me-2 nav-link active" href="Login.html">Log in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary nav-link active" href="Signup.html">Sign up and Get Started</a>
+                        </li>
+                    </form>
+                </div>
+            </nav>
+        </div>
+        <div class="container-fluid px-4"style="margin-top:10rem">
+            <div class = "row g-0">
+                <div class = "col-sm-6 col-md-8" >
+                    <h1 class="display-1">Best Hotel<br>Booking<br>Website.</h1>
+                </div>
+                <div class = "col-6 col-md-4" style="align-items:center">
+                    <div class = "intro_text"><h3>Become a member and start booking now.<br>Over 100+ Hotels available with amazing offers.</h3></div>
+                    <div><a class="btn btn-primary btn-lg" href="start_book.html">START BOOKING</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-5">
+            <div class = "intro">
+                <img class="img-fluid" src="./img/intro_img.svg">
+            
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class = "container-fluid mt-5">
+            <div class = "row gx-5">
+                <div class = "col">
+                    <div class = "">
+                        <h4 class = "p-2">All hotel informations in<br>one place</h4>
+                    </div>
+                    <div class = "cont_left_small">
+                        <h5 class = "p-2">there are lot of info nice</h5>
+                    </div>
+                    <div>
+                        <img class="img-fluid" src="./img/headphone.svg">
+                    </div>
+                </div>
+                <div class = "col">
+                    <div>
+                        <img class="img-fluid" src="./img/mouse_key.svg">
+                    </div>
+                    <div class = "cont_right_big">
+                        <h4 class = "p-2">Follow latest news and<br>promotions</h4>
+                    </div>
+                    <div class = "cont_right_small">
+                        <h5 class = "p-2">wow promotions offer and news</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class = "container-fluid mt-5 bg-light">
+            <div class = "row">
+                <div class = "col text-center mt-5 p-5"><h4>
+                    "Number one website for booking hotels.<br>
+                    Nothing moves us quite like music.<br> 
+                    Hear more details than ever before with quality audio gear"</h4>
+                </div>
+                <div class = "col">
+                    <img class = "img-fluid" src="./img/bed.svg">
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class = "container-fluid mt-5">
+            <div class = "row">
+                <div class = "col">
+                    <h4>Trending Hotels In Thailand</h4>
+                </div>
+                <div class = "col">
+                    <img class="img-fluid" src="./img/city.svg">
+                </div>
+            </div>
+        </div>
+        <div class = "container-fluid mt-5">
+            <div class = "row">
+                <div class="col">
+                    <div class = "display-2 px-4">
+                        Get Started
+                    </div>
+                    <div class = "p-5">
+                        <a class = "btn btn-primary btn-lg" href="start_book.html">START BOOKING</a>
+                    </div>
+                </div>
+                <div class = "col">
+                    <img class="img-fluid" src="./img/view.svg">
+                </div>
+            </div>
+        </div>
+        
+        <div class = "container-fluid mt-5 bg-primary">
+            <div class = "row p-5">
+                <div class = "col display-4 text-white">
+                    <b>PV</b> PoonVeh
+                </div>
+                <div class = "col p-5">
+                    <div class = "text-white mb-2">
+                        <h2>Links</h2>
+                    </div>
+                    <div class = "text-white mb-2">
+                        Overalls
+                    </div>
+                    <div class = "text-white mb-2">
+                        Social media
+                    </div>
+                    <div class = "text-white mb-2">
+                        counter
+                    </div>
+                    <div class = "text-white mb-2">
+                        Contact
+                    </div>    
+                </div>
+                <div class = "col p-5">
+                    <div class = "text-white mb-2">
+                        <h2>Company</h2>
+                    </div>
+                    <div class = "text-white mb-2">
+                        Term&Condition
+                    </div>
+                    <div class = "text-white mb-2">
+                        Privacy Policy
+                    </div>
+                    <div class = "text-white mb-2">
+                        Contact
+                    </div>
+                </div>
+                <div class = "col p-5">
+                    <div class = "text-white mb-2">
+                        <h2>Get In Touch</h2>
+                    </div>
+                    <div class = "text-white mb-2">
+                        Crechterwoord K12<br>182 DK Alknjkcb
+                    </div>
+                    <div class = "text-white mb-2">
+                        085-132567
+                    </div>
+                    <div class = "text-white mb-2">
+                        info@payme.net
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
