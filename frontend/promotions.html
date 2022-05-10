@@ -3,14 +3,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Promotions</title>
-    <link rel="stylesheet" href="style.css">
+    <!--<link rel="stylesheet" href="style.css">-->
+    <link rel="stylesheet" href="style2.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Secular+One" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Orelega+One" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -20,185 +21,203 @@
 </head>
 
 <body>
-
-    <header>
-        <div class = "headerName">     
-            <a href="home.html">  
-            <h3>
-                PoonVeh
-            </h3>
-            </a> 
-        </div>
+    <div class = "main">
         <div class = "containerbody">
-            <div>
-
-                <div class = "top">
-                    <div class = "row-horizontal-fill">
-                        <div class = "col-33-nopad">
-                            <ul class = "top_menu animation textsetting" style = "margin-left:2rem">
-                                <li><a href="home.html">Home</a></li>
-                                <li><a href="hotels.html">Hotels</a></li>
-                                <li><a href="promotions.html">Promotions</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                            </ul>
-                            </div>
-                                
-                        <div class = "col-33-nopad-textsetting">
-                            <div class = "signupbutton">
-                                <a href="Signup.html">Sign up and Get Started</a>
-                            </div>
-                            <div class = "loginbutton">
-                                <a href="Login.html">Log in</a>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn">
-                                    <img src="./img/hamburger button 1.svg">
-                                </button>
-                                <div class="dropdown-content animation">
-                                    <li><a href="booking.html">Booking</a></li>
-                                    <li><a href="news.html">News</a></li>
-                                </div>
-                            </div>
-                        </div>
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light containerbody" style="position:fixed">
+                    <a class="navbar-brand" href="home.html"><b>PV</b> PoonVeh</a>
+                    <button class="navbar-toggler containerbody" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="hotels.html">Hotels</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="promotions.html">Promotions</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                More
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item nav-link" href="contact.html">Contact</a></li>
+                                    <li><a class="dropdown-item nav-link" href="booking.html">Booking</a></li>
+                                    <li><a class="dropdown-item nav-link" href="news.html">News</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form class="d-flex">
+                            <li class="nav-item">
+                                <a class="btn btn-outline-primary me-2 nav-link active" href="Login.html">Log in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-primary nav-link active" href="Signup.html">Sign up and Get Started</a>
+                            </li>
+                        </form>
                     </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class ="containerbody">
-        <div class = "pageheader">
-            <div>
-                Promotions<hr>
-            </div>
-        </div>
-
-        <div class = "row">
-            <div class = "col padding-3" style = "padding-left:10rem;padding-right:10rem" >
-                <div class = "center card">
-                    <div style="width:100%">
-                        <img style = "width:100%" src="./img/bestoffer.svg">
-                    </div>
-                    <div class = "border-1px border-top-none">
-                        <div class = "font-normal font-bold-nosize padding-1">
-                        Occasional offers
-                        </div>
-                        <div class = "font-grey padding-2">
-                            To use this calculator, simply choose which games you want to convert from and to, 
-                            then enter the sensitivity of the original game you’re converting from. 
-                            After that, you’ll have the option of choosing a “from” and “to” DPI. 
-                            If you’re not changing DPI between games, 
-                            then do not worry about this section and leave it as is.<br><br>1/Mar/2023 - 31/Mar/2023
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class = "col padding-3" style = "padding-left:10rem;padding-right:10rem">
-                <div class = "center card">
-                    <div style="width:100%">
-                        <img style = "width:100%" src="./img/sale.svg">
-                    </div>
-                    <div class = "border-1px border-top-none">
-                        <div class = "font-normal font-bold-nosize padding-1">
-                            Pandemic offers
-                        </div>
-                        <div class = "font-grey padding-2">
-                            Already theorycrafting your strats? Or maybe you just wanna understand the new OW2 Maps & Push mode... 
-                            Well here you go!
-                            A map guide for Toronto a.k.a. 
-                            New Queen Street including where to fight, 
-                            which flanks are the best and some... 
-                            dubious signage<br><br>1/April/2023 - 30/April/2023
-                        </div>
-                    </div>
-                </div>
+                </nav>
             </div>
         </div>
 
-        <div class = "row">
-            <div class = "col padding-3" style = "padding-left:10rem;padding-right:10rem" >
-                <div class = "center card">
-                    <div style="width:100%">
-                        <img style = "width:100%" src="./img/summersale.svg">
-                    </div>
-                    <div class = "border-1px border-top-none">
-                        <div class = "font-normal font-bold-nosize padding-1">
-                            Summer festival
-                        </div>
-                        <div class = "font-grey padding-2">
-                            Slow down time, rain destruction from above in a jet-powered armor suit, 
-                            or pilot a superpowered hamster ball: In Overwatch, 
-                            every hero has a unique set of devastating abilities.<br><br>1/May/2023 - 31/May/2023
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class = "col padding-3" style = "padding-left:10rem;padding-right:10rem" >
-                <div class = "center card">
-                    <div style="width:100%">
-                        <img style = "width:100%" src="./img/giftbox.svg">
-                    </div>
-                    <div class = "border-1px border-top-none">
-                        <div class = "font-normal font-bold-nosize padding-1">
-                            Special for you
-                        </div>
-                        <div class = "font-grey padding-2">
-                            Slow down time, rain destruction from above in a jet-powered armor suit, 
-                            or pilot a superpowered hamster ball: In Overwatch, 
-                            every hero has a unique set of devastating abilities.<br><br>1/June/2023 - 30/June/2023
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <br>
-        <div class = "bottom">
-            <div class = "bottom_logo">
-                LOGO
-            </div>
-            <div class = "bottom_left">
-                <div class = "b_head">
-                    Links
-                </div>
-                <div class = "b_details">
-                    Overalls
-                </div>
-                <div class = "b_details">
-                    Social media
-                </div>
-                <div class = "b_details">
-                    counter
-                </div>
-                <div class = "b_details">
-                    Contact
-                </div>    
-            </div>
-            <div class = "bottom_center">
-                <div class = "b_head">
-                    Company
-                </div>
-                <div class = "b_details">
-                    Term&Condition
-                </div>
-                <div class = "b_details">
-                    Privacy Policy
-                </div>
-                <div class = "b_details">
-                    Contact
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    <div class ="containerbody">
+        <div class = "container-fluid">
+            <div>
+                <div class = "display-2">
+                    Promotions
                 </div>
             </div>
-            <div class = "bottom_right">
-                <div class = "b_head">
-                    Get In Touch
+            <hr>
+            <br>
+            <div class = "row">
+                <div class = "col mt-5">
+                    <div class="card" style="width: 25rem;">
+                        <img src="./img/bestoffer.svg" class="card-img-top img-fluid" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Pandemic offers</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class = "b_details">
-                    Crechterwoord K12<br>182 DK Alknjkcb
+                <div class = "col mt-5">
+                    <div class="card" style="width: 25rem;">
+                        <img src="./img/sale.svg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Free breakfast</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class = "b_details">
-                    085-132567
+                <div class = "col mt-5"> 
+                    <div class="card" style="width: 25rem;">
+                        <img src="./img/summersale.svg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Special for you</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>   
+                
+                <div class = "col mt-5">
+                    <div class="card" style="width: 25rem;">
+                        <img src="./img/giftbox.svg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Pandemic offers</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class = "b_details">
-                    info@payme.net
+                <div class = "col mt-5">
+                    <div class="card" style="width: 25rem;">
+                        <img src="./img/sale.svg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Summer festival</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col mt-5"> 
+                    <div class="card" style="width: 25rem;">
+                        <img src="./img/giftbox.svg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Special for you</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>   
+                <div class = "col mt-5">
+                    <div class="card" style="width: 25rem;">
+                        <img src="./img/sale.svg" class="card-img-top img-fluid" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Pandemic offers</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col mt-5">
+                    <div class="card" style="width: 25rem;">
+                        <img src="./img/pancake.svg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Special for you</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col mt-5"> 
+                    <div class="card" style="width: 25rem;">
+                        <img src="./img/sale.svg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Super sales spa</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+                
+            
+        </div>
+        
+        <br>
+        <div class = "container-fluid mt-5 bg-primary">
+            <div class = "row p-5">
+                <div class = "col display-4 text-white">
+                    <b>PV</b> PoonVeh
+                </div>
+                <div class = "col p-5">
+                    <div class = "text-white mb-2">
+                        <h2>Links</h2>
+                    </div>
+                    <div class = "text-white mb-2">
+                        Overalls
+                    </div>
+                    <div class = "text-white mb-2">
+                        Social media
+                    </div>
+                    <div class = "text-white mb-2">
+                        counter
+                    </div>
+                    <div class = "text-white mb-2">
+                        Contact
+                    </div>    
+                </div>
+                <div class = "col p-5">
+                    <div class = "text-white mb-2">
+                        <h2>Company</h2>
+                    </div>
+                    <div class = "text-white mb-2">
+                        Term&Condition
+                    </div>
+                    <div class = "text-white mb-2">
+                        Privacy Policy
+                    </div>
+                    <div class = "text-white mb-2">
+                        Contact
+                    </div>
+                </div>
+                <div class = "col p-5">
+                    <div class = "text-white mb-2">
+                        <h2>Get In Touch</h2>
+                    </div>
+                    <div class = "text-white mb-2">
+                        Crechterwoord K12<br>182 DK Alknjkcb
+                    </div>
+                    <div class = "text-white mb-2">
+                        085-132567
+                    </div>
+                    <div class = "text-white mb-2">
+                        info@payme.net
+                    </div>
                 </div>
             </div>
         </div>
