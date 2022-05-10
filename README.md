@@ -44,35 +44,45 @@ The hotel management system is a database that contains the following:
 - Bootstrap 5.1.3
 ### Back-end: 
 - Django 4.0.4
+- Cloudinary
 ### Database: 
 - MySQL
 - XAMPP v.3.3.0
 - PHP 7.4.9
 
 ## Features
-- [x] Home Page
-- [x] Register Page
-- [ ] Show All Hotels Page (may use pagination when we got many hotels)
-- [ ] Promotion Page
-- [ ] Contact Page
-- [ ] Booking Page
-- [ ] News Page
-- [x] User Profile Page
-- [ ] User Profile Picture
-- [x] Login Page (not beautiful)
-- [x] User & Password Validation when Login
-- [x] Generate Token & Verify Link via Email (optional)
-- [x] Logut Page (redirect to Home)
-- [x] Deal with static files (optional)
-- [x] Deal with media fiels
-- [x] Contact Admin Form (optional)
-- [ ] Admin Receive Form (optional)
-- [ ] Password Recovery (optional)
-- [x] Email Notification (optional)
-- [x] Line Notification (optional)
-- [x] Complex QUERY (4/5, except CT5 - Hotel CRUD)
-- [ ] Normal QUERY
-- [ ] ADD SOME MORE TABLE IN ER-DIAGRAM ?
+- [x] Register add member
+- [x] View Profile
+- [x] Login
+- [x] Logout
+- [x] Contact admin form
+- [x] Add Hotels
+- [x] View Hotels
+- [x] Edit Hotels
+- [x] Delete Hotels
+- [x] Add Promotions
+- [x] View Promotions
+- [x] Edit Promotions
+- [x] Delete Promotions
+- [x] Search Member
+- [ ] Add Staff into hotel
+- [ ] Remove Staff from DB
+- [ ] News System CRUD
+- [ ] Booking System CRUD
+
+## Wanna be
+- [x] Deal with static files (define STATIC_ROOT & collectstatic before build app)
+- [x] Deal with media fiels (cloudinary storage)
+- [x] Contact Admin Form
+- [ ] Admin Receive Form
+- [ ] Password Recovery (not work in US-heroku)
+- [ ] Email Notification (not work in US-heroku)
+- [ ] Generate Token & Verify Link via Email (not work in US-heroku)
+- [x] Line Notification
+- [ ] AJAX calculate price when booking
+- [ ] Validate date-time booking promotion discount
+- [ ] Play with Staff command (we have staff_level) 
+- [ ] Apply binary-indexed tree into DB
 
 ## To run this project
 don't forget to install virtual environment
