@@ -20,7 +20,11 @@
                             <div class="card-body">
                                 <h1 class="card-title pricing-card-title">{{c.Hotel_Name}}</h1>
                                 <p>{{c.Hotel_Detail|truncatechars:210}}</p>
-                                <a href="{% url 'hotel-detail' c.id %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Details</button></a>
+                                {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                    <a href="{% url 'hotel-detail' c.id %}"><button type="button" class="w-100 btn btn-lg btn-warning">Edit</button></a>
+                                {% else %}
+                                    <a href="{% url 'hotel-detail' c.id %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Details</button></a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

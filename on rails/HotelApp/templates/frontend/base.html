@@ -32,7 +32,11 @@
                                 <li><a href="{% url 'hotels-page' %}">Hotels</a></li>
                                 <li><a href="{% url 'promotions-page' %}">Promotions</a></li>
                                 <li><a href="{% url 'about-page' %}">About</a></li>
-                                <li><a href="{% url 'contact-page' %}">Contact</a></li>
+                                {% if user.member.Member_isStaff %}
+                                    <li><a href="{% url 'contact-page' %}">Q&A</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'contact-page' %}">Contact</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                         <div class = "col-33-nopad-textsetting">

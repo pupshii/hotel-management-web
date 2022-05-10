@@ -262,7 +262,33 @@ def AddHotel(request):
 
 def HotelDetail(request, hotel_id):
     hotel=Hotel.objects.get(id=hotel_id)
-    context={'Hotel':hotel}
+    context={}
+    context['Hotel']=hotel
+    if request.method == 'POST':
+        data=request.POST.copy()
+        if 'save' in data:
+            print('save data')
+            name=data.get('name')
+            address=data.get('address')
+            detail=data.get('detail')
+            hotel.Hotel_Name=name
+            hotel.Hotel_Address=address
+            hotel.Hotel_Detail=detail
+            if 'picture' in request.FILES:
+                file_img=request.FILES['picture']
+                file_img_name=file_img.name.replace(' ', '-')
+                fs=FileSystemStorage(location='media/hotel')
+                filename=fs.save(file_img_name, file_img)  # เซฟชื่อไฟล์ กับ ตัวไฟล์
+                upload_file_url=fs.url(filename)
+                print('Pic URL:', upload_file_url)
+                hotel.Hotel_Pic='/hotel'+upload_file_url[6:]  # ตัดคำว่า '/media' ด้านหน้าออกไป
+            hotel.save()
+            context['Hotel']=hotel  # เซฟแล้วให้มันส่งข้อมูลใหม่ไปโชว์ใน field แทน
+
+        elif 'delete' in data:
+            print('delete data')
+            hotel.delete()
+            return redirect('hotels-page')
     return render(request, 'frontend/hoteldetail.html', context)
 
 @login_required
@@ -279,16 +305,14 @@ def AddPromotion(request):
         discount=data.get('percent')
         start=data.get('start')
         end=data.get('end')
-        print(name)
-        print(detail)
-        print(int(discount[:2])/100)
+        print(int(discount[:-1])/100)
         print(start)
         print(end)
 
         newpromo=Promotion()
         newpromo.Promotion_Name=name
         newpromo.Promotion_Detail=detail
-        newpromo.Promotion_Discount=int(discount[:2])/100
+        newpromo.Promotion_Discount=int(discount[:-1])/100   # ด้านหลังสุดเป็น %
         newpromo.Promotion_Start=start
         newpromo.Promotion_End=end
 
@@ -305,6 +329,48 @@ def AddPromotion(request):
         newpromo.save()
         context['addnew']='The system has added the promotion to the database.'
     return render(request, 'frontend/addpromotion.html', context)
+
+def PromotionDetail(request, promo_id):
+    promotion=Promotion.objects.get(id=promo_id)
+    context={}
+    context['Promotion']=promotion
+    context['StartFormat']=promotion.Promotion_Start
+    context['EndFormat']=promotion.Promotion_End
+    print(promotion.Promotion_Name)
+    print(context['StartFormat'])
+    print(context['EndFormat'])
+    if request.method == 'POST':
+        data=request.POST.copy()
+        if 'save' in data:
+            print('save data')
+            name=data.get('name')
+            detail=data.get('detail')
+            discount=data.get('percent')
+            start=data.get('start')
+            end=data.get('end')
+            promotion.Promotion_Name=name
+            promotion.Promotion_Detail=detail
+            print(int(discount[:-1]))
+            promotion.Promotion_Discount=int(discount[:-1])/100
+            promotion.Promotion_Start=start
+            promotion.Promotion_End=end
+            if 'picture' in request.FILES:
+                file_img=request.FILES['picture']
+                file_img_name=file_img.name.replace(' ', '-')
+                fs=FileSystemStorage(location='media/promotion')
+                filename=fs.save(file_img_name, file_img)  # เซฟชื่อไฟล์ กับ ตัวไฟล์
+                upload_file_url=fs.url(filename)
+                print('Pic URL:', upload_file_url)
+                promotion.Promotion_Pic='/promotion'+upload_file_url[6:]  # ตัดคำว่า '/media' ด้านหน้าออกไป
+            promotion.save()
+            context['Promotion']=promotion  # เซฟแล้วให้มันส่งข้อมูลใหม่ไปโชว์ใน field แทน
+
+        elif 'delete' in data:
+            print('delete data')
+            promotion.delete()
+            return redirect('promotions-page')
+
+    return render(request, 'frontend/promotiondetail.html', context)
 
 @login_required
 def AddStaff(request):

@@ -17,7 +17,12 @@
                     <div class = "border-1px border-top-none">
                         <div class = "font-normal font-bold-nosize padding-1">{{c.Promotion_Name|capfirst}} ({{ c.Promotion_Discount|floatformat:0}}%)</div>
                         <div class = "font-grey padding-2">
-                            {{c.Promotion_Detail}}<br><br>Start: {{c.Promotion_Start}}<br>End: {{c.Promotion_End}}
+                            {{c.Promotion_Detail|truncatechars:150}}<br><br>Start: {{c.Promotion_Start}}<br>End: {{c.Promotion_End}}<br><br>
+                            {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                <a href="{% url 'promotion-detail' c.id %}"><button type="button" class="w-100 btn btn-lg btn-warning">Edit</button></a>
+                            {% else %}
+                                <a href="{% url 'promotion-detail' c.id %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Details</button></a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
