@@ -229,9 +229,58 @@ def News(request):
     return render(request, 'frontend/news.html')
 
 @login_required
+def EditMember(request):
+    allow_user=['MANAGER', 'ADMIN']
+    if not request.user.is_staff or request.user.member.staff.Staff_Position not in allow_user:
+        return redirect('home-page')
+    context={}
+    alluser=User.objects.all()
+    context['result_user']=alluser
+    if request.method == 'POST':
+        data=request.POST.copy()
+        search_index=data.get('search-in-db')
+        search_index=int(search_index)
+        print('search Id=', search_index)
+        if search_index == 1:
+            m_id=data.get('m_id')  # ต้องเช็คว่าเป็น int ไหม เด่วบึ้ม
+            m_id=m_id[1:]
+            if not m_id or not m_id.isnumeric():
+                context['search_boom']='Please input correct format in order to search member!'
+                return render(request, 'frontend/editmember.html', context)
+            m_id=int(m_id)
+            alluser=User.objects.filter(id=m_id)
+        if search_index == 2:
+            user=data.get('user')
+            if not user:  # empty string are falsy
+                context['search_boom']='Please input correct format in order to search member!'
+                return render(request, 'frontend/editmember.html', context)
+            alluser=User.objects.filter(username__contains=user)
+        if search_index == 3:
+            fname=data.get('fname')
+            if not fname:
+                context['search_boom']='Please input correct format in order to search member!'
+                return render(request, 'frontend/editmember.html', context)
+            alluser=User.objects.filter(first_name__contains=fname)
+        if search_index == 4:
+            lname=data.get('lname')
+            if not lname:
+                context['search_boom']='Please input correct format in order to search member!'
+                return render(request, 'frontend/editmember.html', context)
+            alluser=User.objects.filter(last_name__contains=lname)
+        if search_index == 5:
+            email=data.get('email')
+            if not email:
+                context['search_boom']='Please input correct format in order to search member!'
+                return render(request, 'frontend/editmember.html', context)
+            alluser=User.objects.filter(email=email)
+        context['result_user']=alluser
+        context['finish_search']='You can see your search result below!'
+    return render(request, 'frontend/editmember.html', context)
+
+@login_required
 def AddHotel(request):
     allow_user=['MANAGER', 'ADMIN']
-    if request.user.member.Member_isStaff == False or request.user.member.staff.Staff_Position not in allow_user:
+    if not request.user.is_staff or request.user.member.staff.Staff_Position not in allow_user:
         return redirect('home-page')
 
     context={}
@@ -294,7 +343,7 @@ def HotelDetail(request, hotel_id):
 @login_required
 def AddPromotion(request):
     allow_user=['MANAGER', 'ADMIN']
-    if request.user.member.Member_isStaff == False or request.user.member.staff.Staff_Position not in allow_user:
+    if not request.user.is_staff or request.user.member.staff.Staff_Position not in allow_user:
         return redirect('home-page')
 
     context={}
@@ -373,16 +422,9 @@ def PromotionDetail(request, promo_id):
     return render(request, 'frontend/promotiondetail.html', context)
 
 @login_required
-def AddStaff(request):
-    allow_user=['MANAGER', 'ADMIN']
-    if request.user.member.Member_isStaff == False or request.user.member.staff.Staff_Position not in allow_user:
-        return redirect('home-page')
-    return render(request, 'frontend/addstaff.html')
-
-@login_required
 def AddNews(request):
     allow_user=['MANAGER', 'ADMIN']
-    if request.user.member.Member_isStaff == False or request.user.member.staff.Staff_Position not in allow_user:
+    if not request.user.is_staff or request.user.member.staff.Staff_Position not in allow_user:
         return redirect('home-page')
     return render(request, 'frontend/addnews.html')
 

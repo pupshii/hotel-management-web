@@ -1,0 +1,103 @@
+{% extends 'frontend/base.html' %}
+{% block title %} Edit Member | {% endblock title %}
+{% load static %}
+{% block content %}
+    <div class ="containerbody">
+        <center>
+            <br><img src="{% static 'img/logoBlack.svg' %}" width="150">
+            <h1>Edit Member System</h1><hr>
+        </center>
+        <h2>Search MEMBER by</h2> 
+        <form method="POST">
+            {% csrf_token %}
+			{% if search_boom %}
+                <center>
+                    <div class="alert alert-danger alert-dismissible fade show" row="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {{search_boom}}
+                    </div>
+                </center>
+            {% elif finish_search %}
+                <center>
+                    <div class="alert alert-info alert-dismissible fade show" row="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {{finish_search}}
+                    </div>
+                </center>
+			{% endif %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="search-in-db" value="1" checked>
+                <div class="form-group">
+                    <label for="m_id">Member ID</label>
+                    <p style="color:darkorange">(specify format: "M"+number Ex. M168)</p>
+                    <input type="text" class="form-control" id="m_id" name="m_id">
+                </div><br>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="search-in-db" value="2">
+                <div class="form-group">
+                    <label for="user">Member Username (partial match)</label>
+                    <input type="text" class="form-control" id="user" name="user">
+                </div><br>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="search-in-db" value="3">
+                <div class="form-group">
+                    <label for="fname">Member First Name (partial match)</label>
+                    <input type="text" class="form-control" id="fname" name="fname">
+                </div><br>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="search-in-db" value="4">
+                <div class="form-group">
+                    <label for="lname">Member Last Name (partial match)</label>
+                    <input type="text" class="form-control" id="lname" name="lname">
+                </div><br>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="search-in-db" value="5">
+                <div class="form-group">
+                    <label for="email">Member Email (partial match)</label>
+                    <input type="text" class="form-control" id="email" name="email">
+                </div><br>
+            </div>
+            <P style="color:blue">no need to fill in all</p>
+            <button type="submit" class="btn btn-primary">Find all matches</button>
+        </form>
+
+        <center>
+            <h1>Member list found {{result_user|length}}</h1>
+            <p style="color:darkorange">Here is the list of all users matching the search.</p>
+        </center> 
+        <table class="table">
+        <thead class="thead-light">
+            <tr>
+            <th scope="col">Order</th>
+            <th scope="col">Username</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Member ID</th>
+            <th scope="col">Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in result_user %} 
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td><a href="#">{{m.username}}</a></td>
+                    <td>{{m.first_name}}</td>
+                    <td>{{m.last_name}}</td>
+                    <td>{{m.email}}</td>
+                    <td>M{{m.id}}</td>
+                    {% if m.is_staff %}
+                        <td>{{m.member.staff.Staff_Position}}</td>
+                    {% else %}
+                        <td>MEMBER</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+{% endblock content %}

@@ -33,7 +33,7 @@
                                 <li><a href="{% url 'promotions-page' %}">Promotions</a></li>
                                 <li><a href="{% url 'about-page' %}">About</a></li>
                                 {% if user.member.Member_isStaff %}
-                                    <li><a href="{% url 'contact-page' %}">Q&A</a></li>
+                                    <li><a href="{% url 'contact-page' %}">FAQ</a></li>
                                 {% else %}
                                     <li><a href="{% url 'contact-page' %}">Contact</a></li>
                                 {% endif %}
@@ -46,7 +46,7 @@
                                     <img src="{{user.member.Member_Pic.url}}" width="35" height="35" class="rounded-circle">
                                     <a style="font-size:100%" href="{% url 'profile-page' %}">
                                         Hello {{user.first_name}} 
-                                        {% if user.member.Member_isStaff %}
+                                        {% if user.is_staff %}
                                             ({{user.member.staff.Staff_Position}})
                                         {% else %}
                                             (MEMBER)
@@ -63,19 +63,19 @@
                                     </button>
                                     <div class="dropdown-content animation">
                                         {% if user.member.staff.Staff_Position == 'ADMIN' %}
-                                            <li><a href="/admin">+SITE</a></li>
+                                            <li><a href="/admin">Go SITE</a></li>
                                         {% endif %}
                                         {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-                                            <li><a href="{% url 'add-hotel' %}">+Hotel</a></li>
+                                            <li><a href="{% url 'edit-member' %}">Edit member</a></li>
                                         {% endif %}
                                         {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-                                            <li><a href="{% url 'add-promotion' %}">+Promotion</a></li>
+                                            <li><a href="{% url 'add-hotel' %}">Add hotel</a></li>
                                         {% endif %}
                                         {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-                                            <li><a href="{% url 'add-staff' %}">+Staff</a></li>
+                                            <li><a href="{% url 'add-promotion' %}">Add promo</a></li>
                                         {% endif %}
                                         {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-                                            <li><a href="{% url 'add-news' %}">+News</a></li>
+                                            <li><a href="{% url 'add-news' %}">Add news</a></li>
                                         {% endif %}
                                         <li><a href="{% url 'booking-page' %}">Booking</a></li>
                                         <li><a href="{% url 'news-page' %}">News</a></li>

@@ -33,19 +33,11 @@ class Hotel(models.Model):
 class Member(models.Model):
     # link to User
     user=models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    # Member_fName=models.CharField(max_length=100)
-    # Member_lName=models.CharField(max_length=100)
-    # Member_Email=models.CharField(max_length=100)
-    # Member_Username=models.CharField(max_length=100)
-    # Member_Password=models.CharField(max_length=100)
-    # null blank ไป ขก เขียนตอน create user
     Member_NIC=models.CharField(max_length=25, null=True, blank=True)
     Member_Tel=models.CharField(max_length=25, null=True, blank=True)
     Member_Point=models.IntegerField(default=0)
-    # Staff_id=models.IntegerField(null=True, blank=True)
     Member_Address=models.TextField(null=True, blank=True)
     Member_Pic=models.ImageField(upload_to='profile', default='profile/default-user.jpg')
-    Member_isStaff=models.BooleanField(default=False)
     def __str__(self):
         return "M"+str(self.id)
     class Meta:
@@ -105,12 +97,14 @@ class RoomType(models.Model):
     class Meta:
         db_table='roomtype'
 
+
 import datetime
 class Staff(models.Model):
     # Member_Id=models.IntegerField()
     member=models.OneToOneField(Member, on_delete=models.CASCADE, null=True, blank=True)
     Hotel_Id=models.IntegerField(null=True, blank=True)
-    Staff_Position=models.CharField(max_length=50)
+    POONVEH_ROLES=[('AD', 'ADMIN'), ('MA', 'MANAGER'), ('ST', 'STAFF')]
+    Staff_Position=models.CharField(max_length=10, choices=POONVEH_ROLES, default='ST')
     Staff_Start=models.DateField(default=datetime.date.today)
     # Staff_End=models.DateField(null=True, blank=True)
     Staff_Level=models.PositiveSmallIntegerField(default=1)
