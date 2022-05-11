@@ -1,63 +1,66 @@
-{% extends 'frontend/base.html' %}
+{% extends 'frontend/base2.html' %}
 {% load static %}
 {% block title %} Promotion Detail | {% endblock title %}
 {% block content %}
+    <br><br><br><br>
     <div class ="containerbody">
-		<center>
-			<h1>{{Promotion.Promotion_Name}}</h1><hr>
-            {% if Promotion.Promotion_Pic.url %}
-                <img src="{{Promotion.Promotion_Pic.url}}" width="400"><br><br>
+        <div class ="container">
+            <center>
+                <h1>{{Promotion.Promotion_Name}}</h1><hr>
+                {% if Promotion.Promotion_Pic.url %}
+                    <img src="{{Promotion.Promotion_Pic.url}}" width="400"><br><br>
+                {% else %}
+                    <img src="{% static 'img/default-promotion.jpg' %}" width="400"><br><br>
+                {% endif %}
+            </center>
+            {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Promotion Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{Promotion.Promotion_Name}}" required>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="detail">Description:</label>
+                        <textarea class="form-control" rows="3" id="detail" name="detail" placeholder="Please enter details for customers to understand briefly." required>{{Promotion.Promotion_Detail}}</textarea>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="percent">Discount: x{{Promotion.Promotion_Discount}}</label>
+                        <select class="form-control form-control" id="percent" name="percent" required>
+                            <option>5%</option>
+                            <option>10%</option>
+                            <option>20%</option>
+                            <option>30%</option>
+                            <option>40%</option>
+                            <option>50%</option>
+                        </select>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="start">Promotion Start: {{Promotion.Promotion_Start}}</label>
+                        <input type="datetime-local" class="form-control" id="start" name="start" format-value="yyyy-MM-ddTHH:mm" value="2022-01-01T00:00" required>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="end">Promotion End: {{Promotion.Promotion_End}}</label>
+                        <input type="datetime-local" class="form-control" id="end" name="end" format-value="yyyy-MM-ddTHH:mm" value="2022-01-01T00:00" required>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="picture">Promotion Picture Cover: </label>
+                        <input type="file" class="form-control-file" id="picture" name="picture">
+                    </div><br>
+                    <button type="submit" class="btn btn-outline-success" name="save">Save</button>&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-outline-danger" name="delete">Delete</button><br><br>
+                </form>
             {% else %}
-                <img src="{% static 'img/default-promotion.jpg' %}" width="400"><br><br>
+                <h4>Promotion Name:</h4> 
+                <h5>{{Promotion.Promotion_Name}}</h5><br>
+                <h4>Discount:</h4> 
+                <h5>x{{Promotion.Promotion_Discount}} of the accommodation price before tax</h5><br>
+                <h4>Description:</h4>
+                <h5>{{Promotion.Promotion_Detail}}</h5><br>
+                <h5>Start: {{Promotion.Promotion_Start}}</h5>
+                <h5>End: {{Promotion.Promotion_End}}</h5><br>
             {% endif %}
-		</center>
-        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="name">Promotion Name:</label>
-                    <input type="text" class="form-control" id="name" name="name" value="{{Promotion.Promotion_Name}}" required>
-                </div><br>
-                <div class="form-group">
-                    <label for="detail">Description:</label>
-                    <textarea class="form-control" rows="3" id="detail" name="detail" placeholder="Please enter details for customers to understand briefly." required>{{Promotion.Promotion_Detail}}</textarea>
-                </div><br>
-                <div class="form-group">
-                    <label for="percent">Discount: x{{Promotion.Promotion_Discount}}</label>
-                    <select class="form-control form-control" id="percent" name="percent" required>
-                        <option>5%</option>
-                        <option>10%</option>
-                        <option>20%</option>
-                        <option>30%</option>
-                        <option>40%</option>
-                        <option>50%</option>
-                    </select>
-                </div><br>
-                <div class="form-group">
-                    <label for="start">Promotion Start: {{Promotion.Promotion_Start}}</label>
-                    <input type="datetime-local" class="form-control" id="start" name="start" format-value="yyyy-MM-ddTHH:mm" value="2022-01-01T00:00" required>
-                </div><br>
-                <div class="form-group">
-                    <label for="end">Promotion End: {{Promotion.Promotion_End}}</label>
-                    <input type="datetime-local" class="form-control" id="end" name="end" format-value="yyyy-MM-ddTHH:mm" value="2022-01-01T00:00" required>
-                </div><br>
-                <div class="form-group">
-                    <label for="picture">Promotion Picture Cover: </label>
-                    <input type="file" class="form-control-file" id="picture" name="picture">
-                </div><br>
-                <button type="submit" class="btn btn-outline-success" name="save">Save</button>&nbsp;&nbsp;
-                <button type="submit" class="btn btn-outline-danger" name="delete">Delete</button><br><br>
-            </form>
-        {% else %}
-            <h4>Promotion Name:</h4> 
-            <h5>{{Promotion.Promotion_Name}}</h5><br>
-            <h4>Discount:</h4> 
-            <h5>x{{Promotion.Promotion_Discount}} of the accommodation price before tax</h5><br>
-            <h4>Description:</h4>
-            <h5>{{Promotion.Promotion_Detail}}</h5><br>
-            <h5>Start: {{Promotion.Promotion_Start}}</h5>
-            <h5>End: {{Promotion.Promotion_End}}</h5><br>
-        {% endif %}
-        <a href="{%url 'promotions-page'%}"><button type="button" class="btn btn-secondary">Back</button></a>
+            <a href="{%url 'promotions-page'%}"><button type="button" class="btn btn-secondary">Back</button></a>
+        </div>
     </div>
 {% endblock content %}
