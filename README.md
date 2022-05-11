@@ -65,12 +65,16 @@ The hotel management system is a database that contains the following:
 - [x] Edit Promotions
 - [x] Delete Promotions
 - [x] Search Member
-- [ ] Add Staff into hotel
-- [ ] Remove Staff from DB
+- [x] Add Staff into hotel
+- [x] Remove Staff from DB
 - [ ] News System CRUD
+- [ ] Add News
+- [ ] Remove News
+- [ ] Send News to member
 - [ ] Booking System CRUD
 
 ## Wanna be
+- [x] Fixed navbar
 - [x] Deal with static files (define STATIC_ROOT & collectstatic before build app)
 - [x] Deal with media fiels (cloudinary storage)
 - [x] Contact Admin Form
