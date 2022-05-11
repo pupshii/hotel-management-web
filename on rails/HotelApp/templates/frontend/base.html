@@ -66,7 +66,7 @@
                                             <li><a href="/admin">Go SITE</a></li>
                                         {% endif %}
                                         {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-                                            <li><a href="{% url 'edit-member' %}">Edit member</a></li>
+                                            <li><a href="{% url 'search-member' %}">Edit member</a></li>
                                         {% endif %}
                                         {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
                                             <li><a href="{% url 'add-hotel' %}">Add hotel</a></li>

@@ -1,54 +1,56 @@
-{% extends 'frontend/base.html' %}
+{% extends 'frontend/base2.html' %}
 {% block title %} Add Promotion | {% endblock title %}
 {% load static %}
 {% block content %}
     <div class ="containerbody">
-        <center>
-            <br><img src="{% static 'img/logoBlack.svg' %}" width="150">
-            <h1>Promotion Adding System</h1><hr>
-        </center>
-        {% if addnew %}
+        <div class ="container">
             <center>
-            <div class="alert alert-success alert-dismissible fade show" row="alert">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                <strong>Success!</strong> {{addnew}}
-            </div>
+                <br><img src="{% static 'img/logoBlack.svg' %}" width="150">
+                <h1>Promotion Adding System</h1><hr>
             </center>
-        {% endif %}
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="name">Promotion Name</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div><br>
-            <div class="form-group">
-                <label for="detail">Promotion Detail</label>
-                <textarea class="form-control" rows="3" id="detail" name="detail" placeholder="Please enter details for customers to understand briefly." required></textarea>
-            </div><br>
-            <div class="form-group">
-                <label for="percent">Promotion Discount</label>
-                <select class="form-control form-control" id="percent" name="percent" required>
-                    <option>5%</option>
-                    <option>10%</option>
-                    <option>20%</option>
-                    <option>30%</option>
-                    <option>40%</option>
-                    <option>50%</option>
-                </select>
-            </div><br>
-            <div class="form-group">
-                <label for="start">Promotion Start: </label>
-                <input type="datetime-local" class="form-control" id="start" name="start" format-value="yyyy-MM-ddTHH:mm" required>
-            </div><br>
-            <div class="form-group">
-                <label for="end">Promotion End: </label>
-                <input type="datetime-local" class="form-control" id="end" name="end" format-value="yyyy-MM-ddTHH:mm" required>
-            </div><br>
-            <div class="form-group">
-                <label for="picture">Promotion Picture Cover: </label>
-                <input type="file" class="form-control-file" id="picture" name="picture">
-            </div><br>
-            <button type="submit" class="btn btn-success">Adding Promotion</button>
-        </form>
+            {% if addnew %}
+                <center>
+                <div class="alert alert-success alert-dismissible fade show" row="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong>Success!</strong> {{addnew}}
+                </div>
+                </center>
+            {% endif %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Promotion Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div><br>
+                <div class="form-group">
+                    <label for="detail">Promotion Detail</label>
+                    <textarea class="form-control" rows="3" id="detail" name="detail" placeholder="Please enter details for customers to understand briefly." required></textarea>
+                </div><br>
+                <div class="form-group">
+                    <label for="percent">Promotion Discount</label>
+                    <select class="form-control form-control" id="percent" name="percent" required>
+                        <option>5%</option>
+                        <option>10%</option>
+                        <option>20%</option>
+                        <option>30%</option>
+                        <option>40%</option>
+                        <option>50%</option>
+                    </select>
+                </div><br>
+                <div class="form-group">
+                    <label for="start">Promotion Start: </label>
+                    <input type="datetime-local" class="form-control" id="start" name="start" format-value="yyyy-MM-ddTHH:mm" required>
+                </div><br>
+                <div class="form-group">
+                    <label for="end">Promotion End: </label>
+                    <input type="datetime-local" class="form-control" id="end" name="end" format-value="yyyy-MM-ddTHH:mm" required>
+                </div><br>
+                <div class="form-group">
+                    <label for="picture">Promotion Picture Cover: </label>
+                    <input type="file" class="form-control-file" id="picture" name="picture">
+                </div><br>
+                <button type="submit" class="btn btn-success">Adding Promotion</button>
+            </form>
+        </div>
     </div>
 {% endblock content %}

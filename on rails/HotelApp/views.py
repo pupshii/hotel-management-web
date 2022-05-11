@@ -76,7 +76,7 @@ def Promotions(request):
     for i in allpromotion:
         i.Promotion_Discount*=100  # convert when displaying %
 
-    promotion_per_page=2
+    promotion_per_page=3
     paginator=Paginator(allpromotion, promotion_per_page)
     page=request.GET.get('page')
     allpromotion=paginator.get_page(page)
@@ -84,7 +84,7 @@ def Promotions(request):
     allrow=[]
     row=[]
     for i, p in enumerate(allpromotion):
-        if i%2 == 0:
+        if i%3 == 0:
             if i!= 0:
                 allrow.append(row)
             row=[]
@@ -229,7 +229,7 @@ def News(request):
     return render(request, 'frontend/news.html')
 
 @login_required
-def EditMember(request):
+def SearchMember(request):
     allow_user=['MANAGER', 'ADMIN']
     if not request.user.is_staff or request.user.member.staff.Staff_Position not in allow_user:
         return redirect('home-page')
@@ -243,38 +243,47 @@ def EditMember(request):
         print('search Id=', search_index)
         if search_index == 1:
             m_id=data.get('m_id')  # ต้องเช็คว่าเป็น int ไหม เด่วบึ้ม
+            if not m_id:  # empty string are false
+                context['search_all']='Search all instead!'
+                return render(request, 'frontend/searchmember.html', context)
             m_id=m_id[1:]
-            if not m_id or not m_id.isnumeric():
+            if not m_id.isnumeric():
                 context['search_boom']='Please input correct format in order to search member!'
-                return render(request, 'frontend/editmember.html', context)
+                return render(request, 'frontend/searchmember.html', context)
             m_id=int(m_id)
             alluser=User.objects.filter(id=m_id)
         if search_index == 2:
             user=data.get('user')
             if not user:  # empty string are falsy
-                context['search_boom']='Please input correct format in order to search member!'
-                return render(request, 'frontend/editmember.html', context)
+                context['search_all']='Search all instead!'
+                return render(request, 'frontend/searchmember.html', context)
             alluser=User.objects.filter(username__contains=user)
         if search_index == 3:
             fname=data.get('fname')
             if not fname:
-                context['search_boom']='Please input correct format in order to search member!'
-                return render(request, 'frontend/editmember.html', context)
+                context['search_all']='Search all instead!'
+                return render(request, 'frontend/searchmember.html', context)
             alluser=User.objects.filter(first_name__contains=fname)
         if search_index == 4:
             lname=data.get('lname')
             if not lname:
-                context['search_boom']='Please input correct format in order to search member!'
-                return render(request, 'frontend/editmember.html', context)
+                context['search_all']='Search all instead!'
+                return render(request, 'frontend/searchmember.html', context)
             alluser=User.objects.filter(last_name__contains=lname)
         if search_index == 5:
             email=data.get('email')
             if not email:
-                context['search_boom']='Please input correct format in order to search member!'
-                return render(request, 'frontend/editmember.html', context)
+                context['search_all']='Search all instead!'
+                return render(request, 'frontend/searchmember.html', context)
             alluser=User.objects.filter(email=email)
         context['result_user']=alluser
         context['finish_search']='You can see your search result below!'
+    return render(request, 'frontend/searchmember.html', context)
+
+@login_required
+def EditMember(request, user_id):
+    profileuser=User.objects.get(id=user_id)
+    context={'profileInfo':profileuser}
     return render(request, 'frontend/editmember.html', context)
 
 @login_required

@@ -1,23 +1,23 @@
-{% extends 'frontend/base.html' %}
+{% extends 'frontend/base2.html' %}
 {% load static %}
 {% block title %} Promotions | {% endblock title %}
 {% block content %}
     <div class ="containerbody">
-        <div class = "pageheader">
+        <div class = "display-2">
             Our Promotions<hr>
         </div>
         {% for row in AllRow %}
         <div class = "row">
             {% for c in row %}
-            <div class = "col padding-3" style = "padding-left:10rem;padding-right:10rem" >
-                <div class = "center card">
-                    <div style="width:100%">
-                        <img style = "width:100%" src="{{c.Promotion_Pic.url}}">
-                    </div>
-                    <div class = "border-1px border-top-none">
-                        <div class = "font-normal font-bold-nosize padding-1">{{c.Promotion_Name|capfirst}} ({{ c.Promotion_Discount|floatformat:0}}%)</div>
-                        <div class = "font-grey padding-2">
-                            {{c.Promotion_Detail|truncatechars:150}}<br><br>Start: {{c.Promotion_Start}}<br>End: {{c.Promotion_End}}<br><br>
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <img class="card-img-top" src="{{c.Promotion_Pic.url}}" width="200" height="330">
+                        <div class="card-header py-3">
+                            <center><h4 class="my-0 fw-normal">Start: {{c.Promotion_Start}}<br>End: {{c.Promotion_End}}</h4></center>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">{{c.Promotion_Name|truncatechars:30}}</h1>
+                            <p>{{c.Promotion_Detail|truncatechars:210}}</p>
                             {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
                                 <a href="{% url 'promotion-detail' c.id %}"><button type="button" class="w-100 btn btn-lg btn-warning">Edit</button></a>
                             {% else %}
@@ -26,7 +26,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
         {% endfor %}
@@ -55,6 +54,6 @@
             <li class="page-item"><a class="page-link" href="?page={{AllPromotion.next_page_number}}"> > </a></li>
             {% endif %}
         </ul>
-        <p>หน้า {{AllPromotion.number}} จาก {{AllPromotion.paginator.num_pages}}</p>
+        <p>Page {{AllPromotion.number}} from {{AllPromotion.paginator.num_pages}}</p>
     </div>
 {% endblock content %}

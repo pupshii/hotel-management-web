@@ -20,7 +20,8 @@
 <body>
     <div class = "containerbody">
         <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light containerbody" style="position:fixed">
+            {% comment %} <nav class="navbar navbar-expand-lg navbar-light bg-light containerbody" style="position:fixed"> {% endcomment %}
+            <nav class="navbar navbar-expand-lg navbar-light bg-light containerbody">
                 <a class="navbar-brand" href="{% url 'home-page' %}"><b>PV</b> PoonVeh</a>
                 <button class="navbar-toggler containerbody" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -44,22 +45,22 @@
                                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">More</a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     {% if user.member.staff.Staff_Position == 'ADMIN' %}
-                                        <li><a class="dropdown-item nav-link" href="/admin">Go SITE</a></li>
+                                        <li><a style="color:red" class="dropdown-item nav-link" href="/admin">SITE</a></li>
                                     {% endif %}
                                     {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-                                        <li><a class="dropdown-item nav-link" href="{% url 'edit-member' %}">Edit member</a></li>
+                                        <li><a style="color:orange" class="dropdown-item nav-link" href="{% url 'search-member' %}">* Member</a></li>
                                     {% endif %}
                                     {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-                                        <li><a class="dropdown-item nav-link" href="{% url 'add-hotel' %}">Add hotel</a></li>
+                                        <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-hotel' %}">+ Hotel</a></li>
                                     {% endif %}
                                     {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-                                        <li><a class="dropdown-item nav-link" href="{% url 'add-promotion' %}">Add promo</a></li>
+                                        <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-promotion' %}">+ Promo</a></li>
                                     {% endif %}
                                     {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-                                        <li><a class="dropdown-item nav-link" href="{% url 'add-news' %}">Add news</a></li>
+                                        <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-news' %}">+ News</a></li>
                                     {% endif %}
-                                    <li><a class="dropdown-item nav-link" href="{% url 'booking-page' %}">Booking</a></li>
-                                    <li><a class="dropdown-item nav-link" href="{% url 'news-page' %}">News</a></li>
+                                    <li><a class="dropdown-item nav-link" href="#">Booking</a></li>
+                                    <li><a class="dropdown-item nav-link" href="#">News</a></li>
                                 </ul>
                             </li>
 
@@ -100,9 +101,12 @@
         <div class = "container-fluid mt-5 bg-primary">
             <div class = "row p-5">
                 <div class = "col display-4 text-white">
-                    <b>PV</b> PoonVeh
+                    <center>
+                        <br><img src="{% static 'img/logoWhite.svg' %}" width="80">
+                        <h1>PoonVeh</h1>
+                    </center>
                 </div>
-                <div class = "col p-5">
+                <div class="col p-5">
                     <div class = "text-white mb-2">
                         <h2>Links</h2>
                     </div>
@@ -113,9 +117,6 @@
                         Social media
                     </div>
                     <div class = "text-white mb-2">
-                        counter
-                    </div>
-                    <div class = "text-white mb-2">
                         Contact
                     </div>    
                 </div>
@@ -123,6 +124,9 @@
                     <div class = "text-white mb-2">
                         <h2>Company</h2>
                     </div>
+                    <div class = "text-white mb-2">
+                        Executive
+                    </div>    
                     <div class = "text-white mb-2">
                         Term&Condition
                     </div>
@@ -138,13 +142,13 @@
                         <h2>Get In Touch</h2>
                     </div>
                     <div class = "text-white mb-2">
-                        Crechterwoord K12<br>182 DK Alknjkcb
+                        126 Pracha Uthit Road,<br>Thung Khru, Bangkok 10140
                     </div>
                     <div class = "text-white mb-2">
-                        085-132567
+                        02-4708000
                     </div>
                     <div class = "text-white mb-2">
-                        poonveh@payme.net
+                        poonveh@kmutt.net
                     </div>
                 </div>
             </div>
