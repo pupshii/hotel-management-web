@@ -1,47 +1,50 @@
-{% extends 'frontend/base.html' %}
+{% extends 'frontend/base2.html' %}
 {% load static %}
 {% block title %} Hotel Detail | {% endblock title %}
 {% block content %}
+    <br><br><br><br>
     <div class ="containerbody">
-		<center>
-			<h1>{{Hotel.Hotel_Name}}</h1><hr>
-            {% if Hotel.Hotel_Pic.url %}
-                <img src="{{Hotel.Hotel_Pic.url}}" width="600"><br><br>
+        <div class ="container">
+            <center>
+                <h1>{{Hotel.Hotel_Name}}</h1><hr>
+                {% if Hotel.Hotel_Pic.url %}
+                    <img src="{{Hotel.Hotel_Pic.url}}" width="600"><br><br>
+                {% else %}
+                    <img src="{% static 'img/default-location.png' %}" width="600"><br><br>
+                {% endif %}
+            </center>
+            {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Hotel Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{Hotel.Hotel_Name}}" required>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea class="form-control" rows="5" id="address" name="address" required>{{Hotel.Hotel_Address}}</textarea>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="detail">Description</label>
+                        <textarea class="form-control" rows="5" id="detail" name="detail" placeholder="Please enter details for customers to understand briefly." required>{{Hotel.Hotel_Detail}}</textarea>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="picture">Hotel Picture Cover: </label>
+                        <input type="file" class="form-control-file" id="picture" name="picture">
+                    </div><br>
+                    <button type="submit" class="btn btn-outline-success" name="save">Save</button>&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-outline-danger" name="delete">Delete</button><br><br>
+                </form>
             {% else %}
-                <img src="{% static 'img/default-location.png' %}" width="600"><br><br>
+                <h4>Hotel Name:</h4> 
+                <h5>{{Hotel.Hotel_Name}}</h5><br>
+                <h4>Location:</h4> 
+                <h5>{{Hotel.Hotel_Address}}</h5><br>
+                <h4>Description:</h4>
+                <h5>{{Hotel.Hotel_Detail}}</h5><br>
+                <h4>Rating: / 5 Stars</h4><br>
             {% endif %}
-		</center>
-        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="name">Hotel Name</label>
-                    <input type="text" class="form-control" id="name" name="name" value="{{Hotel.Hotel_Name}}" required>
-                </div><br>
-                <div class="form-group">
-                    <label for="address">Address</label>
-                    <textarea class="form-control" rows="5" id="address" name="address" required>{{Hotel.Hotel_Address}}</textarea>
-                </div><br>
-                <div class="form-group">
-                    <label for="detail">Description</label>
-                    <textarea class="form-control" rows="5" id="detail" name="detail" placeholder="Please enter details for customers to understand briefly." required>{{Hotel.Hotel_Detail}}</textarea>
-                </div><br>
-                <div class="form-group">
-                    <label for="picture">Hotel Picture Cover: </label>
-                    <input type="file" class="form-control-file" id="picture" name="picture">
-                </div><br>
-                <button type="submit" class="btn btn-outline-success" name="save">Save</button>&nbsp;&nbsp;
-                <button type="submit" class="btn btn-outline-danger" name="delete">Delete</button><br><br>
-            </form>
-        {% else %}
-            <h4>Hotel Name:</h4> 
-            <h5>{{Hotel.Hotel_Name}}</h5><br>
-            <h4>Location:</h4> 
-            <h5>{{Hotel.Hotel_Address}}</h5><br>
-            <h4>Description:</h4>
-            <h5>{{Hotel.Hotel_Detail}}</h5><br>
-            <h4>Rating: / 5 Stars</h4><br>
-        {% endif %}
-        <a href="{%url 'hotels-page'%}"><button type="button" class="btn btn-secondary">Back</button></a>
+            <a href="{%url 'hotels-page'%}"><button type="button" class="btn btn-secondary">Back</button></a>
+        </div>
     </div>
 {% endblock content %}
