@@ -86,7 +86,9 @@ a {
 .card{
   z-index:-1;
 }
-
 .carouselExampleIndicators{
+  z-index:-1;
+}
+.carousel-inner{
   z-index:-1;
 }
