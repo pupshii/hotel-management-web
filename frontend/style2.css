@@ -82,13 +82,7 @@ a {
     text-decoration:none;
 }
 
-
-.card{
-  z-index:-1;
-}
-.carouselExampleIndicators{
-  z-index:-1;
-}
-.carousel-inner{
-  z-index:-1;
+.navbar {
+  position: relative;
+  z-index: 1020;
 }
