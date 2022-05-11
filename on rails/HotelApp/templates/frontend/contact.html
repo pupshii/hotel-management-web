@@ -6,8 +6,8 @@
         <div class="container">
             <center>
                 <br><img src="{% static 'img/logoBlack.svg' %}" width="150">
-                <h1>Contact Administrator Form</h1><hr>
-            </center>
+                <h1>Contact Administrator Form</h1>
+            </center><hr>
             {% if danger %}
                 <center>
                 <div class="alert alert-danger">
@@ -24,7 +24,7 @@
             {% else %}
                 <form method="POST">
                     {% csrf_token %}
-                    <!-- ไม่ต้องใช้ required เพราะ message บอกด้านบน -->
+                    {% comment %} ไม่ต้องใช้ required เพราะ message บอกด้านบน {% endcomment %}
                     <div class="form-group">
                         <label for="title">Topic</label>
                         <input type="text" class="form-control" id="title" name="title" placeholder="Determine the problem or question's focus.">

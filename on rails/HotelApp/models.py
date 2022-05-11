@@ -102,11 +102,10 @@ import datetime
 class Staff(models.Model):
     # Member_Id=models.IntegerField()
     member=models.OneToOneField(Member, on_delete=models.CASCADE, null=True, blank=True)
-    Hotel_Id=models.IntegerField(null=True, blank=True)
-    POONVEH_ROLES=[('AD', 'ADMIN'), ('MA', 'MANAGER'), ('ST', 'STAFF')]
-    Staff_Position=models.CharField(max_length=10, choices=POONVEH_ROLES, default='ST')
+    Hotel_Id=models.ForeignKey(Hotel, on_delete=models.CASCADE, null=True, blank=True)
+    POONVEH_ROLES=[('ADMIN', 'ADMIN'), ('MANAGER', 'MANAGER'), ('STAFF', 'STAFF')]
+    Staff_Position=models.CharField(max_length=10, choices=POONVEH_ROLES, default='STAFF')
     Staff_Start=models.DateField(default=datetime.date.today)
-    # Staff_End=models.DateField(null=True, blank=True)
     Staff_Level=models.PositiveSmallIntegerField(default=1)
     Staff_Status=models.BooleanField(default=1)
     def __str__(self):

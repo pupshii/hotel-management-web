@@ -6,6 +6,14 @@
 		<div class ="container">
 			<center>
 				<h1>My Profile: {{profileInfo.username}}</h1><hr>
+				{% if update %}
+					<center>
+					<div class="alert alert-success alert-dismissible fade show" row="alert">
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						{{update}}
+					</div>
+					</center>
+				{% endif %}
 				{% if user.member.Member_Pic %}
 					<img src="{{user.member.Member_Pic.url}}" width="300"><br><br>
 				{% else %}
@@ -16,14 +24,6 @@
 			</center>
 			<form method="POST" enctype="multipart/form-data">
 				{% csrf_token %}
-				{% if notyet %}
-					<center>
-					<div class="alert alert-danger alert-dismissible fade show" row="alert">
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-						{{notyet}}
-					</div>
-					</center>
-				{% endif %}
 				<div class="form-group">
 					<label for="fname">First name</label>
 					<input type="text" class="form-control" id="fname" name="fname" value="{{profileInfo.first_name}}" required>
@@ -41,8 +41,8 @@
 					<input type="text" class="form-control" id="tel" name="tel" value="{{profileInfo.member.Member_Tel}}" required>
 				</div><br>
 				<div class="form-group">
-					<label for="lname">Address</label>
-					<textarea type="form-comment" class="form-control" rows="3" id="lname" name="lname" required>{{profileInfo.member.Member_Address}}</textarea>
+					<label for="address">Address</label>
+					<textarea type="form-comment" class="form-control" rows="3" id="address" name="address" required>{{profileInfo.member.Member_Address}}</textarea>
 				</div><br>
 				<p style="color:blue">To suit our frame when exhibiting, we recommend using a 1:1 scale of the photo!<p>
 				<div class="form-group">
@@ -83,7 +83,7 @@
 						ไม่ต้องการ
 					</label>
 				</div><br>
-				<button type="submit" class="btn btn-warning">Save Changes</button>
+				<button type="submit" class="btn btn-outline-success">Save Changes</button>
 			</form>
 		</div>
 	</div>

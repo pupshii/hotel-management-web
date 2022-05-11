@@ -182,8 +182,8 @@ def Register(request):
             newmember=Member()
             newmember.user=User.objects.get(username=username)
             newmember.Member_NIC=nic
-            newmember.Member_Address=address
             newmember.Member_Tel=tel
+            newmember.Member_Address=address
             # ใส่รูปภาพ
             if 'picture' in request.FILES:
                 print('F3\n')
@@ -217,7 +217,21 @@ def ProfilePage(request):
     profileuser=User.objects.get(username=request.user.username)
     context['profileInfo']=profileuser
     if request.method == 'POST':
-        context['notyet']='To use this feature, we need to complete the Booking page in order to continue using member subscription information from DBMS (Devil Based Management Shrine).'
+        data=request.POST.copy()
+        fname=data.get('fname')
+        lname=data.get('lname')
+        nic=data.get('nic')
+        tel=data.get('tel')
+        address=data.get('address')
+        profileuser.first_name=fname
+        profileuser.last_name=lname
+        profileuser.save()
+        editmember=Member.objects.get(id=profileuser.id)
+        editmember.Member_NIC=nic
+        editmember.Member_Tel=tel
+        editmember.Member_Address=address
+        editmember.save()
+        context['update']='Your profile page has been updated!'
     return render(request, 'frontend/profile.html', context)
 
 @login_required
@@ -282,8 +296,51 @@ def SearchMember(request):
 
 @login_required
 def EditMember(request, user_id):
-    profileuser=User.objects.get(id=user_id)
-    context={'profileInfo':profileuser}
+    edituser=User.objects.get(id=user_id)
+    context={}
+    context['profileInfo']=edituser
+    hotellist=Hotel.objects.all()  # เอาไว้เผื่อ add staff
+    context['hotellist']=hotellist
+    if request.method == 'POST':
+        data=request.POST.copy()
+        if 'save' in data:
+            fname=data.get('fname')
+            lname=data.get('lname')
+            nic=data.get('nic')
+            tel=data.get('tel')
+            address=data.get('address')
+            edituser.first_name=fname
+            edituser.last_name=lname
+            edituser.save()
+            editmember=Member.objects.get(id=edituser.id)
+            editmember.Member_NIC=nic
+            editmember.Member_Tel=tel
+            editmember.Member_Address=address
+            editmember.save()
+            context['update']='Updated M'+str(edituser.id)+' profile information!'
+        if 'add' in data:
+            hotel=data.get('hotel')
+            hotel=hotel[1]  # เอาเฉพาะเลข id
+            pos=data.get('pos')
+            workdate=data.get('date')
+            level=data.get('level')
+            level=level[6:]  # ตัด 'Level '
+
+            newstaff=Staff()
+            newstaff.member=Member.objects.get(id=edituser.id)
+            newstaff.Hotel_Id=Hotel.objects.get(id=hotel)
+            newstaff.Staff_Position=pos
+            newstaff.Staff_Start=workdate
+            newstaff.Staff_Level=level
+            newstaff.save()
+            edituser.is_staff=True
+            edituser.save()
+            context['adding']='Adding M'+str(edituser.id)+' to be staff!'
+        if 'remove' in data:   # 100% be staff
+            Staff.objects.get(member=edituser.id).delete()
+            edituser.is_staff=False
+            edituser.save()
+            context['revoke']='Revoke the staff role from M'+str(edituser.id)+' account!'
     return render(request, 'frontend/editmember.html', context)
 
 @login_required

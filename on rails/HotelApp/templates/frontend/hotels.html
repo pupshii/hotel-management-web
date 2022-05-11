@@ -4,78 +4,58 @@
 {% block content %}
     <div class ="containerbody">
         <div class = "container-fluid">
-            <div>
-                <div class = "display-2">
-                    Our Hotels<hr>
-                </div>
-                {% for row in AllRow %}
-                <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-                    {% for c in row %}
-                    <div class="col">
-                        <div class="card mb-4 rounded-3 shadow-sm">
-                            <img class="card-img-top" src="{{c.Hotel_Pic.url}}" width="200" height="330">
-                            <div class="card-header py-3">
-                                <h4 class="my-0 fw-normal">{{c.Hotel_Address|truncatechars:30}}</h4>
-                            </div>
-                            <div class="card-body">
-                                <h1 class="card-title pricing-card-title">{{c.Hotel_Name}}</h1>
-                                <p>{{c.Hotel_Detail|truncatechars:210}}</p>
-                                {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-                                    <a href="{% url 'hotel-detail' c.id %}"><button type="button" class="w-100 btn btn-lg btn-warning">Edit</button></a>
-                                {% else %}
-                                    <a href="{% url 'hotel-detail' c.id %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Details</button></a>
-                                {% endif %}
-                            </div>
+            <div class = "display-2">
+                Our Hotels
+            </div><hr>
+            {% for row in AllRow %}
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                {% for c in row %}
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <img class="card-img-top" src="{{c.Hotel_Pic.url}}" width="150" height="300">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">{{c.Hotel_Address|truncatechars:30}}</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">{{c.Hotel_Name|truncatechars:20}}</h1>
+                            <p>{{c.Hotel_Detail|truncatechars:210}}</p>
+                            {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                <a href="{% url 'hotel-detail' c.id %}"><button type="button" class="w-100 btn btn-lg btn-warning">Edit</button></a>
+                            {% else %}
+                                <a href="{% url 'hotel-detail' c.id %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Details</button></a>
+                            {% endif %}
                         </div>
                     </div>
-                    {% endfor %} 
                 </div>
-                {% endfor %}
-                <ul class="pagination">
-                    {% if AllHotel.has_previous and AllHotel.has_next != True %}
-                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.previous_page_number}}"> < </a></li>
-                    {% if AllHotel.number|add:-2 > 0 %}
-                        <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:-2}}">{{AllHotel.number|add:-2}}</a></li>
-                    {% endif %}
-                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:-1}}">{{AllHotel.number|add:-1}}</a></li>
-                    <li class="page-item active"><a class="page-link" href="?page={{AllHotel.number}}">{{AllHotel.number}}</a></li>
-                    {% endif %}
-                    {% if AllHotel.has_previous and AllHotel.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.previous_page_number}}"> < </a></li>
-                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:-1}}">{{AllHotel.number|add:-1}}</a></li>
-                    <li class="page-item active"><a class="page-link" href="?page={{AllHotel.number}}">{{AllHotel.number}}</a></li>
-                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:1}}">{{AllHotel.number|add:1}}</a></li>
-                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.next_page_number}}"> > </a></li>
-                    {% endif %}
-                    {% if AllHotel.has_previous != True and AllHotel.has_next %}
-                    <li class="page-item active"><a class="page-link" href="?page={{AllHotel.number}}">{{AllHotel.number}}</a></li>
-                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:1}}">{{AllHotel.number|add:1}}</a></li>
-                    {% if AllHotel.number|add:2 <= AllHotel.paginator.num_pages %}
-                        <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:2}}">{{AllHotel.number|add:2}}</a></li>
-                    {% endif %}
-                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.next_page_number}}"> > </a></li>
-                    {% endif %}
-                </ul>
-                <p>Page {{AllHotel.number}} from {{AllHotel.paginator.num_pages}}</p>
+                {% endfor %} 
             </div>
-            <br>
-            <div class = "font-bold padding-2">
-                <div>
-                    Trending Hotels in Thailand
-                </div>
-                <div class = "padding-2">
-                    <img src="{% static 'img/city.svg' %}">
-                </div>
-            </div>
-            <br>
-            <div class = "font-bold padding-2">
-                <div>
-                    Trending Hotels in Japan
-                </div>
-                <div class = "padding-2">
-                    <img src="{% static 'img/city.svg' %}">
-                </div>
-            </div>
+            {% endfor %}
+            <ul class="pagination">
+                {% if AllHotel.has_previous and AllHotel.has_next != True %}
+                <li class="page-item"><a class="page-link" href="?page={{AllHotel.previous_page_number}}"> < </a></li>
+                {% if AllHotel.number|add:-2 > 0 %}
+                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:-2}}">{{AllHotel.number|add:-2}}</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:-1}}">{{AllHotel.number|add:-1}}</a></li>
+                <li class="page-item active"><a class="page-link" href="?page={{AllHotel.number}}">{{AllHotel.number}}</a></li>
+                {% endif %}
+                {% if AllHotel.has_previous and AllHotel.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{AllHotel.previous_page_number}}"> < </a></li>
+                <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:-1}}">{{AllHotel.number|add:-1}}</a></li>
+                <li class="page-item active"><a class="page-link" href="?page={{AllHotel.number}}">{{AllHotel.number}}</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:1}}">{{AllHotel.number|add:1}}</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{AllHotel.next_page_number}}"> > </a></li>
+                {% endif %}
+                {% if AllHotel.has_previous != True and AllHotel.has_next %}
+                <li class="page-item active"><a class="page-link" href="?page={{AllHotel.number}}">{{AllHotel.number}}</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:1}}">{{AllHotel.number|add:1}}</a></li>
+                {% if AllHotel.number|add:2 <= AllHotel.paginator.num_pages %}
+                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:2}}">{{AllHotel.number|add:2}}</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="?page={{AllHotel.next_page_number}}"> > </a></li>
+                {% endif %}
+            </ul>
+            <p>Page {{AllHotel.number}} from {{AllHotel.paginator.num_pages}}</p>
         </div>
         <br>
     </div>
