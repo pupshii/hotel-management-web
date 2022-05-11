@@ -84,5 +84,5 @@ a {
 
 .navbar {
   position: relative;
-  z-index: 1020;
+  z-index: 9999;
 }
