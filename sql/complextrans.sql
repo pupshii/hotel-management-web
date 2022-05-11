@@ -1,25 +1,25 @@
 /* CT 1.1 อ้างอิงด้วย Book_Id */
-SELECT a.Book_Id, pay.Payment_Id, a.Book_Night as Nights, rt.PricePerNight as NightPrice,
-	a.Book_Night*rt.PricePerNight as Get_Book_Price,
-	FLOOR(a.Book_Night*rt.PricePerNight*pro.Percent_Sales) as Discount,
-	CEILING(a.Book_Night*rt.PricePerNight*(1-pro.Percent_Sales)) as MinusDiscount,
-	CEILING(a.Book_Night*rt.PricePerNight*(1-pro.Percent_Sales))*0.1 as Vat10Percent,
-	CEILING(a.Book_Night*rt.PricePerNight*(1-pro.Percent_Sales))*1.1 as Get_All_Price_Separately
-	FROM PAYMENT pay JOIN TRANSACTION t ON pay.Payment_Id=t.Payment_Id 
-	JOIN ALLBOOK a ON t.Transaction_Id=a.Transaction_Id
-	JOIN ROOM r ON a.Room_Id=r.Room_Id
-	JOIN ROOMTYPE rt ON r.Type_Id=rt.Type_Id
-	JOIN PROMOTION pro ON pay.Promotion_Id=pro.Promotion_Id;
+SELECT a.id as BookId, pay.id as PaymentId, a.Book_Night as Nights, rt.Type_Pernight as NightPrice,
+	a.Book_Night*rt.Type_Pernight as Get_Book_Price,
+    IF(pay.Payment_Date <= pro.Promotion_End, FLOOR(a.Book_Night*rt.Type_Pernight*pro.Promotion_Discount), NULL) as Discount,
+	IF(pay.Payment_Date <= pro.Promotion_End, CEILING(a.Book_Night*rt.Type_Pernight*(1-pro.Promotion_Discount)), CEILING(a.Book_Night*rt.Type_Pernight)) as MinusDiscount,
+	IF(pay.Payment_Date <= pro.Promotion_End, CEILING(a.Book_Night*rt.Type_Pernight*(1-pro.Promotion_Discount))*0.1, CEILING(a.Book_Night*rt.Type_Pernight*0.1)) as Vat10Percent,
+	IF(pay.Payment_Date <= pro.Promotion_End, CEILING(a.Book_Night*rt.Type_Pernight*(1-pro.Promotion_Discount))*1.1, CEILING(a.Book_Night*rt.Type_Pernight*1.1)) as Get_All_Price_Separately
+	FROM PAYMENT pay JOIN TRANSACTION t ON pay.id LIKE t.Payment_id 
+	JOIN ALLBOOK a ON t.id LIKE a.Transaction_id
+	JOIN ROOM r ON a.Room_id LIKE r.id
+	JOIN ROOMTYPE rt ON r.Type_id LIKE rt.id
+	JOIN PROMOTION pro ON pay.Promotion_id LIKE pro.id;
 
 /* CT 1.2 อ้างอิงด้วย Payment_Id */
-SELECT pay.Payment_Id,
-	SUM(CEILING(a.Book_Night*rt.PricePerNight*(1-pro.Percent_Sales))*0.1) as Vat10Percent,
-	SUM(CEILING(a.Book_Night*rt.PricePerNight*(1-pro.Percent_Sales))*1.1) as Get_All_Price_Sum
-	FROM PAYMENT pay JOIN TRANSACTION t ON pay.Payment_Id=t.Payment_Id 
-	JOIN ALLBOOK a ON t.Transaction_Id=a.Transaction_Id
-	JOIN ROOM r ON a.Room_Id=r.Room_Id
-	JOIN ROOMTYPE rt ON r.Type_Id=rt.Type_Id
-	JOIN PROMOTION pro ON pay.Promotion_Id=pro.Promotion_Id GROUP BY pay.Payment_Id;
+SELECT pay.id as PaymentId,
+	IF(pay.Payment_Date <= pro.Promotion_End, SUM(CEILING(a.Book_Night*rt.Type_Pernight*(1-pro.Promotion_Discount))*0.1), SUM(CEILING(a.Book_Night*rt.Type_Pernight)*0.1)) as Vat10Percent,
+	IF(pay.Payment_Date <= pro.Promotion_End, SUM(CEILING(a.Book_Night*rt.Type_Pernight*(1-pro.Promotion_Discount))*1.1), SUM(CEILING(a.Book_Night*rt.Type_Pernight)*1.1)) as Get_All_Price_Sum
+	FROM PAYMENT pay JOIN TRANSACTION t ON pay.id=t.Payment_id 
+	JOIN ALLBOOK a ON t.id=a.Transaction_id
+	JOIN ROOM r ON a.Room_id=r.id
+	JOIN ROOMTYPE rt ON r.Type_id=rt.id
+	JOIN PROMOTION pro ON pay.Promotion_id=pro.id GROUP BY pay.id;
 
 /* CT 2 */
 SELECT h.Hotel_Name, r.Room_Id, rt.Room_Name
