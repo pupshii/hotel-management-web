@@ -239,7 +239,7 @@ def Booking(request):
     return render(request, 'frontend/booking.html')
 
 @login_required
-def News(request):
+def NewsBox(request):
     return render(request, 'frontend/news.html')
 
 @login_required
@@ -492,7 +492,28 @@ def AddNews(request):
     allow_user=['MANAGER', 'ADMIN']
     if not request.user.is_staff or request.user.member.staff.Staff_Position not in allow_user:
         return redirect('home-page')
-    return render(request, 'frontend/addnews.html')
+    context={}
+    if request.method == 'POST':
+        data=request.POST.copy()
+        name=data.get('name')
+        detail=data.get('detail')
+        print(name)
+        print(detail)
+        newnews=News()
+        newnews.News_Name=name
+        newnews.News_Detail=detail
+        if 'picture' in request.FILES:
+            file_img=request.FILES['picture']
+            file_img_name=file_img.name.replace(' ', '-')
+            # from django.core.files.storage import FileSystemStorage
+            fs=FileSystemStorage(location='media/news')  # ระบุบ folder ที่เซฟไป
+            filename=fs.save(file_img_name, file_img)  # เซฟชื่อไฟล์ กับ ตัวไฟล์
+            upload_file_url=fs.url(filename)  # ให้ไปเอา URL มา จะได้บอก server ถูกว่ารูปนี้อยู่ไหน (ระบุ MEDIA_ROOT แล้ว)
+            print('Pic URL:', upload_file_url)  # Pic URL:  /media/play-5-wow.jpg
+            newnews.News_Pic='/news'+upload_file_url[6:]  # ตัดคำว่า '/media' ด้านหน้าออกไป
+        newnews.save()
+        context['addnew']='The system has added the news to the database.'
+    return render(request, 'frontend/addnews.html', context)
 
 # def TestStaff(request):
 #     allbooks=AllBook.objects.all()

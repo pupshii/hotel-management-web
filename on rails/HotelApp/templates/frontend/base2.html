@@ -18,140 +18,146 @@
 </head>
 
 <body>
-    <div class = "containerbody">
+    <div class = "main">
         <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light containerbody" style="position:fixed">
-            {% comment %} <nav class="navbar navbar-expand-lg navbar-light bg-light containerbody"> {% endcomment %}
-                <a class="navbar-brand" href="{% url 'home-page' %}"><b>PV</b> PoonVeh</a>
-                <button class="navbar-toggler containerbody" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'hotels-page' %}">Hotels</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'promotions-page' %}">Promotions</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'about-page' %}">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'contact-page' %}">Contact</a>
-                        </li>
-                        {% if user.is_authenticated %}
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">More</a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    {% if user.member.staff.Staff_Position == 'ADMIN' %}
-                                        <li><a style="color:red" class="dropdown-item nav-link" href="/admin">SITE</a></li>
-                                    {% endif %}
-                                    {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-                                        <li><a style="color:orange" class="dropdown-item nav-link" href="{% url 'search-member' %}">* Member</a></li>
-                                    {% endif %}
-                                    {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-                                        <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-hotel' %}">+ Hotel</a></li>
-                                    {% endif %}
-                                    {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-                                        <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-promotion' %}">+ Promo</a></li>
-                                    {% endif %}
-                                    {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
-                                        <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-news' %}">+ News</a></li>
-                                    {% endif %}
-                                    <li><a class="dropdown-item nav-link" href="#">Booking</a></li>
-                                    <li><a class="dropdown-item nav-link" href="#">News</a></li>
-                                </ul>
+            <header class="navbar navbar-expand-lg navbar-light bg-light bd-navbar"style="position:fixed">
+                <nav class="container-xxl flex-wrap flex-md-nowrap" >
+                    <a class="navbar-brand" href="{% url 'home-page' %}"><b>PV</b> PoonVeh</a>
+                    <button class="navbar-toggler containerbody" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'hotels-page' %}">Hotels</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'promotions-page' %}">Promotions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'about-page' %}">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'contact-page' %}">Contact</a>
+                            </li>
+                            {% if user.is_authenticated %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">More</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' %}
+                                            <li><a style="color:red" class="dropdown-item nav-link" href="/admin">SITE</a></li>
+                                        {% endif %}
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                            <li><a style="color:orange" class="dropdown-item nav-link" href="{% url 'search-member' %}">* Member</a></li>
+                                        {% endif %}
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                            <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-hotel' %}">+ Hotel</a></li>
+                                        {% endif %}
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                            <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-promotion' %}">+ Promo</a></li>
+                                        {% endif %}
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                            <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-news' %}">+ News</a></li>
+                                        {% endif %}
+                                        <li><a class="dropdown-item nav-link" href="#">Booking</a></li>
+                                        <li><a class="dropdown-item nav-link" href="#">News</a></li>
+                                    </ul>
+                                </li>
 
+                            </ul>
+                                <li>
+                                    {% if user.is_staff %}
+                                        <a class="btn btn-outline-warning nav-link active" style="font-size:100%" href="{% url 'profile-page' %}">
+                                            <img src="{{user.member.Member_Pic.url}}" width="35" height="35" class="rounded-circle">
+                                            Hello {{user.first_name}} ({{user.member.staff.Staff_Position}})
+                                        </a>
+                                    {% else %}
+                                        <a class="btn btn-outline-success nav-link active" style="font-size:100%" href="{% url 'profile-page' %}">
+                                            <img src="{{user.member.Member_Pic.url}}" width="35" height="35" class="rounded-circle">
+                                            Hello {{user.first_name}} (MEMBER)
+                                        </a>
+                                    {% endif %}
+                                </li>&emsp;
+                                <a class="btn btn-outline-danger nav-link active" href="{% url 'logout' %}">Log out</a>
+                        {% else %}
                         </ul>
-                            <li>
-                                {% if user.is_staff %}
-                                    <a class="btn btn-outline-warning nav-link active" style="font-size:100%" href="{% url 'profile-page' %}">
-                                        <img src="{{user.member.Member_Pic.url}}" width="35" height="35" class="rounded-circle">
-                                        Hello {{user.first_name}} ({{user.member.staff.Staff_Position}})
-                                    </a>
-                                {% else %}
-                                    <a class="btn btn-outline-success nav-link active" style="font-size:100%" href="{% url 'profile-page' %}">
-                                        <img src="{{user.member.Member_Pic.url}}" width="35" height="35" class="rounded-circle">
-                                        Hello {{user.first_name}} (MEMBER)
-                                    </a>
-                                {% endif %}
-                            </li>&emsp;
-                            <a class="btn btn-outline-danger nav-link active" href="{% url 'logout' %}">Log out</a>
-                    {% else %}
-                    </ul>
-                        <form class="d-flex">
-                            <li class="nav-item">
-                                <a class="btn btn-outline-secondary me-2 nav-link active" href="{% url 'login' %}">Log in</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn btn-outline-primary nav-link active" href="{% url 'register-page' %}">Sign up and Get Started</a>
-                            </li>
-                        </form>
-                    {% endif %}
-                </div>
-            </nav>
+                            <form class="d-flex">
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-secondary me-2 nav-link active" href="{% url 'login' %}">Log in</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-primary nav-link active" href="{% url 'register-page' %}">Sign up and Get Started</a>
+                                </li>
+                            </form>
+                        {% endif %}
+                    </div>
+                </nav>
+            </header>
         </div>
 
+        <div class="containerbody">
         {% block content %}
             PoonVeh ERROR - NOT FOUND !
         {% endblock content %}
+        </div>
 
-        <div class = "container-fluid mt-5 bg-primary">
-            <div class = "row p-5">
-                <div class = "col display-4 text-white">
-                    <center>
-                        <br><img src="{% static 'img/logoWhite.svg' %}" width="80">
-                        <h1>PoonVeh</h1>
-                    </center>
-                </div>
-                <div class="col p-5">
-                    <div class = "text-white mb-2">
-                        <h2>Links</h2>
+        <footer class = "bd-footer py-5 mt-5 bg-primary">
+            <div class = "container py-5">
+                <div class = "row">
+                    <div class = "col display-4 text-white">
+                        <center>
+                            <br><img src="{% static 'img/logoWhite.svg' %}" width="80">
+                            <h1>PoonVeh</h1>
+                        </center>
                     </div>
-                    <div class = "text-white mb-2">
-                        Overalls
+                    <div class="col p-5">
+                        <div class = "text-white mb-2">
+                            <h2>Links</h2>
+                        </div>
+                        <div class = "text-white mb-2">
+                            Overalls
+                        </div>
+                        <div class = "text-white mb-2">
+                            Social media
+                        </div>
+                        <div class = "text-white mb-2">
+                            Contact
+                        </div>    
                     </div>
-                    <div class = "text-white mb-2">
-                        Social media
+                    <div class = "col p-5">
+                        <div class = "text-white mb-2">
+                            <h2>Company</h2>
+                        </div>
+                        <div class = "text-white mb-2">
+                            Executive
+                        </div>    
+                        <div class = "text-white mb-2">
+                            Term&Condition
+                        </div>
+                        <div class = "text-white mb-2">
+                            Privacy Policy
+                        </div>
+                        <div class = "text-white mb-2">
+                            Contact
+                        </div>
                     </div>
-                    <div class = "text-white mb-2">
-                        Contact
-                    </div>    
-                </div>
-                <div class = "col p-5">
-                    <div class = "text-white mb-2">
-                        <h2>Company</h2>
-                    </div>
-                    <div class = "text-white mb-2">
-                        Executive
-                    </div>    
-                    <div class = "text-white mb-2">
-                        Term&Condition
-                    </div>
-                    <div class = "text-white mb-2">
-                        Privacy Policy
-                    </div>
-                    <div class = "text-white mb-2">
-                        Contact
-                    </div>
-                </div>
-                <div class = "col p-5">
-                    <div class = "text-white mb-2">
-                        <h2>Get In Touch</h2>
-                    </div>
-                    <div class = "text-white mb-2">
-                        126 Pracha Uthit Road,<br>Thung Khru, Bangkok 10140
-                    </div>
-                    <div class = "text-white mb-2">
-                        02-4708000
-                    </div>
-                    <div class = "text-white mb-2">
-                        poonveh@kmutt.net
+                    <div class = "col p-5">
+                        <div class = "text-white mb-2">
+                            <h2>Get In Touch</h2>
+                        </div>
+                        <div class = "text-white mb-2">
+                            126 Pracha Uthit Road,<br>Thung Khru, Bangkok 10140
+                        </div>
+                        <div class = "text-white mb-2">
+                            02-4708000
+                        </div>
+                        <div class = "text-white mb-2">
+                            poonveh@kmutt.net
+                        </div>
                     </div>
                 </div>
             </div>
+        </footer>
         </div>
     </div>
 </body>
