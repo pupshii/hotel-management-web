@@ -27,7 +27,7 @@ def Login(request):
             print('HERE 2\n')
             return redirect('home-page')
         except:
-            context['danger']='Username หรือ Password ไม่ถูกต้อง กรุณาติดต่อแอดมิน!'
+            context['danger']='Username หรือ Password ของคุณไม่ถูกต้อง กรุณาติดต่อแอดมิน!'
             print('HERE 3\n')
     return render(request, 'frontend/login.html', context)
 
@@ -235,14 +235,6 @@ def ProfilePage(request):
     return render(request, 'frontend/profile.html', context)
 
 @login_required
-def Booking(request):
-    return render(request, 'frontend/booking.html')
-
-@login_required
-def NewsBox(request):
-    return render(request, 'frontend/news.html')
-
-@login_required
 def SearchMember(request):
     allow_user=['MANAGER', 'ADMIN']
     if not request.user.is_staff or request.user.member.staff.Staff_Position not in allow_user:
@@ -296,6 +288,9 @@ def SearchMember(request):
 
 @login_required
 def EditMember(request, user_id):
+    allow_user=['MANAGER', 'ADMIN']
+    if not request.user.is_staff or request.user.member.staff.Staff_Position not in allow_user:
+        return redirect('home-page')
     edituser=User.objects.get(id=user_id)
     context={}
     context['profileInfo']=edituser
@@ -515,9 +510,48 @@ def AddNews(request):
         context['addnew']='The system has added the news to the database.'
     return render(request, 'frontend/addnews.html', context)
 
-# def TestStaff(request):
-#     allbooks=AllBook.objects.all()
-#     allstuff=StaffManager.objects.all()
-#     allnews=News.objects.all()
-#     testcontext={'StaffManagerTest':allstuff, 'NewsTest':allnews, 'AllBookTest':allbooks,}
-#     return render(request, 'hotelapp/testsql.html', testcontext)
+@login_required
+def SendNews(request):
+    if not request.user.is_staff:
+        return redirect('home-page')
+    memberlist=User.objects.filter(is_staff=False)
+    newslist=News.objects.all()
+    context={'memberlist':memberlist, 'newslist':newslist}
+    if request.method == 'POST':
+        data=request.POST.copy()
+        receiver=data.get('receiver')
+        getid_receiver=""
+        for i in range(0, len(receiver)):
+            if receiver[i].isnumeric():
+                getid_receiver+=receiver[i]
+            if receiver[i] == '-':
+                break
+        topic=data.get('topic')
+        getid_topic=""
+        for i in range(0, len(topic)):
+            if topic[i].isnumeric():
+                getid_topic+=topic[i]
+            if topic[i] == '-':
+                break
+
+        mailbox=GetNews()
+        recipient=Member.objects.get(id=int(getid_receiver))
+        mailbox.member=recipient
+        mailbox.news=News.objects.get(id=int(getid_topic))
+        mailbox.save()
+        context['send_success']='Sending message to M'+getid_receiver+' ('+recipient.user.username+')'
+    return render(request, 'frontend/sendnews.html', context)
+
+@login_required
+def NewsInbox(request):
+    newsinbox=GetNews.objects.filter(member=Member.objects.get(id=request.user.id))
+    context={'newsinbox':newsinbox}
+    if request.method == 'POST':
+        data=request.POST.copy()
+        getnewid=data.get('getnewid')
+        GetNews.objects.get(id=getnewid).delete()
+    return render(request, 'frontend/newsinbox.html', context)
+
+@login_required
+def Booking(request):
+    return render(request, 'frontend/booking.html')

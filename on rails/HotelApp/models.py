@@ -1,24 +1,6 @@
 from django.db import models, connections
 from django.contrib.auth.models import User
 
-class AllBook(models.Model):
-    Room_Id=models.IntegerField()
-    Transaction_Id=models.CharField(max_length=12)
-    Book_Night=models.IntegerField()
-    Book_Price=models.IntegerField()
-    def __str__(self):
-        return "B"+str(self.id)
-    class Meta:
-        db_table='allbook'
-
-class GetNews(models.Model):
-    Member_Id=models.IntegerField()
-    News_Id=models.IntegerField()
-    def __str__(self):
-        return "GN"+str(self.id)
-    class Meta:
-        db_table='getnews'
-
 class Hotel(models.Model):
     Hotel_Name=models.CharField(max_length=50)
     Hotel_Address=models.TextField()
@@ -76,16 +58,6 @@ class Promotion(models.Model):
     class Meta:
         db_table='promotion'
 
-class Room(models.Model):
-    Hotel_Id=models.IntegerField()
-    Type_Id=models.IntegerField()
-    Room_Number=models.CharField(max_length=20)
-    Room_Status=models.BooleanField(default=1)
-    def __str__(self):
-        return "RO"+str(self.id)
-    class Meta:
-        db_table='room'
-
 class RoomType(models.Model):
     Type_Name=models.CharField(max_length=50)
     Type_Pernight=models.IntegerField()
@@ -97,12 +69,20 @@ class RoomType(models.Model):
     class Meta:
         db_table='roomtype'
 
+class Room(models.Model):
+    hotel=models.ForeignKey(Hotel, on_delete=models.CASCADE, null=True, blank=True)
+    roomtype=models.ForeignKey(RoomType, on_delete=models.CASCADE, null=True, blank=True)
+    Room_Number=models.CharField(max_length=20)
+    Room_Status=models.BooleanField(default=1)
+    def __str__(self):
+        return "RO"+str(self.id)
+    class Meta:
+        db_table='room'
 
 import datetime
 class Staff(models.Model):
-    # Member_Id=models.IntegerField()
     member=models.OneToOneField(Member, on_delete=models.CASCADE, null=True, blank=True)
-    Hotel_Id=models.ForeignKey(Hotel, on_delete=models.CASCADE, null=True, blank=True)
+    hotel=models.ForeignKey(Hotel, on_delete=models.CASCADE, null=True, blank=True)
     POONVEH_ROLES=[('ADMIN', 'ADMIN'), ('MANAGER', 'MANAGER'), ('STAFF', 'STAFF')]
     Staff_Position=models.CharField(max_length=10, choices=POONVEH_ROLES, default='STAFF')
     Staff_Start=models.DateField(default=datetime.date.today)
@@ -114,9 +94,8 @@ class Staff(models.Model):
         db_table='staff'
 
 class Transaction(models.Model):
-    # Member_Id=models.IntegerField()
     member=models.ForeignKey(Member, on_delete=models.CASCADE, null=True, blank=True)
-    Payment_Id=models.IntegerField()
+    payment=models.ForeignKey(Payment, on_delete=models.CASCADE, null=True, blank=True)
     Transaction_Checkin=models.DateTimeField()
     Transaction_Checkout=models.DateTimeField(null=True, blank=True)
     Transaction_Date=models.DateTimeField()
@@ -127,3 +106,21 @@ class Transaction(models.Model):
         return "T"+str(self.id)
     class Meta:
         db_table='transaction'
+
+class AllBook(models.Model):
+    room=models.ForeignKey(Room, on_delete=models.CASCADE, null=True, blank=True)
+    transaction=models.ForeignKey(Transaction, on_delete=models.CASCADE, null=True, blank=True)
+    Book_Night=models.IntegerField()
+    Book_Price=models.IntegerField()
+    def __str__(self):
+        return "B"+str(self.id)
+    class Meta:
+        db_table='allbook'
+
+class GetNews(models.Model):
+    member=models.ForeignKey(Member, on_delete=models.CASCADE, null=True, blank=True)
+    news=models.ForeignKey(News, on_delete=models.CASCADE, null=True, blank=True)
+    def __str__(self):
+        return "GN"+str(self.id)
+    class Meta:
+        db_table='getnews'

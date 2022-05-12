@@ -8,8 +8,6 @@ urlpatterns = [
     path('contact/', ContactUs, name='contact-page'),
     path('about/', AboutUs, name='about-page'),
     path('register/', Register, name='register-page'),
-    path('booking/', Booking, name='booking-page'),
-    path('news/', NewsBox, name='news-page'),
     path('profile/', ProfilePage, name='profile-page'),
     path('search-member/', SearchMember, name='search-member'),
     path('edit-member/M<int:user_id>/', EditMember, name='edit-member'),
@@ -18,5 +16,7 @@ urlpatterns = [
     path('add-promotion/', AddPromotion, name='add-promotion'),
     path('promotion-detail/PRO<int:promo_id>/', PromotionDetail, name='promotion-detail'),
     path('add-news/', AddNews, name='add-news'),
-    #path('testmysql/', TestStaff, name='temporary-test-mysql'),
+    path('send-news/', SendNews, name='send-news'),
+    path('inbox/', NewsInbox, name='news-inbox'),
+    path('booking/', Booking, name='booking-page'),
 ]

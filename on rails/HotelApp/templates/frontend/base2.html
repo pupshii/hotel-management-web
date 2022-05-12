@@ -4,11 +4,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/style2.css' %}">
-    <link href="{% static 'css/MaterialIcons' %}" rel="stylesheet">
-    <link href="{% static 'css/SecularOne' %} " rel="stylesheet">
-    <link href="{% static 'css/Inter' %}" rel="stylesheet">
-    <link href="{% static 'css/OrelegaOne' %}" rel="stylesheet">
-    <link href="{% static 'css/RubikMonoOne' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/MaterialIcons' %}">
+    <link rel="stylesheet" href="{% static 'css/SecularOne' %}">
+    <link rel="stylesheet" href="{% static 'css/Inter' %}">
+    <link rel="stylesheet" href="{% static 'css/OrelegaOne' %}">
+    <link rel="stylesheet" href="{% static 'css/RubikMonoOne' %}">
+    <!-- fa icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
 
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <script src="{% static 'js/jquery.min.js/' %}"></script>
@@ -50,6 +52,9 @@
                                         {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
                                             <li><a style="color:orange" class="dropdown-item nav-link" href="{% url 'search-member' %}">* Member</a></li>
                                         {% endif %}
+                                        {% if user.is_staff %}
+                                            <li><a style="color:orange" class="dropdown-item nav-link" href="{% url 'send-news' %}">* Send News</a></li>
+                                        {% endif %}
                                         {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
                                             <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-hotel' %}">+ Hotel</a></li>
                                         {% endif %}
@@ -60,7 +65,7 @@
                                             <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-news' %}">+ News</a></li>
                                         {% endif %}
                                         <li><a class="dropdown-item nav-link" href="#">Booking</a></li>
-                                        <li><a class="dropdown-item nav-link" href="#">News</a></li>
+                                        <li><a class="dropdown-item nav-link" href="{% url 'news-inbox' %}">News</a></li>
                                     </ul>
                                 </li>
 

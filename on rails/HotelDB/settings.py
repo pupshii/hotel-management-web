@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'HotelDB.wsgi.application'
 DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'poonveh1',
+        # 'NAME': 'poonveh',
         # 'HOST': '127.0.0.1',
         # 'PORT': '3306',
         # 'USER': 'root',

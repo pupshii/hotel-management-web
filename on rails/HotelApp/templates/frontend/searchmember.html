@@ -79,18 +79,18 @@
                 <h3>Found: {{result_user|length}} users</h3>
                 <p style="color:darkorange">Here is the list of all users matching the search.</p>
             </center> 
-            <table class="table">
-            <thead class="thead-light">
-                <tr>
-                <th scope="col">Order</th>
-                <th scope="col">Username</th>
-                <th scope="col">First name</th>
-                <th scope="col">Last name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Member ID</th>
-                <th scope="col">Role</th>
-                </tr>
-            </thead>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                    <th scope="col">Order</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">First name</th>
+                    <th scope="col">Last name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Member ID</th>
+                    <th scope="col">Role</th>
+                    </tr>
+                </thead>
             <tbody>
                 {% for m in result_user %} 
                     <tr>
