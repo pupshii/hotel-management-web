@@ -66,11 +66,13 @@ body {margin:0;}
   } 
 }
 
-@media (min-width: 1920px) {
+@media (min-width: 2000px) {
   header .container-xxl {
     max-width: 73rem;
   } 
 }
+
+
 
 
 
