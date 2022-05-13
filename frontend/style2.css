@@ -60,6 +60,20 @@ body {margin:0;}
       }
     }
 
+@media (min-width: 1200px) {
+  header .container-xxl {
+    max-width: 92.25rem;
+  } 
+}
+
+@media (min-width: 1920px) {
+  header .container-xxl {
+    max-width: 73rem;
+  } 
+}
+
+
+
 body {
     color: rgb(0, 0, 0);
     background-color: #ffffff;
