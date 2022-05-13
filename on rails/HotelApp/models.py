@@ -50,8 +50,8 @@ class Promotion(models.Model):
 class Payment(models.Model):
     promotion=models.ForeignKey(Promotion, on_delete=models.CASCADE, null=True, blank=True)
     Payment_Date=models.DateTimeField(default=datetime.datetime.now)
-    Payment_Allprice=models.IntegerField()
-    Payment_Vat10=models.IntegerField()
+    Payment_Allprice=models.FloatField()
+    Payment_Vat10=models.FloatField()
     Payment_Banking=models.CharField(max_length=20)
     Payment_Slip=models.ImageField(upload_to='slip')
     Payment_Status=models.BooleanField(default=False)
@@ -104,6 +104,7 @@ class Transaction(models.Model):
     Transaction_Detail=models.TextField(default="Reserved")
     Transaction_Night=models.IntegerField(default=1)
     Transaction_Price=models.IntegerField(default=0)
+    Transaction_Review=models.BooleanField(default=False)
     Transaction_Rating=models.PositiveSmallIntegerField(null=True, blank=True)
     Transaction_Comment=models.TextField(null=True, blank=True)
     def __str__(self):

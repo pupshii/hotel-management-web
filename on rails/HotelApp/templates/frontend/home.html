@@ -15,7 +15,7 @@
     </div>
     <div class="container-fluid mt-5">
         <div class = "intro">
-            <img class="img-fluid" src="{% static 'img/intro_img.svg' %}">
+            <img class="img-fluid" src="{% static 'img/intro_img1.svg' %}">
         </div>
     </div>
     <br>
@@ -93,8 +93,7 @@
             </div>
         </div>
     </div>
-
-    <center>
+    {% comment %} <center>
         <h3 style="color:green">Available Hotels</h3>
         {% for ht in HotelHomePage %}
             <h5 style="color:green">{{ht.Hotel_Name}}</h5>
@@ -113,12 +112,12 @@
             {% endif %}
             </p>
             <hr>
-        {% endfor %}
+        {% endfor %} {% endcomment %}
         {%comment%} access python list index
         {{CT3|length}}
         {%for all in CT3%}
             <p>{{all.0}}</p>  
-        {%endfor%} {% endcomment %}
-    </center>
+        {%endfor%}
+    </center>{%endcomment%}
 
 {% endblock content %}

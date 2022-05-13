@@ -8,7 +8,13 @@
         <div class ="container">
             <center>
                 <h1>{{Hotel.Hotel_Name}}</h1>
-                <h4>Rating: / 5 Stars</h4><hr>
+                <h4>Rating: 
+                    {% if cur_rating %}
+                        {{cur_rating|floatformat:1}} / 5 Stars
+                    {% else %}
+                        no review
+                    {% endif %}
+                </h4><hr>
                 {% if add_book %}
                     <center>
                     <div class="alert alert-success alert-dismissible fade show" row="alert">
@@ -62,9 +68,9 @@
                         <div class="container border border-dark p-3 my-3">
                             <div class="form-group">
                                 <label for="room_id">Please select the room you wish to reserve: </label>
-                                <select class="form-control form-control" id="room_id" name="room_id" style="width:350px;" required>
+                                <select class="form-control form-control" id="room_id" name="room_id" style="width:450px;" required>
                                     {% for i in available_room %}
-                                        <option>RO{{i.id}} {{i.Room_Number}} - {{i.roomtype.Type_Name}} (฿{{i.roomtype.Type_Pernight|intcomma}} / night)</option>
+                                        <option>RO{{i.id}} {{i.Room_Number}} - {{i.roomtype.Type_Name}} (฿{{i.roomtype.Type_Pernight|intcomma}} / night, Cap. {{i.roomtype.Type_Capacity|intcomma}} people)</option>
                                     {% endfor %}
                                 </select>
                             </div><br>
@@ -91,9 +97,30 @@
                             run()
                         </script>
                         <br><button type="submit" class="btn btn-outline-primary" name="book">Book Now!</button>
+                        {% if showreviews|length %}
+                            <br><br><br><h2>Latest Reviews</h2><hr>
+                            {% for r in showreviews %}
+                                <div class = "row">
+                                    <div class = "col">
+                                        <div class = "card"  style = "padding:2rem">
+                                            <div class = "shake">
+                                                <img src="{{r.member.Member_Pic.url}}" width="100" height="100" class="rounded-circle">
+                                            </div>
+                                            <div>
+                                                <h2>{{r.member.user.username}} give <span style="color:rgb(0, 180, 148)">{{r.Transaction_Rating}}</span> / 5 Stars</h2>
+                                            </div>
+                                            <div>
+                                                {{r.Transaction_Comment}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><br>
+                            {% endfor %}
+                        {% endif %}
                     </form>
                 {% else %}
-                    <h3 style="color:red">Sorry, no room available now!</h3><br>
+                    <h3 style="color:red">Sorry, no room available right now!</h3>
+                    <h6 style="color:red">Please come back later or contact admin if you want us to inform you when the room is available <a href="{% url 'contact-page' %}">Click Here</a></h6>
                 {% endif %}
             {% endif %}
         </div>

@@ -1,0 +1,61 @@
+{% extends 'frontend/base2.html' %}
+{% load static %}
+{% block title %} Reviews | {% endblock title %}
+{% block content %}
+    <br><br><br><br>
+    <div class ="containerbody">
+        <div class="container">
+            <center>
+                <br><img src="{% static 'img/logo_news.svg' %}" width="160">
+                <h1>Page of {{user.username}}'s reviews </h1>
+                <h5 style="color:green">You have a total of {{reviewlist|length}} rooms awaiting your review (optional)<h5>
+            </center><hr>
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Order</th>
+                        <th scope="col">Hotel</th>
+                        <th scope="col">Room Type</th>
+                        <th scope="col">Night(s)</th>
+                        <th scope="col">Payment Date</th>
+                        <th scope="col">Rating</th>
+                        <th scope="col">Comment</th>
+                        <th scope="col">Send</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for review in reviewlist %}
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{review.room.hotel.Hotel_Name}}</td>
+                            <td>{{review.room.roomtype.Type_Name}}</td>
+                            <td>{{review.Transaction_Night}}</td>
+                            <td>{{review.payment.Payment_Date}}</td>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <td>
+                                    <div class="form-group">
+                                        <select class="form-control form-control" id="rating" name="rating" style="width:50px;" required>
+                                            <option selected>-</option>
+                                            <option>5</option>
+                                            <option>4</option>
+                                            <option>3</option>
+                                            <option>2</option>
+                                            <option>1</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <textarea type="form-comment" class="form-control" rows="1" id="comment" name="comment" placeholder="write something"></textarea>
+                                    </div>
+                                </td>
+                                <td><button type="submit" class="btn btn-outline-info" name="reviewid" value="{{review.id}}">Send</button></td>
+                            </form>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}

@@ -18,5 +18,7 @@ urlpatterns = [
     path('add-news/', AddNews, name='add-news'),
     path('send-news/', SendNews, name='send-news'),
     path('inbox/', NewsInbox, name='news-inbox'),
-    path('allbook/', AllBook, name='show-booking'),
+    path('allbook/', AllBookMember, name='show-booking'),
+    path('bookslist/', BooksList, name='books-list'),
+    path('reviews/', ReviewPage, name='reviews-page'),
 ]

@@ -21,14 +21,11 @@ def Login(request):
         username=data.get('username')
         password=data.get('password')
         try:
-            print('HERE 1\n')
             user=authenticate(username=username, password=password)
             login(request, user)
-            print('HERE 2\n')
             return redirect('home-page')
         except:
-            context['danger']='Username หรือ Password ของคุณไม่ถูกต้อง กรุณาติดต่อแอดมิน!'
-            print('HERE 3\n')
+            context['danger']='Username or Password is invalid. Please contact administrator.'
     return render(request, 'frontend/login.html', context)
 
 def Home(request):
@@ -111,7 +108,7 @@ def ContactUs(request):
         print(detail)
         print('----------------\n')
         if title=='' or email=='':
-            context['danger']='กรุณากรอกแบบฟอร์มให้ครบถ้วน!'
+            context['danger']='Please complete the form!'
             return render(request, 'frontend/contact.html', context)
         # record info
         # newrecord=ContactList()
@@ -372,8 +369,24 @@ def AddHotel(request):
 
 def HotelDetail(request, hotel_id):
     hotel=Hotel.objects.get(id=hotel_id)
-    available_room=Room.objects.filter(hotel=hotel, Room_Status=True)
+    room=Room.objects.all()
+    reviews=Transaction.objects.filter(Transaction_Rating__gte=1)
+    # JOIN 3 TABLES
+    cur_rating=0
+    total_rating=0
+    showreviews=[]  # show only the man that gave rating score (in order to save space and can be used to calculate the cumulative rating)
+    for i in range(0, len(reviews)):
+        if reviews[i].room.hotel == hotel:
+            cur_rating+=reviews[i].Transaction_Rating
+            total_rating+=1
+            if len(showreviews) < 4:
+                showreviews.append(reviews[i])
+    if cur_rating:
+        cur_rating/=total_rating
     context={}
+    context['cur_rating']=cur_rating
+    context['showreviews']=showreviews
+    available_room=Room.objects.filter(hotel=hotel, Room_Status=True)
     context['Hotel']=hotel
     context['available_room']=available_room
     if request.method == 'POST':
@@ -414,6 +427,9 @@ def HotelDetail(request, hotel_id):
             newtrans.Transaction_Night=int(count)
             newtrans.Transaction_Price=int(count)*newtrans.room.roomtype.Type_Pernight
             newtrans.save()
+            lock=Room.objects.get(id=room_id)  # lock room
+            lock.Room_Status=False
+            lock.save()
             context['add_book']='The system has added your booking information. You can check it on the All Book page!'
     return render(request, 'frontend/hoteldetail.html', context)
 
@@ -569,9 +585,9 @@ def NewsInbox(request):
     return render(request, 'frontend/newsinbox.html', context)
 
 @login_required
-def AllBook(request):
+def AllBookMember(request):
     context={}
-    all_booking=Transaction.objects.filter(member=Member.objects.get(id=request.user.id))
+    all_booking=Transaction.objects.filter(member=Member.objects.get(id=request.user.id), payment=None)
     context['allbooking']=all_booking
     first_price=0
     for i in all_booking:
@@ -583,5 +599,126 @@ def AllBook(request):
     context['allpromo']=all_promo
     if request.method == 'POST':
         data=request.POST.copy()
-        print('fuck fuck')
+        if 'getbookid' in data:
+            getbookid=data.get('getbookid')
+            Transaction.objects.get(id=getbookid).delete()
+            all_booking=Transaction.objects.filter(member=Member.objects.get(id=request.user.id))
+            first_price=0
+            for i in all_booking:
+                first_price+=i.Transaction_Price
+            context['firstprice']=first_price
+            context['allbooking']=all_booking  # ส่งไปใหม่ให้มัน refresh
+        if 'confirm' in data:
+            promocode=data.get('promocode')
+            if promocode[0] == '-':
+                TotalPrice=first_price*1.1
+                context['discount']=0
+            else:
+                promocode=promocode[3:]
+                for i in range(0, len(promocode)):
+                    if promocode[i] == ' ':
+                        promocode=promocode[:i]
+                        break
+                getcode=Promotion.objects.get(id=promocode)
+                percent_discount=getcode.Promotion_Discount
+                print('dicount%=', percent_discount)
+                context['discount']=first_price*percent_discount
+                context['hpromocode']=promocode
+                TotalPrice=float(first_price*(1-percent_discount))*1.1
+            context['vat']=first_price*0.1
+            context['TotalPrice']=TotalPrice
+        if 'pay' in data:
+            print('got paid\n')
+            bank=data.get('bank')
+            time=data.get('time')
+            vat=data.get('vat')
+            total=data.get('allprice')
+            hpromocode=data.get('hpromocode')
+            print('hidden promocode', hpromocode)
+            newpayment=Payment()
+            if hpromocode:
+                newpayment.promotion=Promotion.objects.get(id=hpromocode)
+            newpayment.Payment_Date=time
+            newpayment.Payment_Allprice=float(total)
+            newpayment.Payment_Vat10=float(vat)
+            newpayment.Payment_Banking=bank
+            print(vat)
+            print(total)
+            if 'slip' in request.FILES:
+                file_img=request.FILES['slip']
+                file_img_name=file_img.name.replace(' ', '-')
+                fs=FileSystemStorage(location='media/slip')
+                filename=fs.save(file_img_name, file_img)  # เซฟชื่อไฟล์ กับ ตัวไฟล์
+                upload_file_url=fs.url(filename)
+                print('Pic URL:', upload_file_url)
+                newpayment.Payment_Slip='/slip'+upload_file_url[6:]  # ตัดคำว่า '/media' ด้านหน้าออกไป
+            newpayment.save()
+            setroom=Transaction.objects.filter(member=request.user.member)  # free room for other customers can reserve
+            for free in setroom:
+                free.room.Room_Status=True
+                free.room.save()
+            context['waitadmin']='PoonVeh Hotels will contact you as soon as possible to arrange your hotel stay.'
+            # set payment_id to transaction (currently None)
+            for i in all_booking:
+                i.payment=newpayment
+                i.save()
+                print(i.payment)
+            # Refresh page
+            all_booking=Transaction.objects.filter(member=Member.objects.get(id=request.user.id), payment=None)
+            first_price=0
+            for i in all_booking:
+                first_price+=i.Transaction_Price
+            context['firstprice']=first_price
+            context['allbooking']=all_booking
     return render(request, 'frontend/allbook.html', context)
+
+from datetime import datetime
+@login_required
+def BooksList(request):
+    if not request.user.is_staff:
+        return redirect('home-page')
+    booklist=Payment.objects.filter(Payment_Status=False)
+    context={'booklist':booklist}
+    if request.method == 'POST':
+        data=request.POST.copy()
+        if 'accept' in data:
+            pid=data.get('accept')
+            getpay=Payment.objects.get(id=pid)
+            getpay.Payment_Status=True
+            getpay.Payment_Confirm=datetime.now()
+            getpay.save()
+            booklist=Payment.objects.filter(Payment_Status=False)  # Not delete but refresh again
+            context={'booklist':booklist}
+        if 'deny' in data:
+            pid=data.get('deny')
+            Transaction.objects.filter(payment=Payment.objects.get(id=pid)).delete()
+            Payment.objects.get(id=pid).delete()
+    return render(request, 'frontend/bookslist.html', context)
+
+def ReviewPage(request):
+    confirmpayment=Payment.objects.filter(Payment_Status=True)
+    usertransaction=Transaction.objects.filter(member=request.user.member, Transaction_Review=False)
+    reviewlist=[]
+    for i in range(0, len(usertransaction)):
+        if usertransaction[i].payment in confirmpayment:
+            reviewlist.append(usertransaction[i])
+    context={'reviewlist':reviewlist}
+    if request.method == 'POST':
+        data=request.POST.copy()
+        tid=data.get('reviewid')
+        rating=data.get('rating')
+        comment=data.get('comment')
+        thisreview=Transaction.objects.get(id=tid)
+        thisreview.Transaction_Review=True
+        if rating[0] != '-':
+            thisreview.Transaction_Rating=int(rating)
+        thisreview.Transaction_Comment=comment
+        thisreview.save()
+        # noop O(N)
+        usertransaction=Transaction.objects.filter(member=request.user.member, Transaction_Review=False)
+        reviewlist=[]
+        for i in range(0, len(usertransaction)):
+            if usertransaction[i].payment in confirmpayment:
+                reviewlist.append(usertransaction[i])
+        context={'reviewlist':reviewlist}
+    return render(request, 'frontend/reviews.html', context)

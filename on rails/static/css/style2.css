@@ -54,11 +54,23 @@ body {margin:0;}
     }
   }
 
-@media  screen and (max-width: 1920px) {
+@media screen and (max-width: 2000px) {
     .containerbody {
         max-width: 1440px;
       }
     }
+
+@media (min-width: 1200px) {
+  header .container-xxl {
+    max-width: 92.25rem;
+  } 
+}
+
+@media (min-width: 2000px) {
+  header .container-xxl {
+    max-width: 73rem;
+  } 
+}
 
 body {
     color: rgb(0, 0, 0);
@@ -84,5 +96,5 @@ a {
 
 .navbar {
   position: relative;
-  z-index: 9999;
+  z-index: 1020;
 }
