@@ -67,11 +67,15 @@ The hotel management system is a database that contains the following:
 - [x] Search Member
 - [x] Add Staff into hotel
 - [x] Remove Staff from DB
-- [ ] News System CRUD
-- [ ] Add News
-- [ ] Remove News
-- [ ] Send News to member
-- [ ] Booking System CRUD
+- [x] Add News
+- [x] Remove News
+- [x] Send News to member
+- [x] Inbox Page
+- [x] Check Room Available
+- [x] Reserve Hotel Room
+- [x] All Book Page
+- [ ] Payment System
+- [ ] Admin Confirm Payment
 
 ## Wanna be
 - [x] Fixed navbar
