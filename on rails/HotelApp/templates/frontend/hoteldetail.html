@@ -1,12 +1,22 @@
 {% extends 'frontend/base2.html' %}
 {% load static %}
+{% load humanize %}
 {% block title %} Hotel Detail | {% endblock title %}
 {% block content %}
     <br><br><br><br>
     <div class ="containerbody">
         <div class ="container">
             <center>
-                <h1>{{Hotel.Hotel_Name}}</h1><hr>
+                <h1>{{Hotel.Hotel_Name}}</h1>
+                <h4>Rating: / 5 Stars</h4><hr>
+                {% if add_book %}
+                    <center>
+                    <div class="alert alert-success alert-dismissible fade show" row="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <strong>Success!</strong> {{add_book}}
+                    </div>
+                    </center>
+                {% endif %}
                 {% if Hotel.Hotel_Pic.url %}
                     <img src="{{Hotel.Hotel_Pic.url}}" width="600"><br><br>
                 {% else %}
@@ -42,9 +52,50 @@
                 <h5>{{Hotel.Hotel_Address}}</h5><br>
                 <h4>Description:</h4>
                 <h5>{{Hotel.Hotel_Detail}}</h5><br>
-                <h4>Rating: / 5 Stars</h4><br>
             {% endif %}
-            <a href="{%url 'hotels-page'%}"><button type="button" class="btn btn-secondary">Back</button></a>
+            <a href="{%url 'hotels-page'%}"><button type="button" class="btn btn-secondary">Back</button></a><hr>
+            {% if not user.is_staff %}
+                {% if available_room|length %}
+                    <h3 style="color:green">Room Available: {{available_room|length}} room{% if available_room|length > 1 %}s{% endif %}</h3>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="container border border-dark p-3 my-3">
+                            <div class="form-group">
+                                <label for="room_id">Please select the room you wish to reserve: </label>
+                                <select class="form-control form-control" id="room_id" name="room_id" style="width:350px;" required>
+                                    {% for i in available_room %}
+                                        <option>RO{{i.id}} {{i.Room_Number}} - {{i.roomtype.Type_Name}} (฿{{i.roomtype.Type_Pernight|intcomma}} / night)</option>
+                                    {% endfor %}
+                                </select>
+                            </div><br>
+                            <div class="form-group">
+                                <label for="count">Nights to stay: </label>
+                                <input type="number" class="form-control" id="count" name="count" value="1" style="width: 80px;" required>
+                            </div>
+                        </div>
+                        <script>
+                            function onChange(e){
+                                if(e.target.value <= 0){
+                                    e.target.value = 1
+                                }
+                            }
+                            function run(){
+                                $('#count')[0].addEventListener('change', onChange)
+                                settotal(1);
+                                [...$('.img-select')].forEach((elem) => {
+                                elem.addEventListener('click', onImgSelect)
+                                })
+                                $('#btn-prev')[0].addEventListener('click', onImgPrev)
+                                $('#btn-next')[0].addEventListener('mousedown', onImgNext)
+                            }
+                            run()
+                        </script>
+                        <br><button type="submit" class="btn btn-outline-primary" name="book">Book Now!</button>
+                    </form>
+                {% else %}
+                    <h3 style="color:red">Sorry, no room available now!</h3><br>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
 {% endblock content %}

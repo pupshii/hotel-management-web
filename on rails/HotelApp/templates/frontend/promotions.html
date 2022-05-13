@@ -12,12 +12,12 @@
             {% for c in row %}
                 <div class="col">
                     <div class="card mb-4 rounded-3 shadow-sm">
-                        <img class="card-img-top" src="{{c.Promotion_Pic.url}}" width="200" height="330">
+                        <img class="card-img-top" src="{{c.Promotion_Pic.url}}" width="150" height="300">
                         <div class="card-header py-3">
                             <center><h4 class="my-0 fw-normal">Start: {{c.Promotion_Start}}<br>End: {{c.Promotion_End}}</h4></center>
                         </div>
                         <div class="card-body">
-                            <h1 class="card-title pricing-card-title">{{c.Promotion_Name|truncatechars:30}}</h1>
+                            <h1 class="card-title pricing-card-title">{{c.Promotion_Name|truncatechars:30}} ({{c.Promotion_Discount|floatformat:0}}%)</h1>
                             <p>{{c.Promotion_Detail|truncatechars:210}}</p>
                             {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
                                 <a href="{% url 'promotion-detail' c.id %}"><button type="button" class="w-100 btn btn-lg btn-warning">Edit</button></a>

@@ -33,27 +33,27 @@
             {% endfor %}
             <ul class="pagination">
                 {% if AllHotel.has_previous and AllHotel.has_next != True %}
-                <li class="page-item"><a class="page-link" href="?page={{AllHotel.previous_page_number}}"> < </a></li>
-                {% if AllHotel.number|add:-2 > 0 %}
-                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:-2}}">{{AllHotel.number|add:-2}}</a></li>
-                {% endif %}
-                <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:-1}}">{{AllHotel.number|add:-1}}</a></li>
-                <li class="page-item active"><a class="page-link" href="?page={{AllHotel.number}}">{{AllHotel.number}}</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.previous_page_number}}"> < </a></li>
+                    {% if AllHotel.number|add:-2 > 0 %}
+                        <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:-2}}">{{AllHotel.number|add:-2}}</a></li>
+                    {% endif %}
+                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:-1}}">{{AllHotel.number|add:-1}}</a></li>
+                    <li class="page-item active"><a class="page-link" href="?page={{AllHotel.number}}">{{AllHotel.number}}</a></li>
                 {% endif %}
                 {% if AllHotel.has_previous and AllHotel.has_next %}
-                <li class="page-item"><a class="page-link" href="?page={{AllHotel.previous_page_number}}"> < </a></li>
-                <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:-1}}">{{AllHotel.number|add:-1}}</a></li>
-                <li class="page-item active"><a class="page-link" href="?page={{AllHotel.number}}">{{AllHotel.number}}</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:1}}">{{AllHotel.number|add:1}}</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{AllHotel.next_page_number}}"> > </a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.previous_page_number}}"> < </a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:-1}}">{{AllHotel.number|add:-1}}</a></li>
+                    <li class="page-item active"><a class="page-link" href="?page={{AllHotel.number}}">{{AllHotel.number}}</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:1}}">{{AllHotel.number|add:1}}</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.next_page_number}}"> > </a></li>
                 {% endif %}
                 {% if AllHotel.has_previous != True and AllHotel.has_next %}
-                <li class="page-item active"><a class="page-link" href="?page={{AllHotel.number}}">{{AllHotel.number}}</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:1}}">{{AllHotel.number|add:1}}</a></li>
-                {% if AllHotel.number|add:2 <= AllHotel.paginator.num_pages %}
-                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:2}}">{{AllHotel.number|add:2}}</a></li>
-                {% endif %}
-                <li class="page-item"><a class="page-link" href="?page={{AllHotel.next_page_number}}"> > </a></li>
+                    <li class="page-item active"><a class="page-link" href="?page={{AllHotel.number}}">{{AllHotel.number}}</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:1}}">{{AllHotel.number|add:1}}</a></li>
+                    {% if AllHotel.number|add:2 <= AllHotel.paginator.num_pages %}
+                        <li class="page-item"><a class="page-link" href="?page={{AllHotel.number|add:2}}">{{AllHotel.number|add:2}}</a></li>
+                    {% endif %}
+                    <li class="page-item"><a class="page-link" href="?page={{AllHotel.next_page_number}}">> </a></li>
                 {% endif %}
             </ul>
             <p>Page {{AllHotel.number}} from {{AllHotel.paginator.num_pages}}</p>

@@ -372,8 +372,10 @@ def AddHotel(request):
 
 def HotelDetail(request, hotel_id):
     hotel=Hotel.objects.get(id=hotel_id)
+    available_room=Room.objects.filter(hotel=hotel, Room_Status=True)
     context={}
     context['Hotel']=hotel
+    context['available_room']=available_room
     if request.method == 'POST':
         data=request.POST.copy()
         if 'save' in data:
@@ -394,11 +396,25 @@ def HotelDetail(request, hotel_id):
                 hotel.Hotel_Pic='/hotel'+upload_file_url[6:]  # ตัดคำว่า '/media' ด้านหน้าออกไป
             hotel.save()
             context['Hotel']=hotel  # เซฟแล้วให้มันส่งข้อมูลใหม่ไปโชว์ใน field แทน
-
         elif 'delete' in data:
             print('delete data')
             hotel.delete()
             return redirect('hotels-page')
+        elif 'book' in data:
+            room_id=data.get('room_id')
+            count=data.get('count')
+            room_id=room_id[2:]
+            for i in range(0, len(room_id)):
+                if room_id[i] == ' ':
+                    room_id=room_id[:i]
+                    break
+            newtrans=Transaction()
+            newtrans.member=request.user.member
+            newtrans.room=Room.objects.get(id=room_id)
+            newtrans.Transaction_Night=int(count)
+            newtrans.Transaction_Price=int(count)*newtrans.room.roomtype.Type_Pernight
+            newtrans.save()
+            context['add_book']='The system has added your booking information. You can check it on the All Book page!'
     return render(request, 'frontend/hoteldetail.html', context)
 
 @login_required
@@ -553,5 +569,19 @@ def NewsInbox(request):
     return render(request, 'frontend/newsinbox.html', context)
 
 @login_required
-def Booking(request):
-    return render(request, 'frontend/booking.html')
+def AllBook(request):
+    context={}
+    all_booking=Transaction.objects.filter(member=Member.objects.get(id=request.user.id))
+    context['allbooking']=all_booking
+    first_price=0
+    for i in all_booking:
+        first_price+=i.Transaction_Price
+    context['firstprice']=first_price
+    all_promo=Promotion.objects.all()
+    for i in all_promo:
+        i.Promotion_Discount*=100
+    context['allpromo']=all_promo
+    if request.method == 'POST':
+        data=request.POST.copy()
+        print('fuck fuck')
+    return render(request, 'frontend/allbook.html', context)

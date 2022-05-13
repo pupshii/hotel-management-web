@@ -1,0 +1,63 @@
+{% extends 'frontend/base2.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %} All Book | {% endblock title %}
+{% block content %}
+    <br><br><br><br>
+    <div class ="containerbody">
+        <div class="container">
+            <center>
+                <br><img src="{% static 'img/logover2_news_1.svg' %}" width="160">
+                <h1>{{user.username}}'s booking</h1>
+                <h5 style="color:darkblue">You have {{allbooking|length}} booking in total (unpaid)<h5>
+            </center><hr>
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Order</th>
+                        <th scope="col">RN</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Hotel</th>
+                        <th scope="col">Rate</th>
+                        <th scope="col">Night(s)</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Detail</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+			        <form method="POST">
+                        {% csrf_token %}
+                        {% for book in allbooking %}
+                            <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{book.room.Room_Number}}</td>
+                                <td>{{book.room.roomtype.Type_Name}}</td>
+                                <td>{{book.room.hotel.Hotel_Name}}</td>
+                                <td>฿{{book.room.roomtype.Type_Pernight|intcomma}} / night</td>
+                                <td>{{book.Transaction_Night|intcomma}}</td>
+                                <td>฿{{book.Transaction_Price|intcomma}}</td>
+                                <td>{{book.Transaction_Detail}}</td>
+                                {% comment %} <td><button type="button" class="btn btn-danger" name="getbookid" value="{{book.id}}">Delete</button></td> {% endcomment %}
+                                <td><button type="button" class="btn btn-danger">Delete</button></td>
+                            </tr>
+                        {% endfor %}
+                    </form>
+                </tbody>
+            </table>
+            <h6 style="color:red">Not including withholding tax (10% VAT)</h6>
+            <h2>First Price: {{firstprice|intcomma}} Baht</h2>
+			<form method="POST">
+                <div class="form-group">
+                    <label for="promo_id" style="color:green">You can choose to use the promotion to receive a discount!</label>
+                    <select class="form-control form-control" id="promo_id" name="promo_id" style="width:420px;">
+                        {% for i in allpromo %}
+                            <option>PRO{{i.id}} - {{i.Promotion_Name}} ({{i.Promotion_Discount|floatformat:0}}%)</option>
+                        {% endfor %}
+                    </select>
+                </div><br>
+                <td><button type="button" class="btn btn-success">Confirm</button></td>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

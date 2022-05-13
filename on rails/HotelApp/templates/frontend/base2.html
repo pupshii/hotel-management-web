@@ -64,8 +64,8 @@
                                         {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
                                             <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-news' %}">+ News</a></li>
                                         {% endif %}
-                                        <li><a class="dropdown-item nav-link" href="#">Booking</a></li>
                                         <li><a class="dropdown-item nav-link" href="{% url 'news-inbox' %}">News</a></li>
+                                        <li><a class="dropdown-item nav-link" href="{% url 'show-booking' %}">All Book</a></li>
                                     </ul>
                                 </li>
 
@@ -157,7 +157,7 @@
                             02-4708000
                         </div>
                         <div class = "text-white mb-2">
-                            poonveh@kmutt.net
+                            poonveh@kmutt.me
                         </div>
                     </div>
                 </div>

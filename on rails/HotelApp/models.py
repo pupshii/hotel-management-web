@@ -1,5 +1,6 @@
 from django.db import models, connections
 from django.contrib.auth.models import User
+import datetime
 
 class Hotel(models.Model):
     Hotel_Name=models.CharField(max_length=50)
@@ -34,18 +35,6 @@ class News(models.Model):
     class Meta:
         db_table='news'
 
-class Payment(models.Model):
-    Promotion_Id=models.IntegerField()
-    Payment_Date=models.DateTimeField()
-    Payment_Allprice=models.IntegerField()
-    Payment_Vat10=models.IntegerField()
-    Payment_Banking=models.CharField(max_length=20)
-    Payment_Slip=models.ImageField(upload_to='slip')
-    def __str__(self):
-        return "PAY"+str(self.id)
-    class Meta:
-        db_table='payment'
-
 class Promotion(models.Model):
     Promotion_Name=models.CharField(max_length=50)
     Promotion_Detail=models.TextField()
@@ -57,6 +46,20 @@ class Promotion(models.Model):
         return "PRO"+str(self.id)
     class Meta:
         db_table='promotion'
+
+class Payment(models.Model):
+    promotion=models.ForeignKey(Promotion, on_delete=models.CASCADE, null=True, blank=True)
+    Payment_Date=models.DateTimeField(default=datetime.datetime.now)
+    Payment_Allprice=models.IntegerField()
+    Payment_Vat10=models.IntegerField()
+    Payment_Banking=models.CharField(max_length=20)
+    Payment_Slip=models.ImageField(upload_to='slip')
+    Payment_Status=models.BooleanField(default=False)
+    Payment_Confirm=models.DateTimeField(null=True, blank=True)
+    def __str__(self):
+        return "PAY"+str(self.id)
+    class Meta:
+        db_table='payment'
 
 class RoomType(models.Model):
     Type_Name=models.CharField(max_length=50)
@@ -79,7 +82,6 @@ class Room(models.Model):
     class Meta:
         db_table='room'
 
-import datetime
 class Staff(models.Model):
     member=models.OneToOneField(Member, on_delete=models.CASCADE, null=True, blank=True)
     hotel=models.ForeignKey(Hotel, on_delete=models.CASCADE, null=True, blank=True)
@@ -96,26 +98,18 @@ class Staff(models.Model):
 class Transaction(models.Model):
     member=models.ForeignKey(Member, on_delete=models.CASCADE, null=True, blank=True)
     payment=models.ForeignKey(Payment, on_delete=models.CASCADE, null=True, blank=True)
-    Transaction_Checkin=models.DateTimeField()
-    Transaction_Checkout=models.DateTimeField(null=True, blank=True)
-    Transaction_Date=models.DateTimeField()
+    room=models.ForeignKey(Room, on_delete=models.CASCADE, null=True, blank=True)
+    # Transaction_Checkin=models.DateTimeField(default=datetime.datetime.now)
+    # Transaction_Checkout=models.DateTimeField(default=datetime.datetime.now)
     Transaction_Detail=models.TextField(default="Reserved")
+    Transaction_Night=models.IntegerField(default=1)
+    Transaction_Price=models.IntegerField(default=0)
     Transaction_Rating=models.PositiveSmallIntegerField(null=True, blank=True)
     Transaction_Comment=models.TextField(null=True, blank=True)
     def __str__(self):
         return "T"+str(self.id)
     class Meta:
         db_table='transaction'
-
-class AllBook(models.Model):
-    room=models.ForeignKey(Room, on_delete=models.CASCADE, null=True, blank=True)
-    transaction=models.ForeignKey(Transaction, on_delete=models.CASCADE, null=True, blank=True)
-    Book_Night=models.IntegerField()
-    Book_Price=models.IntegerField()
-    def __str__(self):
-        return "B"+str(self.id)
-    class Meta:
-        db_table='allbook'
 
 class GetNews(models.Model):
     member=models.ForeignKey(Member, on_delete=models.CASCADE, null=True, blank=True)

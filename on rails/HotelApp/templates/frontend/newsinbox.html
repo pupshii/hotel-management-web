@@ -6,9 +6,9 @@
     <div class ="containerbody">
         <div class="container">
             <center>
-                <br><img src="{% static 'img/logoblack.svg' %}" width="150">
+                <br><img src="{% static 'img/logover2_news_1.svg' %}" width="160">
                 <h1>{{user.username}}'s inbox</h1>
-                <h5 style="color:darkblue">You have {{newsinbox|length}} news in total<h5>
+                <h5 style="color:green">You have {{newsinbox|length}} news in total<h5>
             </center><hr>
             <table class="table table-striped table-dark">
                 <thead>
@@ -33,7 +33,7 @@
                                 {% else %}
                                     <td><i class="fa fa-minus-square" style="font-size:30px; color:white;"></i></td>
                                 {% endif %}
-                                <td><button class="btn btn-danger" name="getnewid" value="{{inbox.id}}">Delete</button></td>
+                                <td><button type="submit" class="btn btn-danger" name="getnewid" value="{{inbox.id}}">Clear</button></td>
                             </tr>
                         {% endfor %}
                     </form>
