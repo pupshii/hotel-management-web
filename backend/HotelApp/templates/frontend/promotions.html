@@ -1,90 +1,64 @@
-{% extends 'frontend/base.html' %}
+{% extends 'frontend/base2.html' %}
 {% load static %}
 {% block title %} Promotions | {% endblock title %}
 {% block content %}
+    <br><br><br><br>
     <div class ="containerbody">
-        <div class = "pageheader">
-            <div>
-                Promotions<hr>
-            </div>
+        <div class = "display-2">
+            Our Promotions
+        </div><hr>
+        {% for row in AllRow %}
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            {% for c in row %}
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        {% if c.Promotion_Pic %}
+                            <img class="card-img-top" src="{{c.Promotion_Pic.url}}" width="150" height="300">
+                        {% else %}
+                            <img class="card-img-top" src="{% static 'img/placeholder_grey.svg' %}" width="150" height="300">
+                        {% endif %}
+                        <div class="card-header py-3">
+                            <center><h4 class="my-0 fw-normal">Start: {{c.Promotion_Start}}<br>End: {{c.Promotion_End}}</h4></center>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">{{c.Promotion_Name|truncatechars:30}} ({{c.Promotion_Discount|floatformat:0}}%)</h1>
+                            <p>{{c.Promotion_Detail|truncatechars:210}}</p>
+                            {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                <a href="{% url 'promotion-detail' c.id %}"><button type="button" class="w-100 btn btn-lg btn-warning">Edit</button></a>
+                            {% else %}
+                                <a href="{% url 'promotion-detail' c.id %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Details</button></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-        <div class = "row">
-            <div class = "col padding-3" style = "padding-left:10rem;padding-right:10rem" >
-                <div class = "center card">
-                    <div style="width:100%">
-                        <img style = "width:100%" src="{% static 'img/bestoffer.svg' %}">
-                    </div>
-                    <div class = "border-1px border-top-none">
-                        <div class = "font-normal font-bold-nosize padding-1">
-                        Occasional offers
-                        </div>
-                        <div class = "font-grey padding-2">
-                            To use this calculator, simply choose which games you want to convert from and to, 
-                            then enter the sensitivity of the original game you’re converting from. 
-                            After that, you’ll have the option of choosing a “from” and “to” DPI. 
-                            If you’re not changing DPI between games, 
-                            then do not worry about this section and leave it as is.<br><br>1/Mar/2023 - 31/Mar/2023
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class = "col padding-3" style = "padding-left:10rem;padding-right:10rem">
-                <div class = "center card">
-                    <div style="width:100%">
-                        <img style = "width:100%" src="{% static 'img/sale.svg' %}">
-                    </div>
-                    <div class = "border-1px border-top-none">
-                        <div class = "font-normal font-bold-nosize padding-1">
-                            Pandemic offers
-                        </div>
-                        <div class = "font-grey padding-2">
-                            Already theorycrafting your strats? Or maybe you just wanna understand the new OW2 Maps & Push mode... 
-                            Well here you go!
-                            A map guide for Toronto a.k.a. 
-                            New Queen Street including where to fight, 
-                            which flanks are the best and some... 
-                            dubious signage<br><br>1/April/2023 - 30/April/2023
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class = "row">
-            <div class = "col padding-3" style = "padding-left:10rem;padding-right:10rem" >
-                <div class = "center card">
-                    <div style="width:100%">
-                        <img style = "width:100%" src="{% static 'img/summersale.svg' %}">
-                    </div>
-                    <div class = "border-1px border-top-none">
-                        <div class = "font-normal font-bold-nosize padding-1">
-                            Summer festival
-                        </div>
-                        <div class = "font-grey padding-2">
-                            Slow down time, rain destruction from above in a jet-powered armor suit, 
-                            or pilot a superpowered hamster ball: In Overwatch, 
-                            every hero has a unique set of devastating abilities.<br><br>1/May/2023 - 31/May/2023
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class = "col padding-3" style = "padding-left:10rem;padding-right:10rem" >
-                <div class = "center card">
-                    <div style="width:100%">
-                        <img style = "width:100%" src="{% static 'img/giftbox.svg' %}">
-                    </div>
-                    <div class = "border-1px border-top-none">
-                        <div class = "font-normal font-bold-nosize padding-1">
-                            Special for you
-                        </div>
-                        <div class = "font-grey padding-2">
-                            Slow down time, rain destruction from above in a jet-powered armor suit, 
-                            or pilot a superpowered hamster ball: In Overwatch, 
-                            every hero has a unique set of devastating abilities.<br><br>1/June/2023 - 30/June/2023
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
+        {% endfor %}
+        <ul class="pagination">
+            {% if AllPromotion.has_previous and AllPromotion.has_next != True %}
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.previous_page_number}}"> < </a></li>
+            {% if AllPromotion.number|add:-2 > 0 %}
+                <li class="page-item"><a class="page-link" href="?page={{AllPromotion.number|add:-2}}">{{AllPromotion.number|add:-2}}</a></li>
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.number|add:-1}}">{{AllPromotion.number|add:-1}}</a></li>
+            <li class="page-item active"><a class="page-link" href="?page={{AllPromotion.number}}">{{AllPromotion.number}}</a></li>
+            {% endif %}
+            {% if AllPromotion.has_previous and AllPromotion.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.previous_page_number}}"> < </a></li>
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.number|add:-1}}">{{AllPromotion.number|add:-1}}</a></li>
+            <li class="page-item active"><a class="page-link" href="?page={{AllPromotion.number}}">{{AllPromotion.number}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.number|add:1}}">{{AllPromotion.number|add:1}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.next_page_number}}"> > </a></li>
+            {% endif %}
+            {% if AllPromotion.has_previous != True and AllPromotion.has_next %}
+            <li class="page-item active"><a class="page-link" href="?page={{AllPromotion.number}}">{{AllPromotion.number}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.number|add:1}}">{{AllPromotion.number|add:1}}</a></li>
+            {% if AllPromotion.number|add:2 <= AllPromotion.paginator.num_pages %}
+                <li class="page-item"><a class="page-link" href="?page={{AllPromotion.number|add:2}}">{{AllPromotion.number|add:2}}</a></li>
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="?page={{AllPromotion.next_page_number}}"> > </a></li>
+            {% endif %}
+        </ul>
+        <p>Page {{AllPromotion.number}} from {{AllPromotion.paginator.num_pages}}</p>
+    </div>
 {% endblock content %}

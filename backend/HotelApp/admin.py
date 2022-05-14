@@ -9,4 +9,4 @@ app=apps.get_app_config('HotelApp')
 for model_name, model in app.models.items():
     admin.site.register(model)
 
-admin.site.site_header='PoonVeh Hotel Management Admin Site'
+admin.site.site_header='CPE231 - PoonVeh Hotel Management Admin Site'

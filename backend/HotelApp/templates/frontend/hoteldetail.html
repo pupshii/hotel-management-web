@@ -1,0 +1,143 @@
+{% extends 'frontend/base2.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %} Hotel Detail | {% endblock title %}
+{% block content %}
+    <br><br><br><br>
+    <div class ="containerbody">
+        <div class ="container">
+            <center>
+                {% if cur_rating > 4.5 %}
+                    <img src="{% static 'img/5star.svg' %}" width="150"><br>
+                {% elif cur_rating > 3.5 %}
+                    <img src="{% static 'img/4star.svg' %}" width="150"><br>
+                {% elif cur_rating > 2.5 %}
+                    <img src="{% static 'img/3star.svg' %}" width="150"><br>
+                {% elif cur_rating > 1.5 %}
+                    <img src="{% static 'img/2star.svg' %}" width="150"><br>
+                {% elif cur_rating > 0.5 %}
+                    <img src="{% static 'img/1star.svg' %}" width="150"><br>
+                {% endif %}
+                <h1>{{Hotel.Hotel_Name}}</h1>
+                <h4 style="color:rgb(100, 100, 100)"> 
+                    {% if cur_rating %}
+                        Rating: {{cur_rating|floatformat:1}} / 5 Stars
+                    {% else %}
+                        no reviews yet
+                    {% endif %}
+                </h4><hr>
+                {% if add_book %}
+                    <center>
+                    <div class="alert alert-success alert-dismissible fade show" row="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <strong>Success!</strong> {{add_book}}
+                    </div>
+                    </center>
+                {% endif %}
+                {% if Hotel.Hotel_Pic.url %}
+                    <img src="{{Hotel.Hotel_Pic.url}}" width="600"><br><br>
+                {% else %}
+                    <img src="{% static 'img/placeholder_grey.svg' %}" width="400"><br><br>
+                {% endif %}
+            </center>
+            {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Hotel Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{Hotel.Hotel_Name}}" required>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea class="form-control" rows="5" id="address" name="address" required>{{Hotel.Hotel_Address}}</textarea>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="detail">Description</label>
+                        <textarea class="form-control" rows="5" id="detail" name="detail" placeholder="Please enter details for customers to understand briefly." required>{{Hotel.Hotel_Detail}}</textarea>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="picture">Hotel Picture Cover: </label>
+                        <input type="file" class="form-control-file" id="picture" name="picture">
+                    </div><br>
+                    <button type="submit" class="btn btn-outline-success" name="save">Save</button>&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-outline-danger" name="delete">Delete</button><br><br>
+                </form>
+            {% else %}
+                <h4>Hotel Name:</h4> 
+                <h5>{{Hotel.Hotel_Name}}</h5><br>
+                <h4>Location:</h4> 
+                <h5>{{Hotel.Hotel_Address}}</h5><br>
+                <h4>Description:</h4>
+                <h5>{{Hotel.Hotel_Detail}}</h5><br>
+            {% endif %}
+            <a href="{%url 'hotels-page'%}"><button type="button" class="btn btn-secondary">Back</button></a><hr>
+            {% if not user.is_staff %}
+                {% if available_room|length %}
+                    <h3 style="color:green">Room Available: {{available_room|length}} room{% if available_room|length > 1 %}s{% endif %}</h3>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="container border border-dark p-3 my-3">
+                            <div class="form-group">
+                                <label for="room_id">Please select the room you wish to reserve: </label>
+                                <select class="form-control form-control" id="room_id" name="room_id" style="width:450px;" required>
+                                    {% for i in available_room %}
+                                        <option>RO{{i.id}} {{i.Room_Number}} - {{i.roomtype.Type_Name}} (฿{{i.roomtype.Type_Pernight|intcomma}} / night, Cap. {{i.roomtype.Type_Capacity|intcomma}} people)</option>
+                                    {% endfor %}
+                                </select>
+                            </div><br>
+                            <div class="form-group">
+                                <label for="count">Nights to stay: </label>
+                                <input type="number" class="form-control" id="count" name="count" value="1" style="width: 80px;" required>
+                            </div>
+                        </div>
+                        <script>
+                            function onChange(e){
+                                if(e.target.value <= 0){
+                                    e.target.value = 1
+                                }
+                            }
+                            function run(){
+                                $('#count')[0].addEventListener('change', onChange)
+                                settotal(1);
+                                [...$('.img-select')].forEach((elem) => {
+                                elem.addEventListener('click', onImgSelect)
+                                })
+                                $('#btn-prev')[0].addEventListener('click', onImgPrev)
+                                $('#btn-next')[0].addEventListener('mousedown', onImgNext)
+                            }
+                            run()
+                        </script>
+                        {% if user.is_authenticate %}
+                            <br><button type="submit" class="btn btn-outline-primary" name="book">Book Now!</button>
+                        {% else %}
+                            <br><a href="{%url 'login'%}"><button type="button" class="btn btn-primary">Log in</button></a>
+                        {% endif %}
+                        {% if showreviews|length %}
+                            <br><br><br><h2>Latest Reviews</h2><hr>
+                            {% for r in showreviews %}
+                                <div class = "row">
+                                    <div class = "col">
+                                        <div class = "card"  style = "padding:2rem">
+                                            <div class = "shake">
+                                                <img src="{{r.member.Member_Pic.url}}" width="100" height="100" class="rounded-circle">
+                                            </div>
+                                            <div>
+                                                <h2>{{r.member.user.username}} give <span style="color:rgb(0, 180, 148)">{{r.Transaction_Rating}}</span> / 5 Stars</h2>
+                                            </div>
+                                            <div>
+                                                {{r.Transaction_Comment}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><br>
+                            {% endfor %}
+                        {% endif %}
+                    </form>
+                {% else %}
+                    <h3 style="color:red">Sorry, no room available right now!</h3>
+                    <h6 style="color:red">Please come back later or contact admin if you want us to inform you when the room is available <a href="{% url 'contact-page' %}">Click Here</a></h6>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

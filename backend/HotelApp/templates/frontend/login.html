@@ -1,35 +1,39 @@
-{% extends 'frontend/base.html' %}
+{% extends 'frontend/base2.html' %}
 {% load static %}
 {% block title %} Login | {% endblock title %}
 {% block content %}
-    <div class = "padding-3 margin-10">
-        <h1>Log in</h1>
-        <div class = "container-shadow padding-3">
-            <form method="POST">
-                {% csrf_token %}
-                {% if danger %}
-                    <center>
-                    <div class="alert alert-danger alert-dismissible fade show" row="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        <strong>Incorrect!</strong> {{danger}}
-                    </div>
-                    </center>
-                {% endif %}
-
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="form-comment" class="form-control" id="username" name="username" required>
-                </div><br>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div><br>
-                <button type="submit" class="btn btn-primary">Login</button><br><br>
-                <p>
-                    <a href="{% url 'register-page' %}">Create new account</a>&emsp;
-                    <a href="#">Forgot password?</a>
-                </p>
-            </form>
+    <br><br><br><br>
+    <div class = "containerbody">
+        <br>
+        <center>
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+                <h2 class="card-title">Sign in your account</h2>
+                <h6 class="card-subtitle mb-2 text-muted">Use your PoonVeh account</h6>
+                <form method="POST">
+                    {% csrf_token %}
+                    {% if danger %}
+                        <center>
+                        <div class="alert alert-danger alert-dismissible fade show" row="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <strong>Incorrect!</strong> {{danger}}
+                        </div>
+                        </center>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="form-comment" class="form-control" id="username" name="username" required>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div><br>
+                    <button type="submit" class="btn btn-primary">Login</button><br><br>
+                </form>
+                <a href="{% url 'register-page' %}">Create new account</a>&emsp;
+                <a href="{% url 'contact-page' %}">Forgot password?</a>
+            </div>
         </div>
+        </center>
     </div>
 {% endblock content %}

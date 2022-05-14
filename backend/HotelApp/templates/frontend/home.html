@@ -1,87 +1,102 @@
-{% extends 'frontend/base.html' %}
+{% extends 'frontend/base2.html' %}
 {% load static %}
 {% block title %} Home | {% endblock title %}
 {% block content %}
-    <div class = "containerbody">
-        <div class = "below_menu">
-            <div class = "below_left">
-                <p>Best Hotel<br>Booking<br>Website.</p>
+    <div class="container-fluid px-4" style="margin-top:10rem">
+        <div class = "row g-0">
+            <div class = "col-sm-6 col-md-8" >
+                <h1 class="display-1">Best Hotel<br>Booking<br>Website.</h1>
             </div>
-            <div>
-                <div class = "intro_text"><p>Become a member and start booking now.<br>Over 100+ Hotels available with amazing offers.</p></div>
-                <div style = "float:none" class = "below_menu_button signupbutton"><a href="{% url 'booking-page' %}">START BOOKING</a></div>
-            </div>
-        </div>
-
-        <div class = "intro">
-            <img src="{% static 'img/intro_img.svg' %}">
-            <div class="centered">
-                Discover many hotels<br>all around Thailand.
-            </div>
-        </div>
-
-        <div class = "content">
-            <div class = "cont_left">
-                <div class = "cont_left_big">
-                    All hotel informations in<br>one place
-                </div>
-                <div class = "cont_left_small">
-                    there are lot of info nice
-                </div>
-                <div>
-                    <img src="{% static 'img/headphone.svg' %}">
-                </div>
-            </div>
-            <div class = "cont_right">
-                <div>
-                    <img src="{% static 'img/mouse_key.svg' %}">
-                </div>
-                <div class = "cont_right_big">
-                    Follow latest news and<br>promotions
-                </div>
-                <div class = "cont_right_small">
-                    wow promotions offer and news
-                </div>
-            </div>
-        </div>
-
-        <div class = "info">
-            <div class = "info_left">
-                "Number one website for booking hotels".<br>
-                Nothing moves us quite like music.<br> 
-                Hear more details than ever before with quality audio gear
-            </div>
-            <div class = "info_right">
-                <img src="{% static 'img/bed.svg' %}">
-            </div>
-        </div>
-
-        <div class = "trend">
-            <div class = "text0">
-                Trending Hotels In Thailand
-            </div>
-            <div class = "text1">
-                <img src="{% static 'img/city.svg' %}">
-            </div>
-        </div>
-
-        <div class = "get_start">
-            <div class="get_start_column">
-                <div class = "text2">
-                    Get Started
-                </div>
-                <div class = "btn0 card shake">
-                    <a href="{% url 'booking-page' %}">START BOOKING</a>
-                </div>
-            </div>
-            <div class = "get_start_img">
-                <img src="{% static 'img/view.svg' %}">
+            <div class = "col-6 col-md-4" style="align-items:center">
+                <div class = "intro_text"><h3>Become a member and start booking now.<br>Over 100+ Hotels available with amazing offers.</h3></div>
+                <div><a class="btn btn-primary btn-lg" href="{% url 'hotels-page' %}">START BOOKING</a></div>
             </div>
         </div>
     </div>
-
-    <center>
-        {% comment %} <h3 style="color:rgb(0,51,25)">Available Hotels</h3>
+    <div class="container-fluid mt-5">
+        <div class = "intro">
+            <img class="img-fluid" src="{% static 'img/intro_img1.svg' %}">
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class = "container-fluid mt-5">
+        <div class = "row gx-5">
+            <div class = "col">
+                <div class = "">
+                    <h4 class = "p-2">All hotel informations in one place</h4>
+                </div>
+                <div class = "cont_left_small">
+                    <h5 class = "p-2">Here we have gathered information about PoonVeh hotels.<br>You can go to reserve your room <br>and the receptionists will contact you back.</h5>
+                </div>
+                <div>
+                    <img class="img-fluid" src="{% static 'img/headphone.svg' %}">
+                </div>
+            </div>
+            <div class = "col">
+                <div>
+                    <img class="img-fluid" src="{% static 'img/mouse_key.svg' %}">
+                </div>
+                <div class = "cont_right_big">
+                    <h4 class = "p-2">Follow latest news and promotions</h4>
+                </div>
+                <div class = "cont_right_small">
+                    <h5 class = "p-2">Sign up to be a member so you don't miss any new information.<br>You can subscribe for free for life and no additional charges.<br>Let us take care of you better. <a href="{% url 'register-page' %}">Click Here</a></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class = "container-fluid mt-5 bg-light">
+        <div class = "row">
+            <div class = "col text-center mt-5 p-5"><h4>
+                "Number one website for reserving hotels.<br>
+                Nothing moves us quite like service.<br>
+                Hear more details than ever before with<br>the PoonVeh website."</h4><br>
+                <h6>Prof. Leonardo da Vinícius Júnior</h6>
+                <h7>Executive PoonVeh chairman</h7>
+            </div>
+            <div class = "col">
+                <img class = "img-fluid" src="{% static 'img/bed.svg' %}">
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class = "container-fluid mt-5">
+        <div class = "row">
+            <div class = "col">
+                <h4>Trending Hotels In Thailand</h4>
+            </div>
+            <div class = "col">
+                <img class="img-fluid" src="{% static 'img/city.svg' %}">
+            </div>
+        </div>
+    </div>
+    <div class = "container-fluid mt-5">
+        <div class = "row">
+            <div class="col">
+                <div class = "display-2 px-4">
+                    Get Started
+                </div>
+                <div class = "p-5">
+                    <a class = "btn btn-primary btn-lg" href="{% url 'hotels-page' %}">START BOOKING</a>
+                </div>
+            </div>
+            <div class = "col">
+                <img class="img-fluid" src="{% static 'img/view.svg' %}">
+            </div>
+        </div>
+    </div>
+    {% comment %} <center>
+        <h3 style="color:green">Available Hotels</h3>
         {% for ht in HotelHomePage %}
             <h5 style="color:green">{{ht.Hotel_Name}}</h5>
             <p> 
@@ -104,7 +119,7 @@
         {{CT3|length}}
         {%for all in CT3%}
             <p>{{all.0}}</p>  
-        {%endfor%} {% endcomment %}
-    </center>
+        {%endfor%}
+    </center>{%endcomment%}
 
 {% endblock content %}

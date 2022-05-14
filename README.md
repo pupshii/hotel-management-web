@@ -3,7 +3,7 @@
 - Heroku webserver (US region) use PostgreSQL but we've used MySQL
 - Due to US, the system will confuse you for a fraudster from the United States, several features that require authentication will be unavailable.
 - but it FREE
-[Demo App](https://poonveh.herokuapp.com/)
+[Demo App](https://poonvehhotel.herokuapp.com/)
 
 ## Scope & Details
 The hotel management system is a database that contains the following:
