@@ -6,14 +6,15 @@
     <div class ="containerbody">
         <div class="container">
             <center>
-                <br><img src="{% static 'img/logo_news.svg' %}" width="160">
-                <h1>Page of {{user.username}}'s reviews </h1>
-                <h5 style="color:green">You have a total of {{reviewlist|length}} rooms awaiting your review (optional)<h5>
+                <br><img src="{% static 'img/pvlogoreview.svg' %}" width="160">
+                <h1>Page of {{user.username}}'s Reviews </h1>
+                <h5 style="color:purple">You have a total of {{reviewlist|length}} rooms awaiting your review (optional)<h5>
             </center><hr>
             <table class="table table-striped table-dark">
                 <thead>
                     <tr>
                         <th scope="col">Order</th>
+                        <th scope="col">TID</th>
                         <th scope="col">Hotel</th>
                         <th scope="col">Room Type</th>
                         <th scope="col">Night(s)</th>
@@ -27,6 +28,7 @@
                     {% for review in reviewlist %}
                         <tr>
                             <th scope="row">{{forloop.counter}}</th>
+                            <td>T{{review.id}}</td>
                             <td>{{review.room.hotel.Hotel_Name}}</td>
                             <td>{{review.room.roomtype.Type_Name}}</td>
                             <td>{{review.Transaction_Night}}</td>

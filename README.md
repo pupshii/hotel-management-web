@@ -73,9 +73,15 @@ The hotel management system is a database that contains the following:
 - [x] Inbox Page
 - [x] Check Room Available
 - [x] Reserve Hotel Room
-- [x] All Book Page
-- [ ] Payment System
-- [ ] Admin Confirm Payment
+- [x] Show All Books Page
+- [x] Clear Unwanted Books
+- [x] Free Hotel Room
+- [x] Calculater Final Price
+- [x] Payment System
+- [x] Confirm Payment (for all staffs)
+- [x] Write Reviews System (open for confirm transactions)
+- [x] Show latest 4 reviews in Hotels detail
+- [x] Calculate Culmulative Ratings
 
 ## Wanna be
 - [x] Fixed navbar

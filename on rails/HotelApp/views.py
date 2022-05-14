@@ -430,7 +430,7 @@ def HotelDetail(request, hotel_id):
             lock=Room.objects.get(id=room_id)  # lock room
             lock.Room_Status=False
             lock.save()
-            context['add_book']='The system has added your booking information. You can check it on the All Book page!'
+            context['add_book']='The system has added your booking information. You can check it on your Bookings page!'
     return render(request, 'frontend/hoteldetail.html', context)
 
 @login_required
@@ -601,8 +601,12 @@ def AllBookMember(request):
         data=request.POST.copy()
         if 'getbookid' in data:
             getbookid=data.get('getbookid')
-            Transaction.objects.get(id=getbookid).delete()
-            all_booking=Transaction.objects.filter(member=Member.objects.get(id=request.user.id))
+            # free deleted room
+            freeroom=Transaction.objects.get(id=getbookid)
+            freeroom.room.Room_Status=True
+            freeroom.room.save()
+            freeroom.delete()
+            all_booking=Transaction.objects.filter(member=Member.objects.get(id=request.user.id), payment=None)
             first_price=0
             for i in all_booking:
                 first_price+=i.Transaction_Price
