@@ -66,9 +66,17 @@
                                         {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
                                             <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-news' %}">+ News</a></li>
                                         {% endif %}
-                                        <li><a class="dropdown-item nav-link" href="{% url 'news-inbox' %}">News</a></li>
-                                        <li><a class="dropdown-item nav-link" href="{% url 'show-booking' %}">Bookings</a></li>
-                                        <li><a class="dropdown-item nav-link" href="{% url 'reviews-page' %}">Reviews</a></li>
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                            <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-room' %}">+ Room</a></li>
+                                        {% endif %}
+                                        {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}
+                                            <li><a style="color:green" class="dropdown-item nav-link" href="{% url 'add-roomtype' %}">+ Room Type</a></li>
+                                        {% endif %}
+                                        {% if not user.is_staff %}  <!-- bc too much for staff -->
+                                            <li><a class="dropdown-item nav-link" href="{% url 'news-inbox' %}">News</a></li>
+                                            <li><a class="dropdown-item nav-link" href="{% url 'show-booking' %}">Bookings</a></li>
+                                            <li><a class="dropdown-item nav-link" href="{% url 'reviews-page' %}">Reviews</a></li>
+                                        {% endif %}
                                     </ul>
                                 </li>
 

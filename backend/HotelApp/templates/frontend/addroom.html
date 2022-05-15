@@ -1,0 +1,46 @@
+{% extends 'frontend/base2.html' %}
+{% block title %} Add Room | {% endblock title %}
+{% load static %}
+{% block content %}
+    <br><br><br><br>
+    <div class ="containerbody">
+        <div class ="container">
+            <center>
+                <br><img src="{% static 'img/logoBlack.svg' %}" width="160">
+                <h1>Room Adding System</h1><hr>
+            </center>
+            {% if addnew %}
+                <center>
+                <div class="alert alert-success alert-dismissible fade show" row="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong>Success!</strong> {{addnew}}
+                </div>
+                </center>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="hotel">Hotel</label>
+                    <select class="form-control form-control" id="hotel" name="hotel" required>
+                        {% for h in hotellist %}
+                            <option>H{{h.id}} - {{h.Hotel_Name}}</option>
+                        {% endfor %}
+                    </select>
+                </div><br>
+                <div class="form-group">
+                    <label for="roomtype">Room Type</label>
+                    <select class="form-control form-control" id="roomtype" name="roomtype" required>
+                        {% for ty in roomtypelist %}
+                            <option>TY{{ty.id}} - {{ty.Type_Name}}</option>
+                        {% endfor %}
+                    </select>
+                </div><br>
+                <div class="form-group">
+                    <label for="roomnum">Room Number</label>
+                    <input type="text" class="form-control" id="roomnum" name="roomnum" placeholder="Enter the room number according to the format used in the hotel." required>
+                </div><br>
+                <button type="submit" class="btn btn-success">Adding Room</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

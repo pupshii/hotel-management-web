@@ -21,4 +21,6 @@ urlpatterns = [
     path('allbook/', AllBookMember, name='show-booking'),
     path('bookslist/', BooksList, name='books-list'),
     path('reviews/', ReviewPage, name='reviews-page'),
+    path('add-room/', AddRoom, name='add-room'),
+    path('add-roomtype/', AddRoomType, name='add-roomtype'),
 ]

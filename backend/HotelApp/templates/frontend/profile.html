@@ -1,5 +1,6 @@
 {% extends 'frontend/base2.html' %}
 {% load static %}
+{% load humanize %}
 {% block title %} Profile | {% endblock title %}
 {% block content %}
     <br><br><br><br>
@@ -22,6 +23,7 @@
 				{% endif %}
 				<h5>Member ID: M{{user.id}}</h5>
 				<h5>Email: {{profileInfo.email}}</h5>
+				<h4 style="font-size:20;color:rgb(0, 155, 133)"><i>PV-Point: {{profileInfo.member.Member_Point|intcomma}}</i></h4>
 			</center>
 			<form method="POST" enctype="multipart/form-data">
 				{% csrf_token %}

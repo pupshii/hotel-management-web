@@ -1,0 +1,46 @@
+{% extends 'frontend/base2.html' %}
+{% block title %} Add Room Type | {% endblock title %}
+{% load static %}
+{% block content %}
+    <br><br><br><br>
+    <div class ="containerbody">
+        <div class ="container">
+            <center>
+                <br><img src="{% static 'img/logoBlack.svg' %}" width="160">
+                <h1>Room Type Adding System</h1><hr>
+            </center>
+            {% if addnew %}
+                <center>
+                <div class="alert alert-success alert-dismissible fade show" row="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong>Success!</strong> {{addnew}}
+                </div>
+                </center>
+            {% endif %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Type Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div><br>
+                <div class="form-group">
+                    <label for="price">Price / Night</label>
+                    <input type="number" class="form-control" id="price" name="price" required>
+                </div><br>
+                <div class="form-group">
+                    <label for="cap">Room Capacity</label>
+                    <input type="number" class="form-control" id="cap" name="cap" required>
+                </div><br>
+                <div class="form-group">
+                    <label for="detail">Type Detail</label>
+                    <textarea class="form-control" rows="4" id="detail" name="detail" placeholder="Please enter details for customers to understand briefly." required></textarea>
+                </div><br>
+                <div class="form-group">
+                    <label for="picture">Room Type Cover Picture: </label>
+                    <input type="file" class="form-control-file" id="picture" name="picture">
+                </div><br>
+                <button type="submit" class="btn btn-success">Adding Room Type</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

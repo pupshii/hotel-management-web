@@ -117,7 +117,7 @@ def ContactUs(request):
         # newrecord.detail=detail
         # newrecord.save()
         # ContactList(title=title, email=email, detail=detail).save()
-        context['message']='ขอบคุณสำหรับข้อความ แอดมินจะติดต่อคุณกลับภายใน 24 ชั่วโมง'
+        context['message']='Thank you for the message. Admin will contact you back within 24 hours!'
 
         # ส่งไลน์ from songline import Sendline (https://pypi.org/project/songline/)
         token='o6Tfmj8FPGp6egjxwVjnOrMpLhfoZRb9520DBiWOxuV'  # เอามาจาก Line notify
@@ -151,15 +151,15 @@ def Register(request):
         print("ADDR= ", address)
         # ใช้ try except ซ้อนกันแล้วมัน pass ไปเลย ติด if ไว้ดีกว่า, เผื่อ fill ช่องให้ผู้ใช้ด้วย
         if User.objects.filter(username=username):  
-            context['danger_message1']='Username "{}" มีในระบบแล้ว กรุณาใช้ username อื่น'.format(username)
+            context['danger_message1']='Username "{}" already in the system, please use another username!'.format(username)
         else:
             context['GetUsername']=username
         if User.objects.filter(email=email):
-            context['danger_message2']='Email "{}" มีในระบบแล้ว กรุณาใช้ email อื่น'.format(email)
+            context['danger_message2']='Email "{}" already in the system, please use another email!'.format(email)
         else:
             context['GetEmail']=email
         if password1 != password2:  
-            context['danger_message3']='password ของคุณไม่ตรงกัน'  
+            context['danger_message3']='your passwords do not match.'  
         if 'danger_message1' in context or 'danger_message2' in context or 'danger_message3' in context:
             return render(request, 'frontend/register.html', context)   
         else:
@@ -201,7 +201,7 @@ def Register(request):
             login(request, user)
             return redirect('profile-page')
         except:
-            context['danger_message4']='คุณกรอก Username หรือ Password ไม่ถูกต้อง กรุณาติดต่อแอดมิน!'
+            context['danger_message4']='you have entered an incorrect Username or Password, please contact the admin!'
     return render(request, 'frontend/register.html', context)
 
 @login_required
@@ -300,6 +300,7 @@ def EditMember(request, user_id):
             nic=data.get('nic')
             tel=data.get('tel')
             address=data.get('address')
+            point=data.get('point')
             edituser.first_name=fname
             edituser.last_name=lname
             edituser.save()
@@ -307,6 +308,7 @@ def EditMember(request, user_id):
             editmember.Member_NIC=nic
             editmember.Member_Tel=tel
             editmember.Member_Address=address
+            editmember.Member_Point=point
             if 'picture' in request.FILES:
                 editmember.Member_Pic=request.FILES['picture']  # upload to cloudinary
                 print('Cloud PATH:', editmember.Member_Pic)
@@ -428,8 +430,8 @@ def HotelDetail(request, hotel_id):
             newtrans=Transaction()
             newtrans.member=request.user.member
             newtrans.room=Room.objects.get(id=room_id)
-            newtrans.Transaction_Night=int(count)
-            newtrans.Transaction_Price=int(count)*newtrans.room.roomtype.Type_Pernight
+            newtrans.Transaction_Night=abs(int(count))  # use abs if jsscript doesn't work
+            newtrans.Transaction_Price=abs(int(count))*newtrans.room.roomtype.Type_Pernight
             newtrans.save()
             lock=Room.objects.get(id=room_id)  # lock room
             lock.Room_Status=False
@@ -559,13 +561,8 @@ def SendNews(request):
     context={'memberlist':memberlist, 'newslist':newslist}
     if request.method == 'POST':
         data=request.POST.copy()
-        receiver=data.get('receiver')
-        getid_receiver=""
-        for i in range(0, len(receiver)):
-            if receiver[i].isnumeric():
-                getid_receiver+=receiver[i]
-            if receiver[i] == '-':
-                break
+        send_index=data.get('rank-in-db')
+        send_index=int(send_index)
         topic=data.get('topic')
         getid_topic=""
         for i in range(0, len(topic)):
@@ -573,16 +570,83 @@ def SendNews(request):
                 getid_topic+=topic[i]
             if topic[i] == '-':
                 break
-
-        mailbox=GetNews()
-        try:
-            recipient=Member.objects.get(id=int(getid_receiver))
-            mailbox.member=recipient
-            mailbox.news=News.objects.get(id=int(getid_topic))
-            mailbox.save()
-            context['send_success']='Sending message to M'+getid_receiver+' ('+recipient.user.username+')'
-        except:
-            context['send_fail']='Cannot found this member please contact admin'
+        # Send by Member Rank
+        if send_index == 1:
+            rank=data.get('rank')
+            getrank=data.get('')
+            if rank.find('ALL') != -1:
+                cnt=0
+                allmember=Member.objects.all()
+                for i in allmember:
+                    if not i.user.is_staff:
+                        mailbox=GetNews()
+                        mailbox.news=News.objects.get(id=int(getid_topic))
+                        mailbox.member=i
+                        mailbox.save()
+                        cnt+=1
+                context['send_success']='Sending message to '+str(cnt)+' members.'
+            if rank.find('ORDINARY') != -1:  # 0-999 pts
+                cnt=0
+                ordinarymember=Member.objects.filter(Member_Point__range=(0, 999))
+                for i in ordinarymember:
+                    if not i.user.is_staff:
+                        mailbox=GetNews()
+                        mailbox.news=News.objects.get(id=int(getid_topic))
+                        mailbox.member=i
+                        mailbox.save()
+                        cnt+=1
+                context['send_success']='Sending message to '+str(cnt)+' ordinary members.'
+            if rank.find('VIP') != -1:  # 1000-9999 pts
+                cnt=0
+                vipmember=Member.objects.filter(Member_Point__range=(1000, 9999))
+                for i in vipmember:
+                    if not i.user.is_staff:
+                        mailbox=GetNews()
+                        mailbox.news=News.objects.get(id=int(getid_topic))
+                        mailbox.member=i
+                        mailbox.save()
+                        cnt+=1
+                context['send_success']='Sending message to '+str(cnt)+' vip members.'
+            if rank.find('PRIME') != -1:  # 10000-99999 pts
+                cnt=0
+                primemember=Member.objects.filter(Member_Point__range=(10000, 99999))
+                for i in primemember:
+                    if not i.user.is_staff:
+                        mailbox=GetNews()
+                        mailbox.news=News.objects.get(id=int(getid_topic))
+                        mailbox.member=i
+                        mailbox.save()
+                        cnt+=1
+                context['send_success']='Sending message to '+str(cnt)+' prime members.'
+            if rank.find('ELITE') != -1:  # > 100000 pts
+                cnt=0
+                elitemember=Member.objects.filter(Member_Point__gte=100000)
+                for i in elitemember:
+                    if not i.user.is_staff:
+                        mailbox=GetNews()
+                        mailbox.news=News.objects.get(id=int(getid_topic))
+                        mailbox.member=i
+                        mailbox.save()
+                        cnt+=1
+                context['send_success']='Sending message to '+str(cnt)+' elite members.'
+        # Specify Member
+        if send_index == 2:
+            receiver=data.get('receiver')
+            getid_receiver=""
+            for i in range(0, len(receiver)):
+                if receiver[i].isnumeric():
+                    getid_receiver+=receiver[i]
+                if receiver[i] == '-':
+                    break
+            try:
+                mailbox=GetNews()
+                recipient=Member.objects.get(id=int(getid_receiver))
+                mailbox.member=recipient
+                mailbox.news=News.objects.get(id=int(getid_topic))
+                mailbox.save()
+                context['send_success']='Sending message to M'+getid_receiver+' ('+recipient.user.username+')'
+            except:
+                context['send_fail']='Cannot found this member please contact admin.'
     return render(request, 'frontend/sendnews.html', context)
 
 @login_required
@@ -746,3 +810,46 @@ def ReviewPage(request):
                 reviewlist.append(usertransaction[i])
         context={'reviewlist':reviewlist}
     return render(request, 'frontend/reviews.html', context)
+
+@login_required
+def AddRoom(request):
+    allow_user=['MANAGER', 'ADMIN']
+    if not request.user.is_staff or request.user.member.staff.Staff_Position not in allow_user:
+        return redirect('home-page')
+    context={}
+    hotellist=Hotel.objects.all()
+    context['hotellist']=hotellist
+    roomtypelist=RoomType.objects.all()
+    context['roomtypelist']=roomtypelist
+    if request.method == 'POST':
+        data=request.POST.copy()
+        hotel=data.get('hotel')
+        hotel=hotel[1:]  # cut H
+        for i in range(0, len(hotel)):
+            if hotel[i] == ' ':
+                hotel=hotel[:i]
+                break
+        rt=data.get('roomtype')
+        rt=rt[2:]  # cut TY
+        for i in range(0, len(rt)):
+            if rt[i] == ' ':
+                rt=rt[:i]
+                break
+        rn=data.get('roomnum')
+        newroom=Room()
+        gethotel=Hotel.objects.get(id=hotel)
+        newroom.hotel=gethotel
+        newroom.roomtype=RoomType.objects.get(id=rt)
+        newroom.Room_Number=rn
+        newroom.save()
+        context['addnew']='Added '+rn+' to '+gethotel.Hotel_Name+'.'
+    return render(request, 'frontend/addroom.html', context)
+
+@login_required
+def AddRoomType(request):
+    allow_user=['MANAGER', 'ADMIN']
+    if not request.user.is_staff or request.user.member.staff.Staff_Position not in allow_user:
+        return redirect('home-page')
+    context={}
+    context['addnew']='The system has added new roomtype to the database.'
+    return render(request, 'frontend/addroomtype.html', context)

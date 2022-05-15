@@ -6,8 +6,8 @@
     <div class ="containerbody">
         <div class="container">
             <center>
-                <br><img src="{% static 'img/logoblack.svg' %}" width="150">
-                <h1>Sending News System</h1>
+                <br><img src="{% static 'img/logoBlack.svg' %}" width="150">
+                <h1>News Sending System</h1>
             </center><hr>
             {% if send_success %}
                 <center>
@@ -28,14 +28,6 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="receiver">Member</label>
-                    <select class="form-control form-control" id="receiver" name="receiver" required>
-                        {% for mem in memberlist %}
-                            <option>M{{mem.id}} - {{mem.first_name}} {{mem.last_name}} ({{mem.username}})</option>
-                        {% endfor %}
-                    </select>
-                </div><br>
-                <div class="form-group">
                     <label for="topic">News Topic</label>
                     <select class="form-control form-control" id="topic" name="topic" required>
                         {% for news in newslist %}
@@ -43,6 +35,30 @@
                         {% endfor %}
                     </select>
                 </div><br>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="rank-in-db" value="1" checked>
+                    <div class="form-group">
+                        <label for="rank">Send by Member Rank</label>
+                        <select class="form-control form-control" id="rank" name="rank" required>
+                            <option selected>ALL Member</option>
+                            <option>ORDINARY Member (PV-Point between 0 - 999 pts.)</option>
+                            <option>VIP Member (PV-Point between 1,000 - 9,999 pts.)</option>
+                            <option>PRIME Member (PV-Point between 10,000 - 99,999 pts.)</option>
+                            <option>ELITE Member (PV-Point at least 100,000 pts.)</option>
+                        </select>
+                    </div><br>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="rank-in-db" value="2">
+                    <div class="form-group">
+                        <label for="receiver">Specify Member</label>
+                        <select class="form-control form-control" id="receiver" name="receiver" required>
+                            {% for mem in memberlist %}
+                                <option>M{{mem.id}} - {{mem.first_name}} {{mem.last_name}} ({{mem.username}})</option>
+                            {% endfor %}
+                        </select>
+                    </div><br>
+                </div>
                 <button type="submit" class="btn btn-outline-primary">Send News</button>
             </form>
         </div>
