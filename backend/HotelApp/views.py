@@ -784,13 +784,14 @@ def BooksList(request):
     return render(request, 'frontend/bookslist.html', context)
 
 def ReviewPage(request):
+    context={}
     confirmpayment=Payment.objects.filter(Payment_Status=True)
     usertransaction=Transaction.objects.filter(member=request.user.member, Transaction_Review=False)
     reviewlist=[]
     for i in range(0, len(usertransaction)):
         if usertransaction[i].payment in confirmpayment:
             reviewlist.append(usertransaction[i])
-    context={'reviewlist':reviewlist}
+    context['reviewlist']=reviewlist
     if request.method == 'POST':
         data=request.POST.copy()
         tid=data.get('reviewid')
@@ -802,13 +803,17 @@ def ReviewPage(request):
             thisreview.Transaction_Rating=int(rating)
         thisreview.Transaction_Comment=comment
         thisreview.save()
+        rewardpoint=int(thisreview.Transaction_Night*thisreview.room.roomtype.Type_Pernight/100)
+        request.user.member.Member_Point+=rewardpoint   # เมื่อทำการรีวิวโรงแรมจะได้ point, point นั้นจะเป็นจำนวนเต็มเพื่อความสวยงามตอนโชว์ อิอิ
+        request.user.member.save()
+        context['reward']='You have gained '+str(rewardpoint)+' additional points, now you have '+str(request.user.member.Member_Point)+' total points!'
         # noop O(N)
         usertransaction=Transaction.objects.filter(member=request.user.member, Transaction_Review=False)
         reviewlist=[]
         for i in range(0, len(usertransaction)):
             if usertransaction[i].payment in confirmpayment:
                 reviewlist.append(usertransaction[i])
-        context={'reviewlist':reviewlist}
+        context['reviewlist']=reviewlist
     return render(request, 'frontend/reviews.html', context)
 
 @login_required
@@ -851,5 +856,20 @@ def AddRoomType(request):
     if not request.user.is_staff or request.user.member.staff.Staff_Position not in allow_user:
         return redirect('home-page')
     context={}
-    context['addnew']='The system has added new roomtype to the database.'
+    if request.method == 'POST':
+        data=request.POST.copy()
+        name=data.get('name')
+        price=data.get('price')
+        cap=data.get('cap')
+        detail=data.get('detail')
+        newtype=RoomType()
+        newtype.Type_Name=name
+        newtype.Type_Pernight=abs(int(price))  # incase javascript did not work well
+        newtype.Type_Capacity=abs(int(cap))
+        newtype.Type_Detail=detail
+        if 'picture' in request.FILES:
+            newtype.Type_Pic=request.FILES['picture']  # upload to cloudinary
+            print('Cloud PATH:', newtype.Type_Pic)
+        newtype.save()
+        context['addnew']='The system has added new roomtype to the database.'
     return render(request, 'frontend/addroomtype.html', context)

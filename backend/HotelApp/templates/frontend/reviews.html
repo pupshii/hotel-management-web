@@ -9,7 +9,16 @@
                 <br><img src="{% static 'img/pvlogoreview.svg' %}" width="160">
                 <h1>Page of {{user.username}}'s Reviews </h1>
                 <h5 style="color:purple">You have a total of {{reviewlist|length}} rooms awaiting your review (optional)<h5>
+                <h6 style="color:purple">Make a review of our hotel to receive your reward points</h6>
             </center><hr>
+            {% if reward %}
+                <center>
+                <div class="alert alert-info alert-dismissible fade show" row="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong>Congratulations!</strong> {{reward}}
+                </div>
+                </center>
+            {% endif %}
             <table class="table table-striped table-dark">
                 <thead>
                     <tr>

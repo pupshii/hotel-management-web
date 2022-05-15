@@ -23,7 +23,19 @@
 				{% endif %}
 				<h5>Member ID: M{{user.id}}</h5>
 				<h5>Email: {{profileInfo.email}}</h5>
-				<h4 style="font-size:20;color:rgb(0, 155, 133)"><i>PV-Point: {{profileInfo.member.Member_Point|intcomma}}</i></h4>
+				{% if not user.is_staff %}
+					<h4 style="font-size:20;color:rgb(0, 155, 133)"><i>PV-Point: {{profileInfo.member.Member_Point|intcomma}}
+					{% if profileInfo.member.Member_Point > 100000 %}
+						(Elite Membership)
+					{% elif profileInfo.member.Member_Point > 10000 %}
+						(Prime Membership)
+					{% elif profileInfo.member.Member_Point > 1000 %}
+						(VIP Membership)
+					{% else %}
+						(Ordinary Membership)
+					{% endif %}
+					</i></h4>
+				{% endif %}
 			</center>
 			<form method="POST" enctype="multipart/form-data">
 				{% csrf_token %}
