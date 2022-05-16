@@ -44,7 +44,8 @@ def Home(request):
     return render(request, 'frontend/home.html')
 
 def Hotels(request):
-    allhotel=Hotel.objects.all()   # SELECT * from Hotel
+    # SELECT * FROM `hotel`;
+    allhotel=Hotel.objects.all()
     hotel_per_page=3
     paginator=Paginator(allhotel, hotel_per_page)
     page=request.GET.get('page')   # localhost:800/?page=2
@@ -69,6 +70,7 @@ def Hotels(request):
     return render(request, 'frontend/hotels.html', context)
 
 def Promotions(request):
+    # SELECT * FRMO `promotion`;
     allpromotion=Promotion.objects.all()
     for i in allpromotion:
         i.Promotion_Discount*=100  # convert when displaying %
@@ -656,13 +658,14 @@ def SendNews(request):
 def NewsInbox(request):
     context={}
     try:
-        newsinbox=GetNews.objects.filter(member=Member.objects.get(id=request.user.id))
+        newsinbox=GetNews.objects.filter(member=Member.objects.get(id=request.user.id))  # Join GetNews Member News
         context['newsinbox']=newsinbox
     except:
         context['newsinbox']=None
     if request.method == 'POST':
         data=request.POST.copy()
         getnewid=data.get('getnewid')
+        # DELETE FROM getnews WHERE `getnews`.`id` = 5"
         GetNews.objects.get(id=getnewid).delete()
     return render(request, 'frontend/newsinbox.html', context)
 
