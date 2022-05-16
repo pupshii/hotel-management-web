@@ -96,6 +96,9 @@ def Promotions(request):
 def AboutUs(request):
     return render(request, 'frontend/about.html')
     
+from dotenv import load_dotenv
+import os
+load_dotenv()
 def ContactUs(request):
     context={}
     if request.method=='POST':
@@ -120,9 +123,9 @@ def ContactUs(request):
         context['message']='Thank you for the message. Admin will contact you back within 24 hours!'
 
         # ส่งไลน์ from songline import Sendline (https://pypi.org/project/songline/)
-        token='o6Tfmj8FPGp6egjxwVjnOrMpLhfoZRb9520DBiWOxuV'  # เอามาจาก Line notify
+        token=os.getenv('LINE_TOKEN')
         linenoti=Sendline(token)
-        linenoti.sendtext('\nหัวข้อ: {}\nอีเมลล์: {}\nรายละเอียด: {}'.format(title, email, detail))
+        linenoti.sendtext('\nTopic: {}\nEmail: {}\nDetail: {}'.format(title, email, detail))
         # ส่งอีเมลล์ from .emailsystem import sendthai
         # text='สวัสดีคุณลูกค้า\n\nทางเราได้รับปัญหาที่ท่านสอบถามเรียบร้อยแล้ว แอดมินจะรีบทำการติดต่อกลับโดยเร็วที่สุด\n\n--แอดมิน--\n'
         # sendthai(email, 'Hotel Poonveh: สอบถามปัญหา', text)

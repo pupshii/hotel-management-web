@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%ql_v=ocy)ldiukpn0jh*77!vlh^3h&e)eb^c%h9p%pr!)ho!h'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -48,7 +52,7 @@ import cloudinary.api
 cloudinary.config(
     cloud_name="ps168clound",
     api_key="185495522977931",
-    api_secret="H_1R-mWGXtCi9BrPantMf6GGI5g"
+    api_secret=os.getenv('CLOUDINARY_API_SECRET')
 )
 
 MIDDLEWARE = [
