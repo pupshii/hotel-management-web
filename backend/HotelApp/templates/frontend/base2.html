@@ -49,6 +49,9 @@
                                             <li><a style="color:red" class="dropdown-item nav-link" href="/admin">SITE</a></li>
                                         {% endif %}
                                         {% if user.is_staff %}
+                                            <li><a style="color:red" class="dropdown-item nav-link" href="{% url 'analytic-report' %}">ANALYTIC</a></li>
+                                        {% endif %}
+                                        {% if user.is_staff %}
                                             <li><a style="color:blue" class="dropdown-item nav-link" href="{% url 'books-list' %}">Books List</a></li>
                                         {% endif %}
                                         {% if user.member.staff.Staff_Position == 'ADMIN' or user.member.staff.Staff_Position == 'MANAGER' %}

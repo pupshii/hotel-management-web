@@ -1,0 +1,139 @@
+{% extends 'frontend/base2.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %} Analytic | {% endblock title %}
+{% block content %}
+    <br><br><br><br>
+    <div class ="containerbody">
+        <div class = "container-fluid">
+            <div class = "display-2">
+                Advanced Analytic Report
+            </div><hr><br>
+            <center>
+                <h1 style="color:rgb(212, 172, 13)"><i>Top five most rated hotels</i></h1>
+            </center> 
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Order</th>
+                    <th scope="col">Hotel ID</th>
+                    <th scope="col">Hotel Name</th>
+                    <th scope="col">Hotel Address</th>
+                    <th scope="col">Hotel Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in AN1 %} 
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>H{{i.id}}</td>
+                            <td>{{i.Hotel_Name}}</td>
+                            <td>{{i.Hotel_Address}}</td>
+                            <td>{{i.Hotel_Detail|floatformat:2}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table><br>
+            <center>
+                <h1 style="color:rgb(231, 76, 60)"><i>Top five most booked hotels</i></h1>
+            </center> 
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Order</th>
+                    <th scope="col">Hotel ID</th>
+                    <th scope="col">Hotel Name</th>
+                    <th scope="col">Hotel Address</th>
+                    <th scope="col">Hotel Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in AN1 %} 
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>H{{i.id}}</td>
+                            <td>{{i.Hotel_Name}}</td>
+                            <td>{{i.Hotel_Address}}</td>
+                            <td>{{i.Hotel_Detail|floatformat:2}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table><br>
+            <center>
+                <h1 style="color:rgb(136, 78, 160)"><i>Top three most booked room types</i></h1>
+            </center> 
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Order</th>
+                    <th scope="col">Hotel ID</th>
+                    <th scope="col">Hotel Name</th>
+                    <th scope="col">Hotel Address</th>
+                    <th scope="col">Hotel Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in AN1 %} 
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>H{{i.id}}</td>
+                            <td>{{i.Hotel_Name}}</td>
+                            <td>{{i.Hotel_Address}}</td>
+                            <td>{{i.Hotel_Detail|floatformat:2}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table><br>
+            <center>
+                <h1 style="color:rgb(46, 134, 193)"><i>Top three members with the most PV-Points</i></h1>
+            </center> 
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Order</th>
+                    <th scope="col">Hotel ID</th>
+                    <th scope="col">Hotel Name</th>
+                    <th scope="col">Hotel Address</th>
+                    <th scope="col">Hotel Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in AN1 %} 
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>H{{i.id}}</td>
+                            <td>{{i.Hotel_Name}}</td>
+                            <td>{{i.Hotel_Address}}</td>
+                            <td>{{i.Hotel_Detail|floatformat:2}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table><br>
+            <center>
+                <h1 style="color:rgb(23, 165, 137)"><i>Latest reviews about our hotels</i></h1>
+            </center> 
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Order</th>
+                    <th scope="col">Hotel ID</th>
+                    <th scope="col">Hotel Name</th>
+                    <th scope="col">Hotel Address</th>
+                    <th scope="col">Hotel Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in AN1 %} 
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>H{{i.id}}</td>
+                            <td>{{i.Hotel_Name}}</td>
+                            <td>{{i.Hotel_Address}}</td>
+                            <td>{{i.Hotel_Detail|floatformat:2}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}

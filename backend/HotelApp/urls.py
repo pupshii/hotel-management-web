@@ -23,4 +23,5 @@ urlpatterns = [
     path('reviews/', ReviewPage, name='reviews-page'),
     path('add-room/', AddRoom, name='add-room'),
     path('add-roomtype/', AddRoomType, name='add-roomtype'),
+    path('analytic/', AnalyticReport, name='analytic-report'),
 ]

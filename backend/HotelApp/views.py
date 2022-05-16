@@ -879,3 +879,44 @@ def AddRoomType(request):
         newtype.save()
         context['addnew']='The system has added new roomtype to the database.'
     return render(request, 'frontend/addroomtype.html', context)
+
+@login_required
+def AnalyticReport(request):
+    if not request.user.is_staff:
+        return redirect('home-page')
+    context={}
+    # Advanced Analytic 1: Top 5 rated hotels
+    allhotel=Hotel.objects.all()
+    hotellist=[0]*len(allhotel)  # initialize array size
+    countH=[0]*len(allhotel)
+    reviews=Transaction.objects.filter(Transaction_Rating__gte=1)
+    for i in range(0, len(reviews)):
+        hotellist[reviews[i].room.hotel.id-1]+=reviews[i].Transaction_Rating
+        countH[reviews[i].room.hotel.id-1]+=1
+    for i in range(0, len(allhotel)):
+        if hotellist[i] > 0:
+            hotellist[i]/=countH[i]
+    an1=[]
+    for i in range(0, 5):
+        cur_ind=-1
+        cur_val=0
+        for j in range(0, len(allhotel)):
+            if hotellist[j] > cur_val and j+1 not in an1:
+                cur_val=hotellist[j]
+                cur_ind=j
+        if cur_ind >= 0:
+            an1.append(cur_ind+1)
+    for i in range(0, len(an1)):
+        an1.append(Hotel.objects.get(id=an1[i]))
+    wan1=[]
+    for i in range(0, int(len(an1)/2)):
+        wan1.append(hotellist[an1[0]-1])
+        an1.pop(0)
+    for i in range(0, len(an1)):
+        an1[i].Hotel_Detail=wan1[i]   # change data i don't want to pass many arguments.
+    context['AN1']=an1
+    # Advanced Analytic 2: Top 5 most booked hotels
+    # Advanced Analytic 3: Top 3 most booked types
+    # Advanced Analytic 4: Top 3 members 
+    # Advanced Analytic 5: Latest 10 reviews
+    return render(request, 'frontend/analytic.html', context)
