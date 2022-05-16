@@ -7,21 +7,21 @@
     <div class ="containerbody">
         <div class ="container">
             <center>
-                {% if cur_rating > 4.5 %}
+                {% if cur_rating >= 4.5 %}
                     <img src="{% static 'img/5star.svg' %}" width="150"><br>
-                {% elif cur_rating > 3.5 %}
+                {% elif cur_rating >= 3.5 %}
                     <img src="{% static 'img/4star.svg' %}" width="150"><br>
-                {% elif cur_rating > 2.5 %}
+                {% elif cur_rating >= 2.5 %}
                     <img src="{% static 'img/3star.svg' %}" width="150"><br>
-                {% elif cur_rating > 1.5 %}
+                {% elif cur_rating >= 1.5 %}
                     <img src="{% static 'img/2star.svg' %}" width="150"><br>
-                {% elif cur_rating > 0.5 %}
+                {% elif cur_rating >= 0.5 %}
                     <img src="{% static 'img/1star.svg' %}" width="150"><br>
                 {% endif %}
                 <h1>{{Hotel.Hotel_Name}}</h1>
                 <h4 style="color:rgb(100, 100, 100)"> 
                     {% if cur_rating %}
-                        Rating: {{cur_rating|floatformat:1}} / 5 Stars
+                        Rating: {{cur_rating|floatformat:2}} / 5 Stars
                     {% else %}
                         no reviews yet
                     {% endif %}

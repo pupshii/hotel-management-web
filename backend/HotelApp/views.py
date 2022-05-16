@@ -45,7 +45,7 @@ def Home(request):
 
 def Hotels(request):
     # SELECT * FROM `hotel`;
-    allhotel=Hotel.objects.all()
+    allhotel=Hotel.objects.all().order_by('id')
     hotel_per_page=3
     paginator=Paginator(allhotel, hotel_per_page)
     page=request.GET.get('page')   # localhost:800/?page=2
@@ -71,7 +71,7 @@ def Hotels(request):
 
 def Promotions(request):
     # SELECT * FRMO `promotion`;
-    allpromotion=Promotion.objects.all()
+    allpromotion=Promotion.objects.all().order_by('id')
     for i in allpromotion:
         i.Promotion_Discount*=100  # convert when displaying %
 
@@ -241,7 +241,7 @@ def SearchMember(request):
     if not request.user.is_staff or request.user.member.staff.Staff_Position not in allow_user:
         return redirect('home-page')
     context={}
-    alluser=User.objects.all()
+    alluser=User.objects.all().order_by('id')
     context['result_user']=alluser
     if request.method == 'POST':
         data=request.POST.copy()
@@ -378,8 +378,8 @@ def AddHotel(request):
 
 def HotelDetail(request, hotel_id):
     hotel=Hotel.objects.get(id=hotel_id)
-    room=Room.objects.all()
-    reviews=Transaction.objects.filter(Transaction_Rating__gte=1)
+    room=Room.objects.all().order_by('id')
+    reviews=Transaction.objects.filter(Transaction_Rating__gte=1).order_by('-id')
     # JOIN 3 TABLES
     cur_rating=0
     total_rating=0
@@ -561,8 +561,8 @@ def AddNews(request):
 def SendNews(request):
     if not request.user.is_staff:
         return redirect('home-page')
-    memberlist=User.objects.filter(is_staff=False)
-    newslist=News.objects.all()
+    memberlist=User.objects.filter(is_staff=False).order_by('id')
+    newslist=News.objects.all().order_by('id')
     context={'memberlist':memberlist, 'newslist':newslist}
     if request.method == 'POST':
         data=request.POST.copy()
@@ -771,7 +771,7 @@ from datetime import datetime
 def BooksList(request):
     if not request.user.is_staff:
         return redirect('home-page')
-    booklist=Payment.objects.filter(Payment_Status=False)
+    booklist=Payment.objects.filter(Payment_Status=False).order_by('Payment_Date')
     context={'booklist':booklist}
     if request.method == 'POST':
         data=request.POST.copy()
@@ -828,9 +828,9 @@ def AddRoom(request):
     if not request.user.is_staff or request.user.member.staff.Staff_Position not in allow_user:
         return redirect('home-page')
     context={}
-    hotellist=Hotel.objects.all()
+    hotellist=Hotel.objects.all().order_by('id')
     context['hotellist']=hotellist
-    roomtypelist=RoomType.objects.all()
+    roomtypelist=RoomType.objects.all().order_by('id')
     context['roomtypelist']=roomtypelist
     if request.method == 'POST':
         data=request.POST.copy()
