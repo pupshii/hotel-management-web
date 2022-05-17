@@ -29,7 +29,7 @@
                             <td>H{{i.id}}</td>
                             <td>{{i.Hotel_Name}}</td>
                             <td>{{i.Hotel_Address}}</td>
-                            <td>{{i.Hotel_Detail|floatformat:2}}</td>
+                            <td>{{i.Hotel_Detail|floatformat:2}} / 5 stars</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -44,17 +44,17 @@
                     <th scope="col">Hotel ID</th>
                     <th scope="col">Hotel Name</th>
                     <th scope="col">Hotel Address</th>
-                    <th scope="col">Hotel Rating</th>
+                    <th scope="col">Booked Number</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for i in AN1 %} 
+                    {% for i in AN2 %} 
                         <tr>
                             <th scope="row">{{forloop.counter}}</th>
                             <td>H{{i.id}}</td>
                             <td>{{i.Hotel_Name}}</td>
                             <td>{{i.Hotel_Address}}</td>
-                            <td>{{i.Hotel_Detail|floatformat:2}}</td>
+                            <td>{{i.Hotel_Detail|intcomma}} times</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -73,7 +73,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for i in AN1 %} 
+                    {% for i in AN3 %} 
                         <tr>
                             <th scope="row">{{forloop.counter}}</th>
                             <td>H{{i.id}}</td>
@@ -98,7 +98,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for i in AN1 %} 
+                    {% for i in AN4 %} 
                         <tr>
                             <th scope="row">{{forloop.counter}}</th>
                             <td>H{{i.id}}</td>
@@ -123,7 +123,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for i in AN1 %} 
+                    {% for i in AN5 %} 
                         <tr>
                             <th scope="row">{{forloop.counter}}</th>
                             <td>H{{i.id}}</td>

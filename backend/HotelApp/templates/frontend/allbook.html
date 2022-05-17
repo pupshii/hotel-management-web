@@ -60,7 +60,7 @@
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="promocode" style="color:green">You can choose to use the promotion to receive a discount!</label>
-                        <select class="form-control form-control" id="promocode" name="promocode" style="width:420px;">
+                        <select class="form-control form-control" id="promocode" name="promocode" style="width:315px;">
                             <option selected>--------------- NOT SELECT ---------------</option>  <!-- default -->
                             {% for i in allpromo %}
                                 <option>PRO{{i.id}} - {{i.Promotion_Name}} ({{i.Promotion_Discount|floatformat:0}}%)</option>
