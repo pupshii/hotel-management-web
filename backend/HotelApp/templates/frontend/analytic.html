@@ -60,32 +60,34 @@
                 </tbody>
             </table><br>
             <center>
-                <h1 style="color:rgb(136, 78, 160)"><i>Top three most booked room types</i></h1>
+                <h1 style="color:rgb(136, 78, 160)"><i>Top five most booked room types</i></h1>
             </center> 
             <table class="table table-hover">
                 <thead>
                     <tr>
                     <th scope="col">Order</th>
-                    <th scope="col">Hotel ID</th>
-                    <th scope="col">Hotel Name</th>
-                    <th scope="col">Hotel Address</th>
-                    <th scope="col">Hotel Rating</th>
+                    <th scope="col">Type ID</th>
+                    <th scope="col">Type Name</th>
+                    <th scope="col">Type Capacity</th>
+                    <th scope="col">Price / Night</th>
+                    <th scope="col">Booked Number</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for i in AN3 %} 
                         <tr>
                             <th scope="row">{{forloop.counter}}</th>
-                            <td>H{{i.id}}</td>
-                            <td>{{i.Hotel_Name}}</td>
-                            <td>{{i.Hotel_Address}}</td>
-                            <td>{{i.Hotel_Detail|floatformat:2}}</td>
+                            <td>TY{{i.id}}</td>
+                            <td>{{i.Type_Name}}</td>
+                            <td>{{i.Type_Capacity|intcomma}} people</td>
+                            <td>฿{{i.Type_Pernight|intcomma}}</td>
+                            <td>{{i.Type_Detail|intcomma}} times</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table><br>
             <center>
-                <h1 style="color:rgb(46, 134, 193)"><i>Top three members with the most PV-Points</i></h1>
+                <h1 style="color:rgb(46, 134, 193)"><i>Top five members with the most PV-Points</i></h1>
             </center> 
             <table class="table table-hover">
                 <thead>
@@ -110,7 +112,7 @@
                 </tbody>
             </table><br>
             <center>
-                <h1 style="color:rgb(23, 165, 137)"><i>Latest reviews about our hotels</i></h1>
+                <h1 style="color:rgb(23, 165, 137)"><i>Latest ten reviews about our hotels</i></h1>
             </center> 
             <table class="table table-hover">
                 <thead>

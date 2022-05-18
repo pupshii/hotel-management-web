@@ -900,7 +900,7 @@ def AnalyticReport(request):
     an1=[]
     for i in range(0, 5):
         cur_ind=-1
-        cur_val=0
+        cur_val=0  # not count 0 time, change it to < 0 if you want to count 0
         for j in range(0, len(allhotel)):
             if hotellist[j] > cur_val and j+1 not in an1:
                 cur_val=hotellist[j]
@@ -916,8 +916,8 @@ def AnalyticReport(request):
     for i in range(0, len(an1)):
         an1[i].Hotel_Detail=wan1[i]   # change data i don't want to pass many arguments.
     context['AN1']=an1
-    print(hotellist)  # ปรินต์เช็คดูได้ว่าทำไมต้องมี with an1
-    print(wan1)
+    # print(hotellist)  # ปรินต์เช็คดูได้ว่าทำไมต้องมี with an1
+    # print(wan1)
 
     # Advanced Analytic 2: Top 5 most booked hotels (count only successful booked)
     hotellist=[0]*len(allhotel)  # initialize array size
@@ -944,7 +944,32 @@ def AnalyticReport(request):
     for i in range(0, len(an2)):
         an2[i].Hotel_Detail=wan2[i]   # change data i don't want to pass many arguments.
     context['AN2']=an2
-    # Advanced Analytic 3: Top 3 most booked types
-    # Advanced Analytic 4: Top 3 members 
+
+    # Advanced Analytic 3: Top 5 most booked types
+    alltype=RoomType.objects.all()
+    typelist=[0]*len(alltype)
+    for i in range(0, len(allbooked)):
+        if allbooked[i].payment.Payment_Status == True:
+            typelist[allbooked[i].room.roomtype.id-1]+=1
+    an3=[]
+    for i in range(0, 5):
+        cur_ind=-1
+        cur_val=0  # not count 0 time
+        for j in range(0, len(alltype)):
+            if typelist[j] > cur_val and j+1 not in an3:
+                cur_val=typelist[j]
+                cur_ind=j
+        if cur_ind >= 0:
+            an3.append(cur_ind+1)
+    for i in range(0, len(an3)):
+        an3.append(RoomType.objects.get(id=an3[i]))
+    wan3=[]  # store booked number column
+    for i in range(0, int(len(an3)/2)):
+        wan3.append(typelist[an3[0]-1])  # Enter the number of times booked by ref. according to the list index.  # Enter the number of times booked by ref according to the list index..
+        an3.pop(0)
+    for i in range(0, len(an3)):
+        an3[i].Type_Detail=wan3[i]
+    context['AN3']=an3
+    # Advanced Analytic 4: Top 5 members 
     # Advanced Analytic 5: Latest 10 reviews
     return render(request, 'frontend/analytic.html', context)
