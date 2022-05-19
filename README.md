@@ -1,4 +1,6 @@
 # Hotel Management Database Project
+![image](frontend/example/ex1.png)
+
 ## Web demo
 - Heroku webserver (US region) use PostgreSQL but we've used MySQL
 - Due to US, the system will confuse you for a fraudster from the United States, several features that require authentication will be unavailable.
