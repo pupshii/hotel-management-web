@@ -44,6 +44,19 @@
 				{% else %}
 					<img src="{% static 'img/placeholder_grey.svg' %}" width="300"><br><br>
 				{% endif %}
+				{% if not profileInfo.is_staff %}
+					<h4 style="font-size:20;color:rgb(0, 155, 133)"><i>*
+					{% if profileInfo.member.Member_Point > 100000 %}
+						Elite Membership
+					{% elif profileInfo.member.Member_Point > 10000 %}
+						Prime Membership
+					{% elif profileInfo.member.Member_Point > 1000 %}
+						VIP Membership
+					{% else %}
+						Ordinary Membership
+					{% endif %}
+					*</i></h4>
+				{% endif %}
 				<h5>Member ID: M{{profileInfo.member.id}}</h5>
                 {% if profileInfo.is_staff %}
 				    <h5>Staff ID: S{{profileInfo.member.staff.id}}</h5>
@@ -119,6 +132,7 @@
 						<button type="submit" class="btn btn-warning" name="add">Add staff role to M{{profileInfo.id}}</button>
 					</div>
 				{% endif %}
+            	<br><br><a href="{%url 'search-member'%}"><button type="button" class="btn btn-secondary">Back</button></a><hr>
 			</form>
 		</div>
 	</div>

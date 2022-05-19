@@ -7,7 +7,7 @@
     <div class ="containerbody">
         <div class = "container-fluid">
             <div class = "display-2">
-                Advanced Analytic Report
+                Advanced Analysis Report
             </div><hr><br>
             <center>
                 <h1 style="color:rgb(212, 172, 13)"><i>Top five most rated hotels</i></h1>
@@ -15,7 +15,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                    <th scope="col">Order</th>
+                    <th scope="col">Rank</th>
                     <th scope="col">Hotel ID</th>
                     <th scope="col">Hotel Name</th>
                     <th scope="col">Hotel Address</th>
@@ -40,7 +40,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                    <th scope="col">Order</th>
+                    <th scope="col">Rank</th>
                     <th scope="col">Hotel ID</th>
                     <th scope="col">Hotel Name</th>
                     <th scope="col">Hotel Address</th>
@@ -65,10 +65,10 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                    <th scope="col">Order</th>
+                    <th scope="col">Rank</th>
                     <th scope="col">Type ID</th>
-                    <th scope="col">Type Name</th>
-                    <th scope="col">Type Capacity</th>
+                    <th scope="col">Room Name</th>
+                    <th scope="col">Room Capacity</th>
                     <th scope="col">Price / Night</th>
                     <th scope="col">Booked Number</th>
                     </tr>
@@ -92,21 +92,25 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                    <th scope="col">Order</th>
-                    <th scope="col">Hotel ID</th>
-                    <th scope="col">Hotel Name</th>
-                    <th scope="col">Hotel Address</th>
-                    <th scope="col">Hotel Rating</th>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Member ID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Firstname</th>
+                    <th scope="col">Lastname</th>
+                    <th scope="col">Date Joined</th>
+                    <th scope="col">PV-Point</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for i in AN4 %} 
                         <tr>
                             <th scope="row">{{forloop.counter}}</th>
-                            <td>H{{i.id}}</td>
-                            <td>{{i.Hotel_Name}}</td>
-                            <td>{{i.Hotel_Address}}</td>
-                            <td>{{i.Hotel_Detail|floatformat:2}}</td>
+                            <td>M{{i.id}}</td>
+                            <td>{{i.user.username}}</td>
+                            <td>{{i.user.first_name}}</td>
+                            <td>{{i.user.last_name}}</td>
+                            <td>{{i.user.date_joined}}</td>
+                            <td>{{i.Member_Point|intcomma}} pts.</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -118,20 +122,42 @@
                 <thead>
                     <tr>
                     <th scope="col">Order</th>
-                    <th scope="col">Hotel ID</th>
+                    <th scope="col">TID</th>
+                    <th scope="col">MID</th>
                     <th scope="col">Hotel Name</th>
-                    <th scope="col">Hotel Address</th>
-                    <th scope="col">Hotel Rating</th>
+                    <th scope="col">Room Type</th>
+                    <th scope="col">PID</th>
+                    <th scope="col">Night(s)</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Rating</th>
+                    <th scope="col">Comment</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for i in AN5 %} 
                         <tr>
                             <th scope="row">{{forloop.counter}}</th>
-                            <td>H{{i.id}}</td>
-                            <td>{{i.Hotel_Name}}</td>
-                            <td>{{i.Hotel_Address}}</td>
-                            <td>{{i.Hotel_Detail|floatformat:2}}</td>
+                            <td>T{{i.id}}</td>
+                            <td>M{{i.member.id}}</td>
+                            <td>{{i.room.hotel.Hotel_Name}}</td>
+                            <td>{{i.room.roomtype.Type_Name}}</td>
+                            {% if i.payment.promotion %}
+                                <td>PRO{{i.payment.promotion.id}}</td>
+                            {% else %}
+                                <td>-</td>
+                            {% endif %}
+                            <td>{{i.Transaction_Night|intcomma}}</td>
+                            <td>฿{{i.Transaction_Price|intcomma}}</td>
+                            {% if i.Transaction_Rating %}
+                                <td>{{i.Transaction_Rating}}/5</td>
+                            {% else %}
+                                <td>-</td>
+                            {% endif %}
+                            {% if i.Transaction_Comment %}
+                                <td>{{i.Transaction_Comment}}</td>
+                            {% else %}
+                                <td>-</td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                 </tbody>

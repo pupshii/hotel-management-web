@@ -295,7 +295,7 @@ def EditMember(request, user_id):
     edituser=User.objects.get(id=user_id)
     context={}
     context['profileInfo']=edituser
-    hotellist=Hotel.objects.all()  # เอาไว้เผื่อ add staff
+    hotellist=Hotel.objects.all().order_by('id')  # เอาไว้เผื่อ add staff
     context['hotellist']=hotellist
     if request.method == 'POST':
         data=request.POST.copy()
@@ -965,11 +965,42 @@ def AnalyticReport(request):
         an3.append(RoomType.objects.get(id=an3[i]))
     wan3=[]  # store booked number column
     for i in range(0, int(len(an3)/2)):
-        wan3.append(typelist[an3[0]-1])  # Enter the number of times booked by ref. according to the list index.  # Enter the number of times booked by ref according to the list index..
+        wan3.append(typelist[an3[0]-1])  # Enter the number of times booked by ref. according to the list index.
         an3.pop(0)
     for i in range(0, len(an3)):
         an3[i].Type_Detail=wan3[i]
     context['AN3']=an3
     # Advanced Analytic 4: Top 5 members 
+    allmember=Member.objects.all()
+    memberlist=[]
+    for i in range(0, len(allmember)):
+        if not allmember[i].user.is_staff:
+            memberlist.append(allmember[i].id)
+    an4=[]
+    for i in range(0, 5):
+        member_ind=-1
+        cur_val=0  # not count 0 time
+        for j in range(0, len(memberlist)):
+            pv_point=Member.objects.get(id=memberlist[j]).Member_Point
+            if pv_point > cur_val and memberlist[j] not in an4:
+                cur_val=pv_point
+                member_ind=memberlist[j]
+        if member_ind >= 0:
+            an4.append(member_ind)
+    for i in range(0, len(an4)):  # insert objects
+        an4.append(Member.objects.get(id=an4[i]))
+    for i in range(0, int(len(an4)/2)):
+        an4.pop(0)
+    context['AN4']=an4
+
     # Advanced Analytic 5: Latest 10 reviews
+    allreview=Transaction.objects.filter(Transaction_Review=True).order_by('-id')
+    an5=[]
+    for i in range(0, len(allreview)):
+        if allreview[i].Transaction_Review:
+            an5.append(allreview[i])
+            if len(an5) == 10:
+                break
+    context['AN5']=an5
+
     return render(request, 'frontend/analytic.html', context)

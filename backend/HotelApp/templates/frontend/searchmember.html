@@ -79,7 +79,7 @@
                 <h3>Found: {{result_user|length}} users</h3>
                 <p style="color:darkorange">Here is the list of all users matching the search.</p>
             </center> 
-            <table class="table table-striped">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                     <th scope="col">Order</th>
@@ -94,16 +94,22 @@
             <tbody>
                 {% for m in result_user %} 
                     <tr>
-                        <th scope="row">{{forloop.counter}}</th>
-                        <td><a href="{% url 'edit-member' m.id %}">{{m.username}}</a></td>
-                        <td>{{m.first_name}}</td>
-                        <td>{{m.last_name}}</td>
-                        <td>{{m.email}}</td>
-                        <td>M{{m.id}}</td>
                         {% if m.is_staff %}
-                            <td>{{m.member.staff.Staff_Position}}</td>
+                            <th scope="row" class="table-warning">{{forloop.counter}}</th>
+                            <td class="table-warning"><a href="{% url 'edit-member' m.id %}"><b>{{m.username}}</b></a></td>
+                            <td class="table-warning">{{m.first_name}}</td>
+                            <td class="table-warning">{{m.last_name}}</td>
+                            <td class="table-warning">{{m.email}}</td>
+                            <td class="table-warning">M{{m.id}}</td>
+                            <td class="table-warning">{{m.member.staff.Staff_Position}}</td>
                         {% else %}
-                            <td>MEMBER</td>
+                            <th scope="row" class="table-success">{{forloop.counter}}</th>
+                            <td class="table-success"><a href="{% url 'edit-member' m.id %}"><b>{{m.username}}</b></a></td>
+                            <td class="table-success">{{m.first_name}}</td>
+                            <td class="table-success">{{m.last_name}}</td>
+                            <td class="table-success">{{m.email}}</td>
+                            <td class="table-success">M{{m.id}}</td>
+                            <td class="table-success">MEMBER</td>
                         {% endif %}
                     </tr>
                 {% endfor %}
