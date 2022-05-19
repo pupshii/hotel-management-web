@@ -1,5 +1,5 @@
 # Hotel Management Database Project
-![image](frontend/example/ex1.png)
+![example1](frontend/example/ex1.png)
 
 ## Web demo
 - Heroku webserver (US region) use PostgreSQL but we've used MySQL
@@ -117,3 +117,4 @@ to runserver on localhost:8000
 ```bash
 $ python3 manage.py runserver
 ```
+![example2](frontend/example/ex2.png)
