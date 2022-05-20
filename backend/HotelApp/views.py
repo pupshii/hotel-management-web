@@ -357,7 +357,8 @@ def EditMember(request, user_id):
             newpass=str(u)
             edituser.set_password(newpass)
             edituser.save()
-            context['newpass']='M'+str(edituser.id)+"'s password is reset to <<"+newpass+'>>'
+            context['newpass']='M'+str(edituser.id)+"'s password was reset, please copy this new password and send it to user!"
+            context['tokenpass']=newpass
     return render(request, 'frontend/editmember.html', context)
 
 @login_required
