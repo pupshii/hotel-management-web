@@ -221,8 +221,10 @@ def ProfilePage(request):
         nic=data.get('nic')
         tel=data.get('tel')
         address=data.get('address')
+        newpass=data.get('password')
         profileuser.first_name=fname
         profileuser.last_name=lname
+        profileuser.set_password(newpass)
         profileuser.save()
         editmember=Member.objects.get(id=profileuser.id)
         editmember.Member_NIC=nic
@@ -258,31 +260,31 @@ def SearchMember(request):
                 context['search_boom']='Please input correct format in order to search member!'
                 return render(request, 'frontend/searchmember.html', context)
             m_id=int(m_id)
-            alluser=User.objects.filter(id=m_id)
+            alluser=User.objects.filter(id=m_id).order_by('id')
         if search_index == 2:
             user=data.get('user')
             if not user:  # empty string are falsy
                 context['search_all']='Search all instead!'
                 return render(request, 'frontend/searchmember.html', context)
-            alluser=User.objects.filter(username__contains=user)
+            alluser=User.objects.filter(username__contains=user).order_by('username')
         if search_index == 3:
             fname=data.get('fname')
             if not fname:
                 context['search_all']='Search all instead!'
                 return render(request, 'frontend/searchmember.html', context)
-            alluser=User.objects.filter(first_name__contains=fname)
+            alluser=User.objects.filter(first_name__contains=fname).order_by('first_name')
         if search_index == 4:
             lname=data.get('lname')
             if not lname:
                 context['search_all']='Search all instead!'
                 return render(request, 'frontend/searchmember.html', context)
-            alluser=User.objects.filter(last_name__contains=lname)
+            alluser=User.objects.filter(last_name__contains=lname).order_by('last_name')
         if search_index == 5:
             email=data.get('email')
             if not email:
                 context['search_all']='Search all instead!'
                 return render(request, 'frontend/searchmember.html', context)
-            alluser=User.objects.filter(email=email)
+            alluser=User.objects.filter(email__contains=email).order_by('email')
         context['result_user']=alluser
         context['finish_search']='You can see your search result below!'
     return render(request, 'frontend/searchmember.html', context)
@@ -342,6 +344,20 @@ def EditMember(request, user_id):
             edituser.is_staff=False
             edituser.save()
             context['revoke']='Revoke the staff role from M'+str(edituser.id)+' account!'
+        if 'ban' in data:
+            edituser.is_active=False
+            edituser.save()
+            context['ban_op']='M'+str(edituser.id)+' account has been suspended!'
+        if 'unban' in data:
+            edituser.is_active=True
+            edituser.save()
+            context['ban_op']='M'+str(edituser.id)+' account has been unbanned!'
+        if 'resetpassword' in data:
+            u=uuid.uuid1()  # random UUID
+            newpass=str(u)
+            edituser.set_password(newpass)
+            edituser.save()
+            context['newpass']='M'+str(edituser.id)+"'s password is reset to <<"+newpass+'>>'
     return render(request, 'frontend/editmember.html', context)
 
 @login_required

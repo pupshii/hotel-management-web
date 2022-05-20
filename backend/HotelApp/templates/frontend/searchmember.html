@@ -94,7 +94,19 @@
             <tbody>
                 {% for m in result_user %} 
                     <tr>
-                        {% if m.is_staff %}
+                        {% if not m.is_active %}
+                            <th scope="row" class="table-danger">{{forloop.counter}}</th>
+                            <td class="table-danger"><a href="{% url 'edit-member' m.id %}"><b>{{m.username}}</b></a></td>
+                            <td class="table-danger">{{m.first_name}}</td>
+                            <td class="table-danger">{{m.last_name}}</td>
+                            <td class="table-danger">{{m.email}}</td>
+                            <td class="table-danger">M{{m.id}}</td>
+                            {% if m.is_staff %}
+                                <td class="table-danger">{{m.member.staff.Staff_Position}}</td>
+                            {% else %}
+                                <td class="table-danger">MEMBER</td>
+                            {% endif %}
+                        {% elif m.is_staff %}
                             <th scope="row" class="table-warning">{{forloop.counter}}</th>
                             <td class="table-warning"><a href="{% url 'edit-member' m.id %}"><b>{{m.username}}</b></a></td>
                             <td class="table-warning">{{m.first_name}}</td>
